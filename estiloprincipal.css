@@ -64,15 +64,10 @@ header{
     border-bottom: 1px solid black;
 }
 
-.portada{
+.slider img{
     width: 100%;
-    height: 900px;
+    height: 100vh;
     position: relative;
-    top: 80px;
-    background-image: url("imagenes/portada.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
 }
 
 .pie{
@@ -80,52 +75,19 @@ header{
     top: 0;
     left: 0;
     width: 100%;
-    height: 80px;
     background: aliceblue;
-    box-shadow: 0 4px 25px -22px red;
     z-index: 2;
 }
-
-.menupie{
-    height: 80px;
-    background: aliceblue;
-    text-align:  center;
-    display: flex; /* Agrega esto */
-    justify-content: center;
-    align-items: center; /* Agrega esto para centrar verticalmente */
+.tablapie{
+    padding: 10px;
+    width: 100%;
 }
-
-.menupie nav{
-    height: 100%;
-
+.tablapie td{
+    padding: 10px; /* Añade espacio interno alrededor del contenido de las celdas */
+    vertical-align: middle; /* Alinea verticalmente el contenido en el centro */
+    text-align: center;
 }
-
-.menupie nav ul{
-    height: 100%;
-    display: flex;
-    list-style: none;
-    justify-content: center;
-    align-items: center;
+.tablapie img {
+    vertical-align: middle;
+    margin-right: 10px;
 }
-
-.menupie nav ul li{
-    margin: 0px 20px;
-}
-
-.menupie nav ul li:hover{
-    border-bottom: 1px solid black;
-}
-
-/* .banner{
-    position:absolute;
-    left:15vw;
-    top:20vw;
-    background-color: white;
-    border-bottom-left-radius: 15%;
-    width: 70vw;;
-    height: 15vw;
-    border: 10px solid black;
-}
-.titbanner{
-
-} */
