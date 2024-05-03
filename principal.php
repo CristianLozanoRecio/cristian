@@ -19,6 +19,7 @@
                         <li><a href="#">Nosotros</a></li>
                         <li><a href="#">Horarios</a></li>
                         <li><a href="#">Libros</a></li>
+                        <li><a href="registro.php">REGISTRATE</a></li>
                     </ul>
                 </nav>
             </div>
