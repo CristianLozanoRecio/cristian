@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("con_db.php");
 
 if(isset($_POST["register"])) {
@@ -15,6 +16,7 @@ if(isset($_POST["register"])) {
             $resultado = mysqli_query($conex, $consulta);
 
             if ($resultado) {
+                $_SESSION["name"] = $name;
                 header("Location: principal.php");
                 exit;
             } else {

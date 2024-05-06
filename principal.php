@@ -1,9 +1,31 @@
+<?php
+session_start();
+if (isset($_SESSION["name"])) {
+    echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var cambio = document.getElementById("cambio");
+                if (cambio) {
+                    cambio.innerHTML = \'<a href="cerrar_sesion.php">Cerrar sesión</a>\';
+                }
+            });
+          </script>';
+}else{
+    echo '<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var cambio = document.getElementById("cambio");
+        if (cambio) {
+            cambio.innerHTML = \'<a href="registro.php">REGISTRATE</a>\';
+        }
+    });
+  </script>';
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página Web</title>
+    <title>TuBiblioWeb</title>
     <link rel="stylesheet" href="estiloprincipal.css">
 </head>
 <body>
@@ -19,7 +41,7 @@
                         <li><a href="#">Nosotros</a></li>
                         <li><a href="#">Horarios</a></li>
                         <li><a href="#">Libros</a></li>
-                        <li><a href="registro.php">REGISTRATE</a></li>
+                        <li id="cambio"><a href="registro.php">REGISTRATE</a></li>
                     </ul>
                 </nav>
             </div>
@@ -28,7 +50,37 @@
     <div class="slider">
         <img src="imagenes/slider1.png"/>
     </div>
-
+    <footer>
+        <div class="pie">
+            <table class="tablapie">
+                <tr>
+                    <td><h3>Contacto</h3></td>
+                    <td><h3>Redes</h3><br>
+                    <td><h3>Políticas</h3></td>
+                </tr>
+                <tr>
+                    <td><img src="imagenes/tlf.png" width="40px">TLF: 666 666 666</td>
+                    <td><img src="imagenes/facebook.png" width="40px">facebook</td>
+                    <td><a href="avisolegal.html">Aviso legal</a></td>
+                </tr>
+                <tr>
+                    <td>Dirección: C/XXXX</td>
+                    <td><img src="imagenes/Insta.png" width="40px">Instagram</td>
+                    <td><a href="politicacookies.html">Política de Cookies</a></td>
+                </tr>
+                <tr>
+                    <td>CP: 112XX</td>
+                    <td><img src="imagenes/yt.png" width="40px"> YT</td>
+                    <td><a href="protecciondedatos.html">Protección de datos</a></td>
+                </tr>
+                <tr>
+                    <td></td> <td></td>
+                    <td><a href="#">Mapa web</a></td>
+                </tr>
+            </table>
+        </div>
+    </footer>
+    
 <script>
         var currentSlide = 0;
 var imagenes = [
@@ -67,36 +119,5 @@ function startSlider() {
 }
 startSlider();
 </script>
-
-    <footer>
-        <div class="pie">
-            <table class="tablapie">
-                <tr>
-                    <td><h3>Contacto</h3></td>
-                    <td><h3>Redes</h3><br>
-                    <td><h3>Políticas</h3></td>
-                </tr>
-                <tr>
-                    <td><img src="imagenes/tlf.png" width="40px">TLF: 666 666 666</td>
-                    <td><img src="imagenes/facebook.png" width="40px">facebook</td>
-                    <td><a href="avisolegal.html">Aviso legal</a></td>
-                </tr>
-                <tr>
-                    <td>Dirección: C/XXXX</td>
-                    <td><img src="imagenes/Insta.png" width="40px">Instagram</td>
-                    <td><a href="politicacookies.html">Política de Cookies</a></td>
-                </tr>
-                <tr>
-                    <td>CP: 112XX</td>
-                    <td><img src="imagenes/yt.png" width="40px"> YT</td>
-                    <td><a href="protecciondedatos.html">Protección de datos</a></td>
-                </tr>
-                <tr>
-                    <td></td> <td></td>
-                    <td><a href="#">Mapa web</a></td>
-                </tr>
-            </table>
-        </div>
-    </footer>
 </body>
 </html>
