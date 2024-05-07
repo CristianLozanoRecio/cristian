@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("con_db.php");
+include("../con_db.php");
 
 if(isset($_POST["register"])) {
     if(strlen($_POST["name"]) >= 1 && strlen($_POST["passw"]) >= 1) {
@@ -17,7 +17,7 @@ if(isset($_POST["register"])) {
 
             if ($resultado) {
                 $_SESSION["name"] = $name;
-                header("Location: principal.php");
+                header("Location: ../principal.php");
                 exit;
             } else {
                 echo '<h3>Error en el registro</h3>';

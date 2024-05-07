@@ -5,7 +5,7 @@ if (isset($_SESSION["name"])) {
             document.addEventListener("DOMContentLoaded", function() {
                 var cambio = document.getElementById("cambio");
                 if (cambio) {
-                    cambio.innerHTML = \'<a href="registroinicio/cerrar_sesion.php">Cerrar sesión</a>\';
+                    cambio.innerHTML = \'<a href="../registroinicio/cerrar_sesion.php">Cerrar sesión</a>\';
                 }
             });
           </script>';
@@ -14,7 +14,7 @@ if (isset($_SESSION["name"])) {
     document.addEventListener("DOMContentLoaded", function() {
         var cambio = document.getElementById("cambio");
         if (cambio) {
-            cambio.innerHTML = \'<a href="registroinicio/registro.php">REGISTRATE</a>\';
+            cambio.innerHTML = \'<a href="../registroinicio/registro.php">REGISTRATE</a>\';
         }
     });
   </script>';
@@ -26,7 +26,7 @@ if (isset($_SESSION["name"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TuBiblioWeb</title>
-    <link rel="stylesheet" href="estilos/estiloprincipal.css">
+    <link rel="stylesheet" href="../estilos/estiloprincipal.css">
 </head>
 <body>
     <header>
@@ -40,15 +40,25 @@ if (isset($_SESSION["name"])) {
                         <li><a href="#">Inicio</a></li>
                         <li><a href="#">Nosotros</a></li>
                         <li><a href="#">Horarios</a></li>
-                        <li><a href="menu/libros.php">Libros</a></li>
-                        <li id="cambio"><a href="registroinicio/registro.php">REGISTRATE</a></li>
+                        <li><a href="#">Libros</a></li>
+                        <li id="cambio"><a href="../registroinicio/registro.php">REGISTRATE</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
     </header>
     <div class="slider">
-        <img src="imagenes/slider1.png"/>
+        
+    <?php
+    include("../con_db.php");
+    $libro = "SELECT portada_libro FROM LIBRO WHERE ISBN = '1234567890'";
+    $resultado = $conex->query($libro);
+   while($row = $resultado->fetch_array()){
+    $imagen_url = $row["portada_libro"];
+    echo '<img src="data:image/jpeg;base64,'.base64_encode($imagen_url) .' "/>';
+                }
+?>
+
     </div>
     <footer>
         <div class="pie">
@@ -59,9 +69,9 @@ if (isset($_SESSION["name"])) {
                     <td><h3>Políticas</h3></td>
                 </tr>
                 <tr>
-                    <td><img src="imagenes/tlf.png" width="40px">TLF: 666 666 666</td>
-                    <td><img src="imagenes/facebook.png" width="40px">facebook</td>
-                    <td><a href="pie/avisolegal.php">Aviso legal</a></td>
+                    <td><img src="../imagenes/tlf.png" width="40px">TLF: 666 666 666</td>
+                    <td><img src="../imagenes/facebook.png" width="40px">facebook</td>
+                    <td><a href="../pie/avisolegal.php">Aviso legal</a></td>
                 </tr>
                 <tr>
                     <td>Dirección: C/XXXX</td>
@@ -80,44 +90,5 @@ if (isset($_SESSION["name"])) {
             </table>
         </div>
     </footer>
-    
-<script>
-        var currentSlide = 0;
-var imagenes = [
-    "imagenes/slider1.png",/*  imágenes tengo que cambiarlas */
-    "imagenes/portada3.png",
-    "imagenes/portada.png"
-];
-
-var totalSlides = imagenes.length;
-
-function showSlide(index) {
-    if (index < 0) {
-        currentSlide = totalSlides - 1;
-    } else if (index >= totalSlides) {
-        currentSlide = 0;
-    } else {
-        currentSlide = index;
-    }
-
-    var imageUrl = imagenes[currentSlide];
-    var sliderImg = document.querySelector('.slider img');
-    sliderImg.src = imageUrl;
-}
-
-function prevSlide() {
-    showSlide(currentSlide - 1);
-}
-function nextSlide() {
-    showSlide(currentSlide + 1);
-}
-showSlide(currentSlide);
-function startSlider() {
-    setInterval(() => {
-        nextSlide();
-    }, 3000);
-}
-startSlider();
-</script>
 </body>
 </html>
