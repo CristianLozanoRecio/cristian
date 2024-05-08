@@ -26,10 +26,10 @@ if (isset($_SESSION["name"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TuBiblioWeb</title>
-    <link rel="stylesheet" href="../estilos/estiloprincipal.css">
+    <link rel="stylesheet" href="../estilos/estilolibros.css">
 </head>
 <body>
-    <header>
+    <header class="cerebro">
         <div class="header-contenido">
             <div class="logo">
                 <a href="pr.html" style="color: inherit; text-decoration: none;"><h1>TuBiblio<b>Web</b></h1></a>
@@ -47,20 +47,58 @@ if (isset($_SESSION["name"])) {
             </div>
         </div>
     </header>
-    <div class="slider">
-        
-    <?php
-    include("../con_db.php");
-    $libro = "SELECT portada_libro FROM LIBRO WHERE ISBN = '1234567890'";
-    $resultado = $conex->query($libro);
-   while($row = $resultado->fetch_array()){
-    $imagen_url = $row["portada_libro"];
-    echo '<img src="data:image/jpeg;base64,'.base64_encode($imagen_url) .' "/>';
-                }
-?>
+    <main>
+    <br><br><br><br>
+    <br>
+<?php
+$inc = include("../con_db.php");
+if($inc) {
+    $consulta= "SELECT * FROM LIBRO";
+    $resultado = mysqli_query($conex,$consulta);
+    if($resultado) {
+        ?>
+        <center>
+        <div class="general">
+    <ul class="listalibros">
+                <?php
+        while($row = $resultado->fetch_array()){
+            $imagen_url = $row["portada_libro"];
+            $autor = $row["Autor"];
+            $titulo = $row["Titulo"];
 
-    </div>
-    <footer>
+                ?>
+
+        <li class="estiloli">
+            <div class="estilo-div">
+                <div class="izq">
+                    <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($imagen_url) .' " class="img"/>';?>
+                </div>
+                <div class="der">
+                    <header class="cabeza">
+                        <h3><?php echo $titulo;?></h3>
+                        <div>
+                            <p><b>Autor: </b><?php echo $autor;?></p>
+                        </div>
+                    </header>
+                    <p class="sinopsis">
+                        Inspirado por la obra de Cervantes, Sam DuChamp, un escritor mediocre de thrillers de espías, crea el personaje de Quijote, un viajante de productos farmacéuticos que vive obsesionado con la tele...
+                    </p>
+                </div>
+            </div>
+        </li>
+                <?php
+                        }
+                ?>
+            </ul>
+                    </div>
+                    </center>
+            <?php
+        }
+}
+?>
+<br><br><br><br><br><br>
+</main>
+<footer>
         <div class="pie">
             <table class="tablapie">
                 <tr>
@@ -89,6 +127,6 @@ if (isset($_SESSION["name"])) {
                 </tr>
             </table>
         </div>
-    </footer>
+</footer>
 </body>
 </html>
