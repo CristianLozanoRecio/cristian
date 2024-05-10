@@ -26,7 +26,7 @@ if (isset($_SESSION["name"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TuBiblioWeb</title>
-    <link rel="stylesheet" href="../estilos/estilolibros.css">
+    <link rel="stylesheet" href="../estilos/estilodetallelibros.css">
 </head>
 <body>
     <header class="cerebro">
@@ -53,13 +53,15 @@ if (isset($_SESSION["name"])) {
 <?php
 $inc = include("../con_db.php");
 if($inc) {
-    $consulta= "SELECT * FROM LIBRO";
+    if (isset($_GET['isbn'])) {
+        $isbn = $_GET['isbn'];
+    
+        // Consulta para obtener los detalles del libro con el ISBN proporcionado
+        $consulta = "SELECT * FROM LIBRO WHERE isbn = '$isbn'";
     $resultado = mysqli_query($conex,$consulta);
     if($resultado) {
         ?>
-        <center>
         <div class="general">
-    <ul class="listalibros">
                 <?php
         while($row = $resultado->fetch_array()){
             $imagen_url = $row["portada_libro"];
@@ -67,13 +69,30 @@ if($inc) {
             $titulo = $row["titulo"];
             $sinopsis = $row["sinopsis"];
             $isbn = $row["isbn"];
+            $editorial = $row["editorial"];
+            $ano_publicacion = $row["ano_publicacion"];
 
                 ?>
-
-        <li class="estiloli">
             <div class="estilo-div">
                 <div class="izq">
-                    <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($imagen_url) .' " class="img"/>';?>
+                    <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($imagen_url) .' " class="img"/>';?><br><br>
+                    <div class="datos">
+                        <div>
+                            <dt>Editorial</dt>
+                            <dd><?php echo $editorial;?></dd>
+                            <br>
+                        </div>
+                        <div>
+                            <dt>Año publicación</dt>
+                            <dd><?php echo $ano_publicacion;?></dd>
+                            <br>
+                        </div>
+                        <div>
+                            <dt>ISBN</dt>
+                            <dd><?php echo $isbn;?></dd>
+                            <br>
+                        </div>
+                    </div>
                 </div>
                 <div class="der">
                     <header class="cabeza">
@@ -95,9 +114,9 @@ if($inc) {
                 ?>
             </ul>
                     </div>
-                    </center>
             <?php
         }
+    }
 }
 ?>
 <br><br><br><br><br><br>
