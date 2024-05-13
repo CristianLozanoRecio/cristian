@@ -1,5 +1,6 @@
 <?php
 session_start();
+if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -19,3 +20,7 @@ session_start();
 </nav>
 </body>
 </html>
+<?php 
+}else{
+    echo "ERROR, NO TIENES PERMISOS";
+}?>

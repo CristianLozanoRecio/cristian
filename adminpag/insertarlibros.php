@@ -1,5 +1,6 @@
 <?php
-session_start();
+include("meterlibro.php");
+if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -11,7 +12,7 @@ session_start();
 </head>
 <body>
 <h1>INSERTAR DATOS</h1>
-<form id="formulario"method="POST">
+<form id="formulario"method="POST" enctype="multipart/form-data">
     <div class="contenedorform">
         <div class="row">
             <div class="input">
@@ -30,7 +31,7 @@ session_start();
             </div>
             <div class="input">
                 <label for="ano_publicacion">Año publicación: </label>
-                <input type="number" id="ano_publicación" name="ano_publicación">
+                <input type="number" id="ano_publicacion" name="ano_publicacion">
             </div>
         </div>
         <div class="row">
@@ -44,9 +45,17 @@ session_start();
             </div>
         </div>
         <label for="sinopsis">Sinopsis: </label>
-        <textarea class="cuadrotext"></textarea>
+        <textarea class="cuadrotext" name="sinopsis"></textarea>
+        <center>
+        <input type="submit" name="datos" id="enviar">
+        </center>
 </div>
-
 </form>
+<?php
+}
+else{
+    echo "ERROR, NO TIENES PERMISOS";
+}
+        ?>
 </body>
 </html>

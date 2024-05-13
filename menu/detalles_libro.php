@@ -75,7 +75,7 @@ if($inc) {
                 ?>
             <div class="estilo-div">
                 <div class="izq">
-                    <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($imagen_url) .' " class="img"/>';?><br><br>
+                    <?php echo '<img src='.$imagen_url .' " class="img"/>';?><br><br>
                     <div class="datos">
                         <div>
                             <dt>Editorial</dt>
@@ -102,7 +102,7 @@ if($inc) {
                         </div>
                     </header>
                     <p class="sinopsis">
-                        Inspirado por la obra de Cervantes, Sam DuChamp, un escritor mediocre de thrillers de espías, crea el personaje de Quijote, un viajante de productos farmacéuticos que vive obsesionado con la tele...
+                        <?php echo $sinopsis;?>
                     </p>
                     <a href="detalles_libro.php?isbn=<?php echo $isbn; ?>">Ver detalles</a>
 
@@ -119,9 +119,8 @@ if($inc) {
     }
 }
 ?>
-<br><br><br><br><br><br>
+
 </main>
-<footer>
         <div class="pie">
             <table class="tablapie">
                 <tr>
@@ -150,6 +149,5 @@ if($inc) {
                 </tr>
             </table>
         </div>
-</footer>
 </body>
 </html>

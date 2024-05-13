@@ -61,19 +61,19 @@ if($inc) {
         <div class="general">
     <ul class="listalibros">
                 <?php
+                $contador = 0;
         while($row = $resultado->fetch_array()){
+            $contador++;
             $imagen_url = $row["portada_libro"];
             $autor = $row["autor"];
             $titulo = $row["titulo"];
             $sinopsis = $row["sinopsis"];
             $isbn = $row["isbn"];
-
                 ?>
-
-        <li class="estiloli">
+        <li class="estiloli" <?php if ($contador > 3) echo 'style="display: none;"'; ?>>
             <div class="estilo-div">
                 <div class="izq">
-                    <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($imagen_url) .' " class="img"/>';?>
+                    <?php echo '<img src='.$imagen_url .' " class="img"/>';?>
                 </div>
                 <div class="der">
                     <header class="cabeza">
@@ -82,11 +82,26 @@ if($inc) {
                             <p><b>Autor: </b><?php echo $autor;?></p>
                         </div>
                     </header>
-                    <p class="sinopsis">
-                        Inspirado por la obra de Cervantes, Sam DuChamp, un escritor mediocre de thrillers de espías, crea el personaje de Quijote, un viajante de productos farmacéuticos que vive obsesionado con la tele...
+                    <p class="sinopsis" id="sinopsisTexto">
+                    <?php echo $sinopsis;?>
                     </p>
-                    <a href="detalles_libro.php?isbn=<?php echo $isbn; ?>">Ver detalles</a>
+                    <script>
+                    function limitarPalabras(texto) {
+                        var palabras = texto.trim().split(" ");
 
+                        if (palabras.length > 20) {
+                            palabras = palabras.slice(0, 20);
+                            return palabras.join(' ') + '...';
+                        } else {
+                            return texto;
+                        }
+                    }
+                    var sinopsisElemento = document.getElementById('sinopsisTexto');
+                    var sinopsisTexto = sinopsisElemento.textContent;
+                    var sinopsisLimitada = limitarPalabras(sinopsisTexto);
+                    sinopsisElemento.textContent = sinopsisLimitada;
+                    </script>
+                    <a href="detalles_libro.php?isbn=<?php echo $isbn; ?>">Ver detalles</a>
                 </div>
             </div>
         </li>
@@ -94,6 +109,22 @@ if($inc) {
                         }
                 ?>
             </ul>
+            <button id="mostrar">Mostrar Elementos Ocultos</button>
+            <script>
+                 var indiceMostrar = 0;
+                 var mostrarCantidad = 3;
+                document.getElementById("mostrar").addEventListener('click', function() {
+                    var elementosOcultos = document.querySelectorAll('.estiloli[style="display: none;"]');
+
+                for (var i = indiceMostrar; i < indiceMostrar + mostrarCantidad && i < elementosOcultos.length; i++) {
+                    elementosOcultos[i].style.display = 'list-item';
+                }
+                indiceMostrar+3;
+                if (indiceMostrar >= elementosOcultos.length-3) {
+                    document.querySelector('button').style.display = 'none';
+                }
+                });
+                </script>
                     </div>
                     </center>
             <?php
