@@ -44,6 +44,18 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
                 <input type="file" id="portada_libro" name="portada_libro" accept="image/*">
             </div>
         </div>
+        <div class="row">
+            <div class="input">
+                <label for="idioma">Idioma: </label>
+                <input type="text" id="idioma" name="idioma">
+            </div>
+            <div class="input">
+                <label for="tipo">Tipo: </label>
+                <input type="text" id="tipo" name="tipo">
+            </div>
+        </div>
+        <label for="publico">Publico: </label>
+        <input type="text" id="publico" name="publico">
         <label for="sinopsis">Sinopsis: </label>
         <textarea class="cuadrotext" name="sinopsis"></textarea>
         <center>

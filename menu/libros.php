@@ -50,15 +50,41 @@ if (isset($_SESSION["name"])) {
     <main>
     <br><br><br><br>
     <br>
+    <div class="general">
 <?php
 $inc = include("../con_db.php");
 if($inc) {
-    $consulta= "SELECT * FROM LIBRO";
+    $consulta = "SELECT * FROM LIBRO WHERE 1";
+    if (isset($_GET['tipo'])) {
+       $tipo =  $_GET['tipo'];
+       $consultatipo = "AND tipo = '$tipo'";
+    $consulta = $consulta. " ".$consultatipo;
+    }
+    if (isset($_GET['publico'])) {
+        $publico =  $_GET['publico'];
+        $consultatipo = "AND publico = '$publico'";
+     $consulta = $consulta. " ".$consultatipo;
+    }
+    if (isset($_GET['idioma'])) {
+        $idioma =  $_GET['idioma'];
+        $consultatipo = "AND idioma = '$idioma'";
+     $consulta = $consulta. " ".$consultatipo;
+    }
+    if (isset($_GET['ano'])) {
+        $ano =  $_GET['ano'];
+        $anoactual = date('Y');
+        $anoinicio = $anoactual - $ano;
+        $consultatipo = "AND ano_publicacion BETWEEN '$anoinicio' AND '$anoactual'";
+     $consulta = $consulta. " ".$consultatipo;
+    }
+    if(!isset($_GET['tipo']) && !isset($_GET['publico']) && !isset($_GET['idioma']) && !isset($_GET['ano']))
+    {
+        $consulta = "SELECT * FROM LIBRO WHERE 1";
+    }
     $resultado = mysqli_query($conex,$consulta);
     if($resultado) {
         ?>
-        <center>
-        <div class="general">
+        <div class="izquierda">
     <ul class="listalibros">
                 <?php
                 $contador = 0;
@@ -69,7 +95,9 @@ if($inc) {
             $titulo = $row["titulo"];
             $sinopsis = $row["sinopsis"];
             $isbn = $row["isbn"];
+
                 ?>
+
         <li class="estiloli" <?php if ($contador > 3) echo 'style="display: none;"'; ?>>
             <div class="estilo-div">
                 <div class="izq">
@@ -77,7 +105,7 @@ if($inc) {
                 </div>
                 <div class="der">
                     <header class="cabeza">
-                        <h3><?php echo $titulo;?></h3>
+                        <h3><?php echo $consulta;?></h3>
                         <div>
                             <p><b>Autor: </b><?php echo $autor;?></p>
                         </div>
@@ -85,6 +113,7 @@ if($inc) {
                     <p class="sinopsis" id="sinopsisTexto">
                     <?php echo $sinopsis;?>
                     </p>
+                    <a href="detalles_libro.php?isbn=<?php echo $isbn; ?>">Ver detalles</a>
                     <script>
                     function limitarPalabras(texto) {
                         var palabras = texto.trim().split(" ");
@@ -101,7 +130,6 @@ if($inc) {
                     var sinopsisLimitada = limitarPalabras(sinopsisTexto);
                     sinopsisElemento.textContent = sinopsisLimitada;
                     </script>
-                    <a href="detalles_libro.php?isbn=<?php echo $isbn; ?>">Ver detalles</a>
                 </div>
             </div>
         </li>
@@ -126,11 +154,334 @@ if($inc) {
                 });
                 </script>
                     </div>
-                    </center>
             <?php
         }
 }
 ?>
+<div class="derecha">
+<h2><p align="center">FILTROS</p></h2>
+<br>
+<div id="menuhorizontal">
+<h3><p align="center">TIPO</p></h3>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']))
+{
+    if(isset($_GET['idioma'])){
+     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "tipo=ciencia".$enlace;
+}else{
+    echo"tipo=ciencia";
+} 
+?>">Ciencia</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']))
+{
+    if(isset($_GET['idioma'])){
+     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "tipo=arte".$enlace;
+}else{
+    echo"tipo=arte";
+} 
+?>">Arte</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']))
+{
+    if(isset($_GET['idioma'])){
+     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "tipo=medicina".$enlace;
+}else{
+    echo"tipo=medicina";
+} 
+?>">Medicina</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']))
+{
+    if(isset($_GET['idioma'])){
+     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "tipo=deporte".$enlace;
+}else{
+    echo"tipo=deporte";
+} 
+?>">Deporte</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']))
+{
+    if(isset($_GET['idioma'])){
+     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "tipo=ficcion".$enlace;
+}else{
+    echo"tipo=ficcion";
+} 
+?>">Ficcion</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']))
+{
+    if(isset($_GET['idioma'])){
+     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "tipo=aventura".$enlace;
+}else{
+    echo"tipo=aventura";
+} 
+?>">Aventura</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']))
+{
+    if(isset($_GET['idioma'])){
+     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "tipo=religion".$enlace;
+}else{
+    echo"tipo=religion";
+} 
+?>">Religion</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']))
+{
+    if(isset($_GET['idioma'])){
+     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "tipo=historia".$enlace;
+}else{
+    echo"tipo=historia";
+} 
+?>">Historia</a><br>
+</div>
+<br>
+<h3><p align="center">Público</p></h3>
+<div id="menuhorizontal">
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['tipo']) || isset($_GET['idioma']) || isset($_GET['ano']))
+{
+    if(isset($_GET['tipo'])){
+     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "publico=adulto".$enlace;
+}else{
+    echo"publico=adulto";
+} 
+?>">Adulto</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['tipo']) || isset($_GET['idioma']) || isset($_GET['ano']))
+{
+    if(isset($_GET['tipo'])){
+     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "publico=infantil".$enlace;
+}else{
+    echo"publico=infantil";
+} 
+?>">Infantil</a><br>
+</div>
+<br>
+<h3><p align="center">Idioma</p></h3>
+<div id="menuhorizontal">
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['ano']))
+{
+    if(isset($_GET['tipo'])){
+     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "idioma=castellano".$enlace;
+}else{
+    echo"idioma=castellano";
+} 
+?>">Castellano</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['ano']))
+{
+    if(isset($_GET['tipo'])){
+     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "idioma=ingles".$enlace;
+}else{
+    echo"idioma=ingles";
+} 
+?>">Inglés</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['ano']))
+{
+    if(isset($_GET['tipo'])){
+     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "idioma=frances".$enlace;
+}else{
+    echo"idioma=frances";
+} 
+?>">Francés</a><br>
+</div>
+<br>
+<h3><p align="center">Fecha publicación</p></h3>
+<div id="menuhorizontal">
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['idioma']))
+{
+    if(isset($_GET['tipo'])){
+     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    echo "ano=10".$enlace;
+}else{
+    echo"ano=10";
+} 
+?>">Menos de 10 años</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['idioma']))
+{
+    if(isset($_GET['tipo'])){
+     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    echo "ano=20".$enlace;
+}else{
+    echo"ano=20";
+} 
+?>">Menos de 20 años</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['idioma']))
+{
+    if(isset($_GET['tipo'])){
+     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    echo "ano=30".$enlace;
+}else{
+    echo"ano=30";
+} 
+?>">Menos de 30 años</a><br>
+</div>
+</div>
+</div>
 <br><br><br><br><br><br>
 </main>
 <footer>

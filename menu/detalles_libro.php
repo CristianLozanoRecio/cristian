@@ -48,15 +48,12 @@ if (isset($_SESSION["name"])) {
         </div>
     </header>
     <main>
-    <br><br><br><br>
     <br>
 <?php
 $inc = include("../con_db.php");
 if($inc) {
     if (isset($_GET['isbn'])) {
         $isbn = $_GET['isbn'];
-    
-        // Consulta para obtener los detalles del libro con el ISBN proporcionado
         $consulta = "SELECT * FROM LIBRO WHERE isbn = '$isbn'";
     $resultado = mysqli_query($conex,$consulta);
     if($resultado) {
