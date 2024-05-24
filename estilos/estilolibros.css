@@ -17,12 +17,12 @@ body{
 }
 
 .izquierda {
-    width: 70%; 
-    text-align: left;
+    width: 20%; 
 }
 
 .derecha {
-    width: 25%; 
+    width: 70%; 
+    text-align: left;
      } 
 .listalibros{
     list-style: none;
@@ -111,12 +111,6 @@ margin-right: 0;
 
 .menu nav ul li:hover{
     border-bottom: 1px solid black;
-}
-
-.slider img{
-    width: 100%;
-    height: 100vh;
-    position: relative;
 }
 
 .pie {

@@ -48,13 +48,13 @@ if (isset($_SESSION["name"])) {
         </div>
     </header>
     <main>
-    <br>
+    <br><br><br><br><br><br>
 <?php
 $inc = include("../con_db.php");
 if($inc) {
     if (isset($_GET['isbn'])) {
         $isbn = $_GET['isbn'];
-        $consulta = "SELECT * FROM LIBRO WHERE isbn = '$isbn'";
+        $consulta = "SELECT * FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE isbn = '$isbn'";
     $resultado = mysqli_query($conex,$consulta);
     if($resultado) {
         ?>
@@ -69,24 +69,44 @@ if($inc) {
             $editorial = $row["editorial"];
             $ano_publicacion = $row["ano_publicacion"];
 
+            $idioma = $row["idioma"];
+            $tipo = $row["tipo"];
+            $publico = $row["publico"];
+
                 ?>
             <div class="estilo-div">
                 <div class="izq">
-                    <?php echo '<img src='.$imagen_url .' " class="img"/>';?><br><br>
+                    <div style ="border: 5px solid red; width:20vw;">
+                    <?php echo '<img src='.$imagen_url .' " class="img"/>';?></div><br><br>
                     <div class="datos">
                         <div>
-                            <dt>Editorial</dt>
+                            <dt><b>Editorial</b></dt>
                             <dd><?php echo $editorial;?></dd>
                             <br>
                         </div>
                         <div>
-                            <dt>Año publicación</dt>
+                            <dt><b>Año publicación</b></dt>
                             <dd><?php echo $ano_publicacion;?></dd>
                             <br>
                         </div>
                         <div>
-                            <dt>ISBN</dt>
+                            <dt><b>ISBN</b></dt>
                             <dd><?php echo $isbn;?></dd>
+                            <br>
+                        </div>
+                        <div>
+                            <dt><b>Idioma</b></dt>
+                            <dd><?php echo $idioma;?></dd>
+                            <br>
+                        </div>
+                        <div>
+                            <dt><b>Género</b></dt>
+                            <dd><?php echo $tipo;?></dd>
+                            <br>
+                        </div>
+                        <div>
+                            <dt><b>Público</b></dt>
+                            <dd><?php echo $publico;?></dd>
                             <br>
                         </div>
                     </div>
@@ -101,8 +121,7 @@ if($inc) {
                     <p class="sinopsis">
                         <?php echo $sinopsis;?>
                     </p>
-                    <a href="detalles_libro.php?isbn=<?php echo $isbn; ?>">Ver detalles</a>
-
+                    <br>
                 </div>
             </div>
         </li>

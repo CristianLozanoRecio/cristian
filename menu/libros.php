@@ -51,114 +51,7 @@ if (isset($_SESSION["name"])) {
     <br><br><br><br>
     <br>
     <div class="general">
-<?php
-$inc = include("../con_db.php");
-if($inc) {
-    $consulta = "SELECT * FROM LIBRO WHERE 1";
-    if (isset($_GET['tipo'])) {
-       $tipo =  $_GET['tipo'];
-       $consultatipo = "AND tipo = '$tipo'";
-    $consulta = $consulta. " ".$consultatipo;
-    }
-    if (isset($_GET['publico'])) {
-        $publico =  $_GET['publico'];
-        $consultatipo = "AND publico = '$publico'";
-     $consulta = $consulta. " ".$consultatipo;
-    }
-    if (isset($_GET['idioma'])) {
-        $idioma =  $_GET['idioma'];
-        $consultatipo = "AND idioma = '$idioma'";
-     $consulta = $consulta. " ".$consultatipo;
-    }
-    if (isset($_GET['ano'])) {
-        $ano =  $_GET['ano'];
-        $anoactual = date('Y');
-        $anoinicio = $anoactual - $ano;
-        $consultatipo = "AND ano_publicacion BETWEEN '$anoinicio' AND '$anoactual'";
-     $consulta = $consulta. " ".$consultatipo;
-    }
-    if(!isset($_GET['tipo']) && !isset($_GET['publico']) && !isset($_GET['idioma']) && !isset($_GET['ano']))
-    {
-        $consulta = "SELECT * FROM LIBRO WHERE 1";
-    }
-    $resultado = mysqli_query($conex,$consulta);
-    if($resultado) {
-        ?>
-        <div class="izquierda">
-    <ul class="listalibros">
-                <?php
-                $contador = 0;
-        while($row = $resultado->fetch_array()){
-            $contador++;
-            $imagen_url = $row["portada_libro"];
-            $autor = $row["autor"];
-            $titulo = $row["titulo"];
-            $sinopsis = $row["sinopsis"];
-            $isbn = $row["isbn"];
-
-                ?>
-
-        <li class="estiloli" <?php if ($contador > 3) echo 'style="display: none;"'; ?>>
-            <div class="estilo-div">
-                <div class="izq">
-                    <?php echo '<img src='.$imagen_url .' " class="img"/>';?>
-                </div>
-                <div class="der">
-                    <header class="cabeza">
-                        <h3><?php echo $consulta;?></h3>
-                        <div>
-                            <p><b>Autor: </b><?php echo $autor;?></p>
-                        </div>
-                    </header>
-                    <p class="sinopsis" id="sinopsisTexto">
-                    <?php echo $sinopsis;?>
-                    </p>
-                    <a href="detalles_libro.php?isbn=<?php echo $isbn; ?>">Ver detalles</a>
-                    <script>
-                    function limitarPalabras(texto) {
-                        var palabras = texto.trim().split(" ");
-
-                        if (palabras.length > 20) {
-                            palabras = palabras.slice(0, 20);
-                            return palabras.join(' ') + '...';
-                        } else {
-                            return texto;
-                        }
-                    }
-                    var sinopsisElemento = document.getElementById('sinopsisTexto');
-                    var sinopsisTexto = sinopsisElemento.textContent;
-                    var sinopsisLimitada = limitarPalabras(sinopsisTexto);
-                    sinopsisElemento.textContent = sinopsisLimitada;
-                    </script>
-                </div>
-            </div>
-        </li>
-                <?php
-                        }
-                ?>
-            </ul>
-            <button id="mostrar">Mostrar Elementos Ocultos</button>
-            <script>
-                 var indiceMostrar = 0;
-                 var mostrarCantidad = 3;
-                document.getElementById("mostrar").addEventListener('click', function() {
-                    var elementosOcultos = document.querySelectorAll('.estiloli[style="display: none;"]');
-
-                for (var i = indiceMostrar; i < indiceMostrar + mostrarCantidad && i < elementosOcultos.length; i++) {
-                    elementosOcultos[i].style.display = 'list-item';
-                }
-                indiceMostrar+3;
-                if (indiceMostrar >= elementosOcultos.length-3) {
-                    document.querySelector('button').style.display = 'none';
-                }
-                });
-                </script>
-                    </div>
-            <?php
-        }
-}
-?>
-<div class="derecha">
+    <div class="izquierda">
 <h2><p align="center">FILTROS</p></h2>
 <br>
 <div id="menuhorizontal">
@@ -481,8 +374,83 @@ if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['idioma']))
 ?>">Menos de 30 años</a><br>
 </div>
 </div>
+<?php
+$inc = include("../con_db.php");
+if($inc) {
+    $consulta = "SELECT * FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE 1";
+    if (isset($_GET['tipo'])) {
+       $tipo =  $_GET['tipo'];
+       $consultatipo = "AND tipo = '$tipo'";
+    $consulta = $consulta. " ".$consultatipo;
+    }
+    if (isset($_GET['publico'])) {
+        $publico =  $_GET['publico'];
+        $consultatipo = "AND publico = '$publico'";
+     $consulta = $consulta. " ".$consultatipo;
+    }
+    if (isset($_GET['idioma'])) {
+        $idioma =  $_GET['idioma'];
+        $consultatipo = "AND idioma = '$idioma'";
+     $consulta = $consulta. " ".$consultatipo;
+    }
+    if (isset($_GET['ano'])) {
+        $ano =  $_GET['ano'];
+        $anoactual = date('Y');
+        $anoinicio = $anoactual - $ano;
+        $consultatipo = "AND ano_publicacion BETWEEN '$anoinicio' AND '$anoactual'";
+     $consulta = $consulta. " ".$consultatipo;
+    }
+    if(!isset($_GET['tipo']) && !isset($_GET['publico']) && !isset($_GET['idioma']) && !isset($_GET['ano']))
+    {
+        $consulta = "SELECT * FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE 1";
+    } 
+    $resultado = mysqli_query($conex,$consulta);
+    if($resultado) {
+        ?>
+        <div class="derecha">
+    <ul class="listalibros">
+                <?php
+                $contador = 0;
+        while($row = $resultado->fetch_array()){
+            $contador++;
+            $imagen_url = $row["portada_libro"];
+            $autor = $row["nombre"];
+            $titulo = $row["titulo"];
+            $sinopsis = $row["sinopsis"];
+            $isbn = $row["isbn"];
+
+                ?>
+
+        <li class="estiloli" <?php if ($contador > 3) echo 'style="display: none;"'; ?>>
+            <div class="estilo-div">
+                <div class="izq">
+                    <?php echo '<img src='.$imagen_url .' " class="img"/>';?>
+                </div>
+                <div class="der">
+                    <header class="cabeza">
+                        <h3><?php echo $consulta;?></h3>
+                        <div>
+                            <p><b>Autor: </b><?php echo $autor;?></p>
+                        </div>
+                    </header>
+                    <p class="sinopsis" id="sinopsisTexto">
+                    <?php echo $sinopsis;?>
+                    </p>
+                    <a href="detalles_libro.php?isbn=<?php echo $isbn; ?>">Ver detalles</a>
+                </div>
+            </div>
+        </li>
+                <?php
+                        }
+                ?>
+            </ul>
+            <button id="mostrar">Mostrar Elementos Ocultos</button>
+                    </div>
+            <?php
+        }
+}
+?>
 </div>
-<br><br><br><br><br><br>
 </main>
 <footer>
         <div class="pie">
@@ -514,5 +482,6 @@ if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['idioma']))
             </table>
         </div>
 </footer>
+<script src="../javascript/libros.js"></script>
 </body>
 </html>
