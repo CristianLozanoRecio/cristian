@@ -2,10 +2,10 @@
 
 include("../con_db.php");
 
-if(isset($_POST["iniciarBORRARLIBRO"])) {
-    if($_POST["isbn"] >= 0) {
-        $isbn = trim($_POST["isbn"]);
-        $consulta = "DELETE FROM libro WHERE isbn = '$isbn'";
+if(isset($_POST["iniciarBORRARAUTOR"])) {
+    if($_POST["id"] >= 0) {
+        $isbn = trim($_POST["id"]);
+        $consulta = "DELETE FROM autor WHERE id_autor = '$id'";
         $resultado = mysqli_query($conex, $consulta);
         if ($resultado) {
             // Verifica el número de filas afectadas
@@ -18,7 +18,7 @@ if(isset($_POST["iniciarBORRARLIBRO"])) {
             } else {
                 ?>
                 <script>
-                    alert("No se encontró el libro con ese ISBN.");
+                    alert("No se encontró el autor con ese ID.");
                 </script>
                 <?php
             }
@@ -32,7 +32,7 @@ if(isset($_POST["iniciarBORRARLIBRO"])) {
     } else {
         ?>
         <script>
-            alert("¡Por favor completa la ISBN!");
+            alert("¡Por favor completa la ID!");
         </script>
         <?php
     }

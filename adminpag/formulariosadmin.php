@@ -2,7 +2,9 @@
 session_start();
 include("meterlibro.php");
 include("borrarlibro.php");
+include("borrarautor.php");
 include("meterautor.php");
+include("borrarusuario.php");
 if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
 ?>
 <!DOCTYPE html>
@@ -17,7 +19,6 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
 <div id="general">
     <div id="izq">
             <div id="menulateralB">
-                <center>
                 <a href="#" id="masGrande"><img src="../imagenes/menus.png" width="80%"></a>
                 <a href="#"><img src="../imagenes/usuario.png" width="80%"></a>
                 <br>
@@ -25,39 +26,46 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
                 <br>
                 <a href="#"><img src="../imagenes/lapiz.png" width="80%"></a>
                 <br>
-                <img src="../imagenes/consulta.png" width="80%" >
-                </center>
+                <a href="#"> <img src="../imagenes/consulta.png" width="80%" ></a>
+                <br><br>
+                <a href="../registroinicio/cerrar_sesion.php">CERRAR SESIÓN</a>
+                <br>
+                <a href="../principal.php">VOLVER</a>
             </div>
         <div id="menulateralA">
-            <center>
-            <img src="../imagenes/menus.png" width="80%" id="maspequeño">
-            <img src="../imagenes/usuario.png" width="60%" id="pulsarusuario">
+            
+        <a href="#" id="maspequeño"><img src="../imagenes/menus.png" width="40%"></a>
+            <a href="#" id="pulsarusuario"><img src="../imagenes/usuario.png" width="40%"><span>Usuario</span></a>
             <div id="submenuUsuario">
-                <a href="#">Borrar</a>
-                <a href="#">Crear</a>
+            <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("borrarusuario")); ?>">Borrar</a>
+                <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarusuario")); ?>">Crear</a>
                 <a href="#">Modificar</a>
             </div>
             <br>
-            <img src="../imagenes/libro.png" width="60%" id="pulsarlibro">
+            <a href="#" id="pulsarlibro"><img src="../imagenes/libro.png" width="40%" ><span>Libro</span></a>
             <div id="submenuLibro">
             <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("borrarlibro")); ?>">Borrar</a>
             <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarlibro")); ?>">Crear</a>
             <a href="#">Modificar</a>
             </div>
             <br>
-            <img src="../imagenes/lapiz.png" width="60%" id="pulsarautor">
+            <a href="#" id="pulsarautor"><img src="../imagenes/lapiz.png" width="40%" ><span>Autores</span></a>
             <div id="submenuAutor">
                 <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("borrarautor")); ?>">Borrar</a>
                 <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarautor")); ?>">Crear</a>
-                <a href="#">Modificar</a> <br>
+                <a href="#">Modificar</a>
             </div>
-            <img src="../imagenes/consulta.png" width="60%" id="pulsarconsulta">
+            <br>
+            <a href="#" id="pulsarconsulta"><img src="../imagenes/consulta.png" width="40%"><span>Consulta</span></a>
             <div id="submenuConsulta">
                 <a href="#">Ver BD Autor</a>
                 <a href="#">Ver BD libros</a>
                 <a href="#">Ver BD usuarios</a>
             </div>
-            </center>
+            <br>
+            <a href="../registroinicio/cerrar_sesion.php">CERRAR SESIÓN</a>
+                <br>
+                <a href="../principal.php">VOLVER</a>
         </div>
     </div>
 
@@ -68,9 +76,9 @@ if(isset($_GET["q"])){
     if($_GET["q"] === base64_encode("insertarlibro")){
 ?>        
 <div id="formuINSERTARLIBRO">
-    <h1>INSERTAR LIBRO</h1>
     <form id="formularioINSERTARLIBRO" method="POST"  enctype="multipart/form-data">
     <div class="contenedorformINSERTARLIBRO">
+    <h1>INSERTAR LIBRO</h1>
         <div class="rowINSERTARLIBRO">
             <div class="inputINSERTARLIBRO">
                 <label for="titulo">Título: </label>
@@ -105,7 +113,7 @@ if(isset($_GET["q"])){
             <div class="inputINSERTARLIBRO">
             <label for="idioma">Selecciona un idioma:</label>
                 <select name="idioma" id="idioma">
-                    <option value="Español">Español</option>
+                    <option value="Castellano">Castellano</option>
                     <option value="Inglés">Inglés</option>
                     <option value="Francés">Francés</option>
                 </select>
@@ -181,8 +189,8 @@ if(isset($_GET["q"])){
 ?>
 <div id="formuCORTO">
     <form id="formularioCORTO" method="post" >
-        <h1>Insertar Autor</h1>
-        <input type="text" name="id" placeholder="ID autor" required>
+        <h1>Borrar Autor</h1>
+        <input type="number" name="id" placeholder="ID autor" required>
         <center>
         <input type="submit" name="iniciarBORRARAUTOR" id="enviar">
         </center>
@@ -190,9 +198,47 @@ if(isset($_GET["q"])){
     </form>
 </div>
 <?php 
+//FINALIZA BORRAR AUTOR
+    } 
+    //EMPIEZA CREAR USUARIO
+    if($_GET["q"] === base64_encode("insertarusuario")){
+?>
+<div id="formuCORTO">
+    <form id="formularioCORTO" method="post">
+        <h1>CREAR USUARIO</h1>
+        <input type="text" name="name" placeholder="Nombre de usuario">
+        <input type="password" name="passw" placeholder="Contraseña">
+        <center>
+        <input type="submit" name="register" id="enviar">
+        </center>
+    </form>
+</div>
+<?php 
+//FINALIZA CREAR USUARIO
     }
+    //EMPIEZA BORRAR USUARIO
+    if($_GET["q"] === base64_encode("borrarusuario")){
+?>
+<div id="formuCORTO">
+    <form id="formularioCORTO" method="post" >
+        <h1>Borrar Usuario</h1>
+        <input type="text" name="name" placeholder="Nombre Usuario" required>
+        <center>
+        <input type="submit" name="iniciarBORRARUSUARIO" id="enviar">
+        </center>
+        <br><br>
+    </form>
+</div>
+<?php 
+//FINALIZA BORRAR USUARIO
+    }
+    
 ?>
 <?php 
+}else{
+    ?>
+    <h1  style="margin-top:20%;">BIENVENIDO ADMIN</h1>
+    <?php
 }
 ?>
 </div>

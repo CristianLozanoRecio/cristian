@@ -7,6 +7,9 @@ body {
 #general{
   display: flex;
 }
+a{
+  text-decoration: none;
+}
 
 #der {
   display: flex;
@@ -15,7 +18,7 @@ body {
   margin: auto;
 }
 #menulateralB{
-  background-color: red;
+  background-color: #7a7a7a;
   width: 5%;
   height: 100vh;
   position: fixed;
@@ -23,17 +26,18 @@ body {
   overflow-y: auto; 
 }
 #menulateralA{
-  background-color: red;
+  background-color: #7a7a7a;
   width: 10%;
   height: 100vh;
   position: fixed;
   display: none;
-  overflow-y: auto; 
+  overflow-y: auto;
 }#menulateralA img{
   cursor: pointer;
 }#menulateralA img:hover,
 #menulateralA a:hover,
-#menulateralB img:hover
+#menulateralB img:hover,
+#menulateralB a:hover
 {
   background-color:aqua ;
 }
@@ -50,18 +54,32 @@ body {
 #submenuConsulta{
   display: none;
 }
-#menulateralA a {
+#menulateralA a,
+#menulateralB a {
 text-decoration: none;
 display: block;
 color: black;
 }
-
+img{
+  vertical-align: middle;
+}
+#pulsarautor span,
+#pulsarlibro span,
+#pulsarconsulta span,
+#pulsarusuario span{
+  margin-left: 10px;
+}
 #formularioINSERTARLIBRO {
-    width: 70vw;
-    overflow: hidden;
-    border: 1px solid black;
-    border-radius: 30px;
-    margin-bottom: 3vw;
+  padding: 0.5vw 1vw;
+  font-size: 1vw;
+  width: 70vw;
+  border: 3px solid #ec6b06; 
+  color: black;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); 
+  margin-bottom: 3vw;
+  margin-TOP: 3vw;
+  background-color: aliceblue;
   }
 .contenedorformINSERTARLIBRO{
   margin: 30px;
@@ -89,7 +107,7 @@ h1{
     width: 90%;
     padding: 8px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid black;
   }
 
   #formularioINSERTARLIBRO  textarea {
@@ -119,7 +137,8 @@ h1{
     text-align: center;
 }
 #formularioCORTO input[type="text"],
-#formularioCORTO input[type="password"]
+#formularioCORTO input[type="password"],
+#formularioCORTO input[type="number"]
 {
   font-size: 1.3vw;
   width: 90%;
@@ -129,7 +148,8 @@ h1{
   border-radius: 15px;
 }
 
-#formularioCORTO input[type="submit"] {
+#formularioCORTO input[type="submit"],
+#formularioINSERTARLIBRO input[type="submit"] {
     padding: 0.5vw 1vw;
     font-size: 1.3vw;
     width: 15vw;

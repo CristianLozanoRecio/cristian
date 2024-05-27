@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION["name"])) {
+if (isset($_SESSION["name"]) === "admin") {
     echo '<script>
             document.addEventListener("DOMContentLoaded", function() {
                 var cambio = document.getElementById("cambio");
@@ -9,7 +9,17 @@ if (isset($_SESSION["name"])) {
                 }
             });
           </script>';
-}else{
+}else if(isset($_SESSION["name"])){
+    echo '<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var cambio = document.getElementById("cambio");
+        if (cambio) {
+            cambio.innerHTML = \'<a href="../adminpag/formulariosadmin.php">PAG ADMIN</a>\';
+        }
+    });
+  </script>';
+}
+else{
     echo '<script>
     document.addEventListener("DOMContentLoaded", function() {
         var cambio = document.getElementById("cambio");
@@ -27,21 +37,37 @@ if (isset($_SESSION["name"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TuBiblioWeb</title>
     <link rel="stylesheet" href="../estilos/estilodetallelibros.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 </head>
 <body>
     <header class="cerebro">
         <div class="header-contenido">
             <div class="logo">
-                <a href="pr.html" style="color: inherit; text-decoration: none;"><h1>TuBiblio<b>Web</b></h1></a>
+                <a href="../principal.php" style="color: inherit; text-decoration: none;"><h1>TuBiblio<b>Web</b></h1></a>
             </div>
             <div class="menu">
                 <nav>
                     <ul>
-                        <li><a href="#">Inicio</a></li>
+                        <li><a href="../principal.php">Inicio</a></li>
                         <li><a href="#">Nosotros</a></li>
                         <li><a href="#">Horarios</a></li>
-                        <li><a href="#">Libros</a></li>
+                        <li><a href="libros.php">Libros</a></li>
                         <li id="cambio"><a href="../registroinicio/registro.php">REGISTRATE</a></li>
+                        <li><div style="display: flex;">
+                            <form method="get" action="libros.php"> 
+                                <div class="buscar">
+                                <input type="text" placeholder="Búsqueda por título" name="buscar" required />
+                                <div class="btn">
+                                    <i class="fas fa-search icon"></i>
+                                </div>
+                        </form>
+                            </li>
                     </ul>
                 </nav>
             </div>
@@ -62,7 +88,8 @@ if($inc) {
                 <?php
         while($row = $resultado->fetch_array()){
             $imagen_url = $row["portada_libro"];
-            $autor = $row["autor"];
+            $autor = $row["nombre"];
+            $biografia = $row["biografia"];
             $titulo = $row["titulo"];
             $sinopsis = $row["sinopsis"];
             $isbn = $row["isbn"];
@@ -119,9 +146,15 @@ if($inc) {
                         </div>
                     </header>
                     <p class="sinopsis">
+                        <h3>Sinopsis</h3>
                         <?php echo $sinopsis;?>
                     </p>
-                    <br>
+                    <br><br><br>
+                    <?php if (isset($biografia)){ ?>
+                    <h2>Biografía autor</h2>
+                    <h3><?php echo $autor?></h3>
+                    <p><?php echo $biografia?></p>
+                    <?php }?>
                 </div>
             </div>
         </li>
