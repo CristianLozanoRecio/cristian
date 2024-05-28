@@ -513,6 +513,7 @@ if($inc) {
             $titulo = $row["titulo"];
             $sinopsis = $row["sinopsis"];
             $isbn = $row["isbn"];
+            $disponible = $row["disponible"];
 
                 ?>
 
@@ -526,12 +527,13 @@ if($inc) {
                         <h3><?php echo $consulta;?></h3>
                         <div>
                             <p><b>Autor: </b><?php echo $autor;?></p>
+                            <p><b>Disponible: </b><?php if($disponible == 1){echo "SI";}else{echo "NO";}?></p>
                         </div>
                     </header>
                     <p class="sinopsis" id="sinopsisTexto">
                     <?php echo $sinopsis;?>
                     </p>
-                    <a href="detalles_libro.php?isbn=<?php echo $isbn; ?>">Ver detalles</a>
+                    <a href="detalles_libro.php?isbn=<?php echo urlencode(base64_encode($isbn)); ?>">Ver detalles</a>
                 </div>
             </div>
         </li>
@@ -545,6 +547,7 @@ if($inc) {
             <?php
         }
 }
+mysqli_close($conex);
 ?>
 </div>
 </main>

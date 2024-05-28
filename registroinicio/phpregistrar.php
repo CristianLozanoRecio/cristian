@@ -27,4 +27,5 @@ if(isset($_POST["register"])) {
         echo '<h3>Completa los campos</h3>';
     }
 }
+mysqli_close($conex);
 ?>

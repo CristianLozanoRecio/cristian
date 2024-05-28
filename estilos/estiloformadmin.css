@@ -69,7 +69,7 @@ img{
 #pulsarusuario span{
   margin-left: 10px;
 }
-#formularioINSERTARLIBRO {
+#formularioLARGO {
   padding: 0.5vw 1vw;
   font-size: 1vw;
   width: 70vw;
@@ -81,27 +81,27 @@ img{
   margin-TOP: 3vw;
   background-color: aliceblue;
   }
-.contenedorformINSERTARLIBRO{
+.contenedorformLARGO{
   margin: 30px;
 }
-.rowINSERTARLIBRO{
+.rowLARGO{
   display: flex;
   margin-bottom: 0.5vw;
 }
-.inputINSERTARLIBRO{
+.inputLARGO{
   width: 50%;
 }
 h1{
   text-align: center;
 }
 
-#formularioINSERTARLIBRO label {
+#formularioLARGO label {
     display: block;
     margin-bottom: 5px;
   }
-  #formularioINSERTARLIBRO  input[type="text"],
-  #formularioINSERTARLIBRO  input[type="number"],
-  #formularioINSERTARLIBRO  select
+  #formularioLARGO  input[type="text"],
+  #formularioLARGO  input[type="number"],
+  #formularioLARGO  select
 {
     font-size: 1.3vw;
     width: 90%;
@@ -110,7 +110,7 @@ h1{
     border: 1px solid black;
   }
 
-  #formularioINSERTARLIBRO  textarea {
+  #formularioLARGO  textarea {
     box-sizing: border-box;
     max-width: 100%;
     width: calc(100% - 1.1vw);
@@ -149,7 +149,7 @@ h1{
 }
 
 #formularioCORTO input[type="submit"],
-#formularioINSERTARLIBRO input[type="submit"] {
+#formularioLARGO input[type="submit"] {
     padding: 0.5vw 1vw;
     font-size: 1.3vw;
     width: 15vw;

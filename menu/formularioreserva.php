@@ -1,5 +1,28 @@
 <?php
 session_start();
+include("reserva.php");
+    require 'C:\Users\crist\Downloads\pacris\pacris\PHPMailer-master\src\PHPMailer.php';
+    require 'C:\Users\crist\Downloads\pacris\pacris\PHPMailer-master\src\SMTP.php'; 
+    require 'C:\Users\crist\Downloads\pacris\pacris\PHPMailer-master\src\Exception.php';
+
+    $mail = new PHPMailer\PHPMailer\PHPMailer();
+
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'kolapep12@gmail.com';
+    $mail->Password = '';
+    $mail->SMTPSecure = 'tls';  
+    $mail->Port = 587;
+    
+    $mail->setFrom('kolapep12@gmail.com', utf8_decode('Nombre Remitente'));
+    $mail->addAddress('kolapep12@gmail.com', utf8_decode('Nombre Destinatario'));
+    
+    $mail->isHTML(true);
+    $mail->Subject = utf8_decode($_SESSION['name'] . ' Realizó una reserva');
+    $mail->Body = utf8_decode("Se realizo una reserva para el libro con ISBN ".$_SESSION["isbn"].", con id de reserva ". $_SESSION["reserva"]);
+?>
+<?php
 if (isset($_SESSION["name"]) === "admin") {
     echo '<script>
             document.addEventListener("DOMContentLoaded", function() {
@@ -75,110 +98,28 @@ else{
     </header>
     <main>
     <br><br><br><br><br><br>
-<?php
-$inc = include("../con_db.php");
-if($inc) {
-    if (isset($_GET['isbn'])) {
-        $isbn = base64_decode($_GET['isbn']);
-        $_SESSION["isbn"] = $isbn;
-        $consulta = "SELECT * FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE isbn = '$isbn'";
-    $resultado = mysqli_query($conex,$consulta);
+    <?php 
+    include("../con_db.php");
+$consulta = "SELECT * FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE isbn = '" . $_SESSION["isbn"] . "'";
+$resultado = mysqli_query($conex,$consulta);
     if($resultado) {
         ?>
-        <div class="general">
+        <center>
                 <?php
+                $contador = 0;
         while($row = $resultado->fetch_array()){
             $imagen_url = $row["portada_libro"];
             $autor = $row["nombre"];
-            $biografia = $row["biografia"];
             $titulo = $row["titulo"];
-            $sinopsis = $row["sinopsis"];
-            $isbn = $row["isbn"];
-            $editorial = $row["editorial"];
-            $ano_publicacion = $row["ano_publicacion"];
-            $disponible = $row["disponible"];
-
-            $idioma = $row["idioma"];
-            $tipo = $row["tipo"];
-            $publico = $row["publico"];
-
+            echo '<img src='.$imagen_url .' " width=20%/>';
                 ?>
-            <div class="estilo-div">
-                <div class="izq">
-                    <div style ="border: 5px solid red; width:20vw;">
-                    <?php echo '<img src='.$imagen_url .' " class="img"/>';?></div><br><br>
-                    <div class="datos">
-                        <div>
-                            <dt><b>Editorial</b></dt>
-                            <dd><?php echo $editorial;?></dd>
-                            <br>
-                        </div>
-                        <div>
-                            <dt><b>Año publicación</b></dt>
-                            <dd><?php echo $ano_publicacion;?></dd>
-                            <br>
-                        </div>
-                        <div>
-                            <dt><b>ISBN</b></dt>
-                            <dd><?php echo $isbn;?></dd>
-                            <br>
-                        </div>
-                        <div>
-                            <dt><b>Idioma</b></dt>
-                            <dd><?php echo $idioma;?></dd>
-                            <br>
-                        </div>
-                        <div>
-                            <dt><b>Género</b></dt>
-                            <dd><?php echo $tipo;?></dd>
-                            <br>
-                        </div>
-                        <div>
-                            <dt><b>Público</b></dt>
-                            <dd><?php echo $publico;?></dd>
-                            <br>
-                        </div>
-                    </div>
-                </div>
-                <div class="der">
-                    <header class="cabeza">
-                        <h3><?php echo $titulo;?></h3>
-                        <div>
-                            <p><b>Autor: </b><?php echo $autor;?></p>
-                        </div>
-                    </header>
-                    <p class="sinopsis">
-                        <h3>Sinopsis</h3>
-                        <?php echo $sinopsis;?>
-                    </p>
-                    <br><br><br>
-                    <?php 
-                    if ($disponible == 1) {
-                        echo "<button id='buttonclick'>PULSA AQUI PARA RESERVAR</button>";
-                    } else {
-                        echo "NO TENEMOS UNIDADES PARA RESERVAR";
-                    }
-                    ?>
-                    <?php if (isset($biografia)){ ?>
-                    <h2>Biografía autor</h2>
-                    <h3><?php echo $autor?></h3>
-                    <p><?php echo $biografia?></p>
-                    <?php }?>
-                </div>
-            </div>
-        </li>
-                <?php
+            <h3>RESERVA COMPLETA!!! </h3>
+                <?php 
                         }
+                    }
+                    mysqli_close($conex);
                 ?>
-            </ul>
-                    </div>
-            <?php
-        }
-    }
-}
-mysqli_close($conex);
-?>
-
+                
 </main>
         <div class="pie">
             <table class="tablapie">

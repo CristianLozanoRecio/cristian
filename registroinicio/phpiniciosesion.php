@@ -23,4 +23,5 @@ if(isset($_POST["iniciar"])) {
         echo '<h3>Completa los campos</h3>';
     }
 }
+mysqli_close($conex);
 ?>

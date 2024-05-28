@@ -1,10 +1,6 @@
 <?php
 session_start();
-include("meterlibro.php");
-include("borrarlibro.php");
-include("borrarautor.php");
-include("meterautor.php");
-include("borrarusuario.php");
+include("BDinsertar.php");
 if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
 ?>
 <!DOCTYPE html>
@@ -46,7 +42,7 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
             <div id="submenuLibro">
             <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("borrarlibro")); ?>">Borrar</a>
             <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarlibro")); ?>">Crear</a>
-            <a href="#">Modificar</a>
+            <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("actualizarlibro")); ?>">Modificar</a>
             </div>
             <br>
             <a href="#" id="pulsarautor"><img src="../imagenes/lapiz.png" width="40%" ><span>Autores</span></a>
@@ -58,9 +54,9 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
             <br>
             <a href="#" id="pulsarconsulta"><img src="../imagenes/consulta.png" width="40%"><span>Consulta</span></a>
             <div id="submenuConsulta">
-                <a href="#">Ver BD Autor</a>
-                <a href="#">Ver BD libros</a>
-                <a href="#">Ver BD usuarios</a>
+                <a href="excelautor.php">Ver BD Autor</a>
+                <a href="excellibros.php">Ver BD libros</a>
+                <a href="excelusuario.php">Ver BD usuarios</a>
             </div>
             <br>
             <a href="../registroinicio/cerrar_sesion.php">CERRAR SESIÓN</a>
@@ -75,42 +71,42 @@ if(isset($_GET["q"])){
     //COMIENZA INSERTAR LIBRO
     if($_GET["q"] === base64_encode("insertarlibro")){
 ?>        
-<div id="formuINSERTARLIBRO">
-    <form id="formularioINSERTARLIBRO" method="POST"  enctype="multipart/form-data">
-    <div class="contenedorformINSERTARLIBRO">
+<div id="formuLARGO">
+    <form id="formularioLARGO" method="POST"  enctype="multipart/form-data">
+    <div class="contenedorformLARGO">
     <h1>INSERTAR LIBRO</h1>
-        <div class="rowINSERTARLIBRO">
-            <div class="inputINSERTARLIBRO">
+        <div class="rowLARGO">
+            <div class="inputLARGO">
                 <label for="titulo">Título: </label>
                 <input type="text" id="titulo" name="titulo">
             </div>
-            <div class="inputINSERTARLIBRO">
+            <div class="inputLARGO">
                 <label for="isbn">ISBN: </label>
                 <input type="number" id="isbn" name="isbn" required>
             </div>
         </div>
-        <div class="rowINSERTARLIBRO">
-            <div class="inputINSERTARLIBRO">
+        <div class="rowLARGO">
+            <div class="inputLARGO">
                 <label for="editorial">Editorial: </label>
                 <input type="text" id="editorial" name="editorial">
             </div>
-            <div class="inputINSERTARLIBRO">
+            <div class="inputLARGO">
                 <label for="ano_publicacion">Año publicación: </label>
                 <input type="number" id="ano_publicacion" name="ano_publicacion">
             </div>
         </div>
-        <div class="rowINSERTARLIBRO">
-            <div class="inputINSERTARLIBRO">
+        <div class="rowLARGO">
+            <div class="inputLARGO">
                 <label for="autor">Autor: </label>
                 <input type="number" id="autor" name="autor">
             </div>
-            <div class="inputINSERTARLIBRO">
+            <div class="inputLARGO">
                 <label for="portada_libro">Portada del libro: </label>
                 <input type="file" id="portada_libro" name="portada_libro" accept="image/*" required>
             </div>
         </div>
-        <div class="rowINSERTARLIBRO">
-            <div class="inputINSERTARLIBRO">
+        <div class="rowLARGO">
+            <div class="inputLARGO">
             <label for="idioma">Selecciona un idioma:</label>
                 <select name="idioma" id="idioma">
                     <option value="Castellano">Castellano</option>
@@ -118,7 +114,7 @@ if(isset($_GET["q"])){
                     <option value="Francés">Francés</option>
                 </select>
             </div>
-            <div class="inputINSERTARLIBRO">
+            <div class="inputLARGO">
             <label for="tipo">Selecciona un género:</label>
                 <select name="tipo" id="tipo">
                     <option value="Arte">Arte</option>
@@ -132,7 +128,7 @@ if(isset($_GET["q"])){
                 </select>
             </div>
         </div>
-        <div class="inputINSERTARLIBRO">
+        <div class="inputLARGO">
             <label for="publico">Selecciona un publico:</label>
                 <select name="publico" id="idioma">
                     <option value="Infantil">Infantil</option>
@@ -232,7 +228,84 @@ if(isset($_GET["q"])){
 <?php 
 //FINALIZA BORRAR USUARIO
     }
+    //EMPIEZA MODIFICAR LIBRO
+    if($_GET["q"] === base64_encode("actualizarlibro")){
     
+?>
+<div id="formuLARGO">
+    <form id="formularioLARGO" method="POST"  enctype="multipart/form-data">
+    <div class="contenedorformLARGO">
+    <h1>EDITAR LIBRO</h1>
+        <div class="rowLARGO">
+            <div class="inputLARGO">
+                <label for="titulo">Título: </label>
+                <input type="text" id="titulo" name="titulo">
+            </div>
+            <div class="inputLARGO">
+                <label for="isbn">ISBN: </label>
+                <input type="number" id="isbn" name="isbn" required>
+            </div>
+        </div>
+        <div class="rowLARGO">
+            <div class="inputLARGO">
+                <label for="editorial">Editorial: </label>
+                <input type="text" id="editorial" name="editorial">
+            </div>
+            <div class="inputLARGO">
+                <label for="ano_publicacion">Año publicación: </label>
+                <input type="number" id="ano_publicacion" name="ano_publicacion">
+            </div>
+        </div>
+        <div class="rowLARGO">
+            <div class="inputLARGO">
+                <label for="autor">Autor: </label>
+                <input type="number" id="autor" name="autor">
+            </div>
+            <div class="inputLARGO">
+                <label for="portada_libro">Portada del libro: </label>
+                <input type="file" id="portada_libro" name="portada_libro" accept="image/*">
+            </div>
+        </div>
+        <div class="rowLARGO">
+            <div class="inputLARGO">
+            <label for="idioma">Selecciona un idioma:</label>
+                <select name="idioma" id="idioma">
+                    <option value="Castellano">Castellano</option>
+                    <option value="Inglés">Inglés</option>
+                    <option value="Francés">Francés</option>
+                </select>
+            </div>
+            <div class="inputLARGO">
+            <label for="tipo">Selecciona un género:</label>
+                <select name="tipo" id="tipo">
+                    <option value="Arte">Arte</option>
+                    <option value="Ciencia">Ciencia</option>
+                    <option value="Ficción">Ficción</option>
+                    <option value="Historia">Historia</option>
+                    <option value="Deporte">Deporte</option>
+                    <option value="Aventura">Aventura</option>
+                    <option value="Religión">Religión</option>
+                    <option value="Medicina">Medicina</option>
+                </select>
+            </div>
+        </div>
+        <div class="inputLARGO">
+            <label for="publico">Selecciona un publico:</label>
+                <select name="publico" id="idioma">
+                    <option value="Infantil">Infantil</option>
+                    <option value="Adulto">Adulto</option>
+                </select>
+            </div>
+        <label for="sinopsis">Sinopsis: </label>
+        <textarea class="cuadrotext" name="sinopsis"></textarea>
+        <center>
+        <input type="submit" name="datosEDITAR" id="enviar">
+        </center>
+</div>
+</form>
+    </div>
+<?php 
+}
 ?>
 <?php 
 }else{
