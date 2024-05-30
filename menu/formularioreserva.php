@@ -1,57 +1,13 @@
 <?php
 session_start();
-include("reserva.php");
-    require 'C:\Users\crist\Downloads\pacris\pacris\PHPMailer-master\src\PHPMailer.php';
-    require 'C:\Users\crist\Downloads\pacris\pacris\PHPMailer-master\src\SMTP.php'; 
-    require 'C:\Users\crist\Downloads\pacris\pacris\PHPMailer-master\src\Exception.php';
-
-    $mail = new PHPMailer\PHPMailer\PHPMailer();
-
-    $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
-    $mail->SMTPAuth = true;
-    $mail->Username = 'kolapep12@gmail.com';
-    $mail->Password = '';
-    $mail->SMTPSecure = 'tls';  
-    $mail->Port = 587;
-    
-    $mail->setFrom('kolapep12@gmail.com', utf8_decode('Nombre Remitente'));
-    $mail->addAddress('kolapep12@gmail.com', utf8_decode('Nombre Destinatario'));
-    
-    $mail->isHTML(true);
-    $mail->Subject = utf8_decode($_SESSION['name'] . ' Realizó una reserva');
-    $mail->Body = utf8_decode("Se realizo una reserva para el libro con ISBN ".$_SESSION["isbn"].", con id de reserva ". $_SESSION["reserva"]);
-?>
-<?php
-if (isset($_SESSION["name"]) === "admin") {
-    echo '<script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var cambio = document.getElementById("cambio");
-                if (cambio) {
-                    cambio.innerHTML = \'<a href="../registroinicio/cerrar_sesion.php">Cerrar sesión</a>\';
-                }
-            });
-          </script>';
-}else if(isset($_SESSION["name"])){
-    echo '<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var cambio = document.getElementById("cambio");
-        if (cambio) {
-            cambio.innerHTML = \'<a href="../adminpag/formulariosadmin.php">PAG ADMIN</a>\';
-        }
-    });
-  </script>';
+if(isset($_SESSION["name"])){
+    if ($_SESSION["name"] === "admin") {
+        $link = '<a href="../adminpag/formulariosadmin.php">PAG ADMIN</a>';
+    } else {
+        $link = '<a href="../registroinicio/cerrar_sesion.php">Cerrar sesión</a>';
+    }
 }
-else{
-    echo '<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var cambio = document.getElementById("cambio");
-        if (cambio) {
-            cambio.innerHTML = \'<a href="../registroinicio/registro.php">REGISTRATE</a>\';
-        }
-    });
-  </script>';
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -81,7 +37,7 @@ else{
                         <li><a href="#">Nosotros</a></li>
                         <li><a href="#">Horarios</a></li>
                         <li><a href="libros.php">Libros</a></li>
-                        <li id="cambio"><a href="../registroinicio/registro.php">REGISTRATE</a></li>
+                        <li id="cambio"><a href="../registroinicio/iniciar_sesion.php">INICIAR SESIÓN</a></li>
                         <li><div style="display: flex;">
                             <form method="get" action="libros.php"> 
                                 <div class="buscar">
@@ -100,8 +56,8 @@ else{
     <br><br><br><br><br><br>
     <?php 
     include("../con_db.php");
-$consulta = "SELECT * FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE isbn = '" . $_SESSION["isbn"] . "'";
-$resultado = mysqli_query($conex,$consulta);
+        $consulta = "SELECT * FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE isbn = '" . $_SESSION["isbn"] . "'";
+        $resultado = mysqli_query($conex,$consulta);
     if($resultado) {
         ?>
         <center>
@@ -162,5 +118,13 @@ $resultado = mysqli_query($conex,$consulta);
                    }?>
             });
         </script>
+        <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var cambio = document.getElementById("cambio");
+    if (cambio) {
+        cambio.innerHTML = '<?php echo $link; ?>';
+    }
+});
+</script>
 </body>
 </html>

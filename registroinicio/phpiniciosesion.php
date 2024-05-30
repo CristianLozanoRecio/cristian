@@ -11,7 +11,7 @@ if(isset($_POST["iniciar"])) {
 
         if(mysqli_num_rows($resultado_comprobar) > 0) {
             $_SESSION["name"] = $name;
-            if($name = "admin" && $passw = "admin1234"){
+            if($name == "admin" && $passw == "admin1234"){
                 header("Location: ../adminpag/formulariosadmin.php");
             }else{
             header("Location: ../principal.php");

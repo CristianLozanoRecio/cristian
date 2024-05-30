@@ -1,34 +1,13 @@
 <?php
 session_start();
-if (isset($_SESSION["name"]) === "admin") {
-    echo '<script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var cambio = document.getElementById("cambio");
-                if (cambio) {
-                    cambio.innerHTML = \'<a href="../registroinicio/cerrar_sesion.php">Cerrar sesión</a>\';
-                }
-            });
-          </script>';
-}else if(isset($_SESSION["name"])){
-    echo '<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var cambio = document.getElementById("cambio");
-        if (cambio) {
-            cambio.innerHTML = \'<a href="../adminpag/formulariosadmin.php">PAG ADMIN</a>\';
-        }
-    });
-  </script>';
+if(isset($_SESSION["name"])){
+    if ($_SESSION["name"] === "admin") {
+        $link = '<a href="../adminpag/formulariosadmin.php">PAG ADMIN</a>';
+    } else {
+        $link = '<a href="../registroinicio/cerrar_sesion.php">Cerrar sesión</a>';
+    }
 }
-else{
-    echo '<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var cambio = document.getElementById("cambio");
-        if (cambio) {
-            cambio.innerHTML = \'<a href="../registroinicio/registro.php">REGISTRATE</a>\';
-        }
-    });
-  </script>';
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -58,7 +37,7 @@ else{
                         <li><a href="#">Nosotros</a></li>
                         <li><a href="#">Horarios</a></li>
                         <li><a href="libros.php">Libros</a></li>
-                        <li id="cambio"><a href="../registroinicio/registro.php">REGISTRATE</a></li>
+                        <li id="cambio"><a href="../registroinicio/iniciar_sesion.php">INICIAR SESIÓN</a></li>
                         <li><div style="display: flex;">
                             <form method="get" action="libros.php"> 
                                 <div class="buscar">
@@ -153,8 +132,8 @@ if($inc) {
                     </p>
                     <br><br><br>
                     <?php 
-                    if ($disponible == 1) {
-                        echo "<button id='buttonclick'>PULSA AQUI PARA RESERVAR</button>";
+                    if ($disponible >= 1) {
+                        echo "<button id='buttonclick'>UNIDADES PARA RESERVAR".$disponible."</button>";
                     } else {
                         echo "NO TENEMOS UNIDADES PARA RESERVAR";
                     }
@@ -208,18 +187,36 @@ mysqli_close($conex);
                 </tr>
             </table>
         </div>
-        <script>
-            document.getElementById("buttonclick").addEventListener('click', function() {
-                <?php if(isset($_SESSION['name'])){?>
-                if(confirm("Se realizara la reserva del libro con ISBN <?php echo $isbn;?>")){
-                    window.location.href = "formularioreserva.php?isbn=<?php echo urlencode(base64_encode($isbn)); ?>";
-                }else{
-                    alert("No se realizó ninguna reserva");
-                }
-                <?php }else{
-                   echo "alert('PRIMERO DEBES ESTAR REGISTRADO!!');";
-                   }?>
-            });
-        </script>
+        <?php
+if(isset($_SESSION['name'])){
+    include("../con_db.php");
+    $consulta = "SELECT COUNT(*) FROM reserva WHERE nombre_usuario = '" . $_SESSION['name'] . "'";
+    $resultado = mysqli_query($conex, $consulta);
+    $num_reservas = mysqli_fetch_row($resultado)[0];
+}
+?>
+<script>
+    document.getElementById("buttonclick").addEventListener('click', function() {
+        <?php if(isset($_SESSION['name']) && $num_reservas <= 3){ ?>
+        if(confirm("Se realizará la reserva del libro con ISBN <?php echo $isbn;?>")){
+            window.location.href = "reserva.php?isbn=<?php echo urlencode(base64_encode($isbn)); ?>";
+        }else{
+            alert("No se realizó ninguna reserva");
+        }
+        <?php } else { ?>
+        alert('PRIMERO DEBES ESTAR REGISTRADO o HAS ALCANZADO EL MÁXIMO DE RESERVAS!!');
+        <?php } ?>
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var cambio = document.getElementById("cambio");
+    if (cambio) {
+        cambio.innerHTML = '<?php echo $link; ?>';
+    }
+});
+</script>
+
+
 </body>
 </html>

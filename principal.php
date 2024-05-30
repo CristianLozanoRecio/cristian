@@ -1,34 +1,13 @@
 <?php
 session_start();
-if (isset($_SESSION["name"]) === "admin") {
-    echo '<script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var cambio = document.getElementById("cambio");
-                if (cambio) {
-                    cambio.innerHTML = \'<a href="registroinicio/cerrar_sesion.php">Cerrar sesión</a>\';
-                }
-            });
-          </script>';
-}else if(isset($_SESSION["name"])){
-    echo '<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var cambio = document.getElementById("cambio");
-        if (cambio) {
-            cambio.innerHTML = \'<a href="adminpag/formulariosadmin.php">PAG ADMIN</a>\';
-        }
-    });
-  </script>';
+if(isset($_SESSION["name"])){
+    if ($_SESSION["name"] === "admin") {
+        $link = '<a href="adminpag/formulariosadmin.php">PAG ADMIN</a>';
+    } else {
+        $link = '<a href="registroinicio/cerrar_sesion.php">Cerrar sesión</a>';
+    }
 }
-else{
-    echo '<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var cambio = document.getElementById("cambio");
-        if (cambio) {
-            cambio.innerHTML = \'<a href="registroinicio/registro.php">REGISTRATE</a>\';
-        }
-    });
-  </script>';
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -55,10 +34,10 @@ else{
                 <nav>
                     <ul>
                         <li><a href="#">Inicio</a></li>
-                        <li><a href="#">Nosotros</a></li>
+                        <li><a href="menu/VERreservas.php">Reservas</a></li>
                         <li><a href="#">Horarios</a></li>
                         <li><a href="menu/libros.php">Libros</a></li>
-                        <li id="cambio"><a href="registroinicio/registro.php">REGISTRATE</a></li>
+                        <li id="cambio"><a href="registroinicio/iniciar_sesion.php">INICIAR SESIÓN</a></li>
                         <li><div style="display: flex;">
                             <form method="get" action="menu/libros.php"> 
                                 <div class="buscar">
@@ -140,6 +119,14 @@ function startSlider() {
     }, 3000);
 }
 startSlider();
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var cambio = document.getElementById("cambio");
+        if (cambio) {
+            cambio.innerHTML = '<?php echo $link; ?>';
+        }
+    });
 </script>
 </body>
 </html>

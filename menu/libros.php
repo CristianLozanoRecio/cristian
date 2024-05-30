@@ -1,34 +1,13 @@
 <?php
 session_start();
-if (isset($_SESSION["name"]) === "admin") {
-    echo '<script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var cambio = document.getElementById("cambio");
-                if (cambio) {
-                    cambio.innerHTML = \'<a href="../registroinicio/cerrar_sesion.php">Cerrar sesión</a>\';
-                }
-            });
-          </script>';
-}else if(isset($_SESSION["name"])){
-    echo '<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var cambio = document.getElementById("cambio");
-        if (cambio) {
-            cambio.innerHTML = \'<a href="../adminpag/formulariosadmin.php">PAG ADMIN</a>\';
-        }
-    });
-  </script>';
+if(isset($_SESSION["name"])){
+    if ($_SESSION["name"] === "admin") {
+        $link = '<a href="../adminpag/formulariosadmin.php">PAG ADMIN</a>';
+    } else {
+        $link = '<a href="../registroinicio/cerrar_sesion.php">Cerrar sesión</a>';
+    }
 }
-else{
-    echo '<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var cambio = document.getElementById("cambio");
-        if (cambio) {
-            cambio.innerHTML = \'<a href="../registroinicio/registro.php">REGISTRATE</a>\';
-        }
-    });
-  </script>';
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -58,7 +37,7 @@ else{
                         <li><a href="#">Nosotros</a></li>
                         <li><a href="#">Horarios</a></li>
                         <li><a href="#">Libros</a></li>
-                        <li id="cambio"><a href="../registroinicio/registro.php">REGISTRATE</a></li>
+                        <li id="cambio"><a href="../registroinicio/iniciar_sesion.php">INICIAR SESIÓN</a></li>
                         <li><div style="display: flex;">
                             <form method="get" action="libros.php"> 
                                 <div class="buscar">
@@ -527,7 +506,7 @@ if($inc) {
                         <h3><?php echo $consulta;?></h3>
                         <div>
                             <p><b>Autor: </b><?php echo $autor;?></p>
-                            <p><b>Disponible: </b><?php if($disponible == 1){echo "SI";}else{echo "NO";}?></p>
+                            <p><b>Disponible: </b><?php if($disponible >= 1){echo "SI";}else{echo "NO";}?></p>
                         </div>
                     </header>
                     <p class="sinopsis" id="sinopsisTexto">
@@ -582,5 +561,13 @@ mysqli_close($conex);
         </div>
 </footer>
 <script src="../javascript/libros.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var cambio = document.getElementById("cambio");
+    if (cambio) {
+        cambio.innerHTML = '<?php echo $link; ?>';
+    }
+});
+</script>
 </body>
 </html>

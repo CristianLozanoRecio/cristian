@@ -16,11 +16,13 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
     <div id="izq">
             <div id="menulateralB">
                 <a href="#" id="masGrande"><img src="../imagenes/menus.png" width="80%"></a>
-                <a href="#"><img src="../imagenes/usuario.png" width="80%"></a>
+                <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarusuario")); ?>"><img src="../imagenes/usuario.png" width="80%"></a>
                 <br>
-                <a href="#"><img src="../imagenes/libro.png" width="80%"></a>
+                <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarlibro")); ?>"><img src="../imagenes/libro.png" width="80%"></a>
                 <br>
-                <a href="#"><img src="../imagenes/lapiz.png" width="80%"></a>
+                <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarautor")); ?>"><img src="../imagenes/lapiz.png" width="80%"></a>
+                <br>
+                <a href="#"> <img src="../imagenes/reserva.png" width="80%" ></a> 
                 <br>
                 <a href="#"> <img src="../imagenes/consulta.png" width="80%" ></a>
                 <br><br>
@@ -35,7 +37,7 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
             <div id="submenuUsuario">
             <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("borrarusuario")); ?>">Borrar</a>
                 <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarusuario")); ?>">Crear</a>
-                <a href="#">Modificar</a>
+                <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("editarusuario")); ?>">Modificar</a>     
             </div>
             <br>
             <a href="#" id="pulsarlibro"><img src="../imagenes/libro.png" width="40%" ><span>Libro</span></a>
@@ -49,14 +51,20 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
             <div id="submenuAutor">
                 <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("borrarautor")); ?>">Borrar</a>
                 <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarautor")); ?>">Crear</a>
-                <a href="#">Modificar</a>
+                <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("editarautor")); ?>">Modificar</a>
             </div>
+            <br>
+            <a href="#" id="pulsarreserva"><img src="../imagenes/reserva.png" width="40%"><span>Reservas</span></a>
+            <div id="submenuReserva">
+                <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("borrareserva")); ?>">Borrar</a>
+            </div>
+            <br>
             <br>
             <a href="#" id="pulsarconsulta"><img src="../imagenes/consulta.png" width="40%"><span>Consulta</span></a>
             <div id="submenuConsulta">
-                <a href="excelautor.php">Ver BD Autor</a>
-                <a href="excellibros.php">Ver BD libros</a>
-                <a href="excelusuario.php">Ver BD usuarios</a>
+                <a href="excelautor.php">Ver Tabla Autor</a>
+                <a href="excellibros.php">Ver Tabla libros</a>
+                <a href="excelusuario.php">Ver Tabla usuarios</a>
             </div>
             <br>
             <a href="../registroinicio/cerrar_sesion.php">CERRAR SESIÓN</a>
@@ -109,6 +117,7 @@ if(isset($_GET["q"])){
             <div class="inputLARGO">
             <label for="idioma">Selecciona un idioma:</label>
                 <select name="idioma" id="idioma">
+                     <option value="seleccion" selected disabled> --SELECCIONA--</option>
                     <option value="Castellano">Castellano</option>
                     <option value="Inglés">Inglés</option>
                     <option value="Francés">Francés</option>
@@ -117,6 +126,7 @@ if(isset($_GET["q"])){
             <div class="inputLARGO">
             <label for="tipo">Selecciona un género:</label>
                 <select name="tipo" id="tipo">
+                    <option value="seleccion" selected disabled> --SELECCIONA--</option>
                     <option value="Arte">Arte</option>
                     <option value="Ciencia">Ciencia</option>
                     <option value="Ficción">Ficción</option>
@@ -131,6 +141,7 @@ if(isset($_GET["q"])){
         <div class="inputLARGO">
             <label for="publico">Selecciona un publico:</label>
                 <select name="publico" id="idioma">
+                    <option value="seleccion" selected disabled> --SELECCIONA--</option>
                     <option value="Infantil">Infantil</option>
                     <option value="Adulto">Adulto</option>
                 </select>
@@ -200,10 +211,10 @@ if(isset($_GET["q"])){
     if($_GET["q"] === base64_encode("insertarusuario")){
 ?>
 <div id="formuCORTO">
-    <form id="formularioCORTO" method="post">
+    <form id="formularioCORTO" method="post" action="generarqr.php">
         <h1>CREAR USUARIO</h1>
-        <input type="text" name="name" placeholder="Nombre de usuario">
-        <input type="password" name="passw" placeholder="Contraseña">
+        <input type="text" name="name" placeholder="Nombre de usuario" maxlength = "7">
+        <input type="password" name="passw" placeholder="Contraseña"  maxlength = "7">
         <center>
         <input type="submit" name="register" id="enviar">
         </center>
@@ -270,6 +281,7 @@ if(isset($_GET["q"])){
             <div class="inputLARGO">
             <label for="idioma">Selecciona un idioma:</label>
                 <select name="idioma" id="idioma">
+                    <option value="seleccion" selected disabled> --SELECCIONA--</option>
                     <option value="Castellano">Castellano</option>
                     <option value="Inglés">Inglés</option>
                     <option value="Francés">Francés</option>
@@ -278,6 +290,7 @@ if(isset($_GET["q"])){
             <div class="inputLARGO">
             <label for="tipo">Selecciona un género:</label>
                 <select name="tipo" id="tipo">
+                <option value="seleccion" selected disabled> --SELECCIONA--</option>
                     <option value="Arte">Arte</option>
                     <option value="Ciencia">Ciencia</option>
                     <option value="Ficción">Ficción</option>
@@ -292,6 +305,7 @@ if(isset($_GET["q"])){
         <div class="inputLARGO">
             <label for="publico">Selecciona un publico:</label>
                 <select name="publico" id="idioma">
+                    <option value="seleccion" selected disabled> --SELECCIONA--</option>
                     <option value="Infantil">Infantil</option>
                     <option value="Adulto">Adulto</option>
                 </select>
@@ -305,8 +319,56 @@ if(isset($_GET["q"])){
 </form>
     </div>
 <?php 
-}
+} //FINALIZA EDITAR LIBRO
+    //EMPIEZA MODIFICAR USUARIO
+    if($_GET["q"] === base64_encode("editarusuario")){
 ?>
+<div id="formuCORTO">
+    <form id="formularioCORTO" method="post" >
+        <h1>Editar Usuario</h1>
+        <input type="text" name="nombreEDITAR" placeholder="Nombre A Editar" required>
+        <input type="text" name="name" placeholder="Nombre Usuario">
+        <input type="password" name="passw" placeholder="Contraseña">
+        <center>
+        <input type="submit" name="usuarioEDITOR" id="enviar">
+        </center>
+        <br><br>
+    </form>
+</div>
+<?php 
+} //FINALIZA EDITAR LIBRO
+    //EMPIEZA EDITAAR AUTOR
+if($_GET["q"] === base64_encode("editarautor")){
+    ?>
+        <div id="formuCORTO">
+            <form id="formularioCORTO" method="post" >
+                <h1>Editar Autor</h1>
+                <input type="number" name="id_autor" placeholder="Id autor">
+                <input type="text" name="name" placeholder="Nombre autor">
+                <label for="biografia">Biografía: </label>
+                <textarea class="cuadrotext" name="biografia"></textarea>
+                <center>
+                <input type="submit" name="iniciarEDITARAUTOR" id="enviar">
+                </center>
+                <br><br>
+            </form>
+        </div>
+        <?php 
+} //FINALIZA EDITAR AUTOR
+if($_GET["q"] === base64_encode("borrarreserva")){
+    ?>
+        <div id="formuCORTO">
+            <form id="formularioCORTO" method="post" >
+                <h1>Editar Autor</h1>
+                <input type="number" name="id_reserva" placeholder="Id autor">                <center>
+                <input type="submit" name="iniciarBORRARRESERVA" id="enviar">
+                </center>
+                <br><br>
+            </form>
+        </div>
+        <?php 
+} //FINALIZA EDITAR AUTOR
+    ?>
 <?php 
 }else{
     ?>
@@ -336,6 +398,9 @@ function menu(mostrarId, ocultarId){
     ocultar.style.display = "none";
     mostrar.style.display = "block";
 }
+document.getElementById('pulsarreserva').addEventListener('click', function(){
+        mostar('submenuReserva');
+    });
     document.getElementById('pulsarusuario').addEventListener('click', function(){
         mostar('submenuUsuario');
     });

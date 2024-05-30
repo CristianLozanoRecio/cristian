@@ -167,3 +167,11 @@ margin-right: 0;
   .buscar input:focus {
     width: 340px;
   }
+
+  .tablaRESERVA {
+    border-collapse: collapse;
+  }
+
+  .tablaRESERVA td{
+    border: 3px solid black;
+  }

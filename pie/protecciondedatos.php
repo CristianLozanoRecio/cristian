@@ -2,15 +2,6 @@
 session_start();
 if (isset($_SESSION["name"]) === "admin") {
     echo '<script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var cambio = document.getElementById("cambio");
-                if (cambio) {
-                    cambio.innerHTML = \'<a href="../registroinicio/cerrar_sesion.php">Cerrar sesión</a>\';
-                }
-            });
-          </script>';
-}else if(isset($_SESSION["name"])){
-    echo '<script>
     document.addEventListener("DOMContentLoaded", function() {
         var cambio = document.getElementById("cambio");
         if (cambio) {
@@ -18,6 +9,16 @@ if (isset($_SESSION["name"]) === "admin") {
         }
     });
   </script>';
+
+}else if(isset($_SESSION["name"])){
+    echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var cambio = document.getElementById("cambio");
+                if (cambio) {
+                    cambio.innerHTML = \'<a href="../registroinicio/cerrar_sesion.php">Cerrar sesión</a>\';
+                }
+            });
+          </script>';
 }
 else{
     echo '<script>
