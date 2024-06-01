@@ -34,10 +34,10 @@ if(isset($_SESSION["name"])){
                 <nav>
                     <ul>
                         <li><a href="../principal.php">Inicio</a></li>
-                        <li><a href="#">Nosotros</a></li>
+                        <li><a href="#">Reservas</a></li>
                         <li><a href="#">Horarios</a></li>
                         <li><a href="libros.php">Libros</a></li>
-                        <li id="cambio"><a href="../registroinicio/iniciar_sesion.php">INICIAR SESIÓN</a></li>
+                        <li id="cambio"><a href="../registroinicio/iniciar_sesion.php">Iniciar Sesión</a></li>
                         <li><div style="display: flex;">
                             <form method="get" action="libros.php"> 
                                 <div class="buscar">

@@ -54,6 +54,9 @@ a{
 #submenuConsulta{
   display: none;
 }
+#submenuReserva{
+  display: none;
+}
 #menulateralA a,
 #menulateralB a {
 text-decoration: none;

@@ -4,8 +4,8 @@ include("../con_db.php");
 
 if(isset($_POST["iniciar"])) {
     if(strlen($_POST["name"]) >= 1 && strlen($_POST["passw"]) >= 1) {
-        $name = trim($_POST["name"]);
-        $passw = trim($_POST["passw"]);
+        $name =  mysqli_real_escape_string($conex,trim($_POST["name"]));
+        $passw =  mysqli_real_escape_string($conex,trim($_POST["passw"]));
         $comprobar = "SELECT nombre,passw FROM usuario WHERE nombre = '$name' and passw = '$passw'";
         $resultado_comprobar = mysqli_query($conex, $comprobar);
 

@@ -34,7 +34,7 @@ if(isset($_SESSION["name"])){
                 <nav>
                     <ul>
                         <li><a href="../principal.php">Inicio</a></li>
-                        <li><a href="#">Nosotros</a></li>
+                        <li><a href="VERreservas.php">Reservas</a></li>
                         <li><a href="#">Horarios</a></li>
                         <li><a href="#">Libros</a></li>
                         <li id="cambio"><a href="../registroinicio/iniciar_sesion.php">INICIAR SESIÓN</a></li>
@@ -58,8 +58,399 @@ if(isset($_SESSION["name"])){
     <main>
     <br><br><br><br>
     <br>
+    <div id="menumovil">
+        <button id="desplegar" >FILTROS</button>
+        <div id="filtrosmovil" style="display: none;">
+        <center>
+        <div id="menuhorizontal">
+<hr>
+<br>
+
+<h3><p align="center">Género</p></h3>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
+{
+    if(isset($_GET['buscar'])){
+        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "tipo=".urlencode(base64_encode("ciencia")).$enlace;
+}else{
+    echo"tipo=".urlencode(base64_encode("ciencia"));
+} 
+?>">Ciencia</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
+{
+    if(isset($_GET['buscar'])){
+        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "tipo=".urlencode(base64_encode("arte")).$enlace;
+}else{
+    echo"tipo=".urlencode(base64_encode("arte"));
+} 
+?>">Arte</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
+{
+    if(isset($_GET['buscar'])){
+        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "tipo=".urlencode(base64_encode("medicina")).$enlace;
+}else{
+    echo"tipo=".urlencode(base64_encode("medicina"));
+} 
+?>">Medicina</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
+{
+    if(isset($_GET['buscar'])){
+        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "tipo=".urlencode(base64_encode("deporte")).$enlace;
+}else{
+    echo"tipo=".urlencode(base64_encode("deporte"));
+} 
+?>">Deporte</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
+{
+    if(isset($_GET['buscar'])){
+        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "tipo=".urlencode(base64_encode("ficcion")).$enlace;
+}else{
+    echo"tipo=".urlencode(base64_encode("ficcion"));
+} 
+?>">Ficcion</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
+{
+    if(isset($_GET['buscar'])){
+        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "tipo=".urlencode(base64_encode("aventura")).$enlace;
+}else{
+    echo"tipo=".urlencode(base64_encode("aventura"));
+} 
+?>">Aventura</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
+{
+    if(isset($_GET['buscar'])){
+        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "tipo=".urlencode(base64_encode("religion")).$enlace;
+}else{
+    echo"tipo=".urlencode(base64_encode("religion"));
+} 
+?>">Religion</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
+{
+    if(isset($_GET['buscar'])){
+        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "tipo=".urlencode(base64_encode("historia")).$enlace;
+}else{
+    echo"tipo=".urlencode(base64_encode("historia"));
+} 
+?>">Historia</a><br>
+</div>
+<br>
+<hr>
+<br>
+<h3><p align="center">Público</p></h3>
+<div id="menuhorizontal">
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['tipo']) || isset($_GET['idioma']) || isset($_GET['ano']) || isset($_GET['buscar']))
+{
+    if(isset($_GET['buscar'])){
+        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+    }
+    if(isset($_GET['tipo'])){
+     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "publico=".urlencode(base64_encode("adulto")).$enlace;
+}else{
+    echo"publico=".urlencode(base64_encode("adulto"));
+} 
+?>">Adulto</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['tipo']) || isset($_GET['idioma']) || isset($_GET['ano']) || isset($_GET['buscar']))
+{
+    if(isset($_GET['buscar'])){
+        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+    }
+    if(isset($_GET['tipo'])){
+     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "publico=".urlencode(base64_encode("infantil")).$enlace;
+}else{
+    echo"publico=".urlencode(base64_encode("infantil"));
+} 
+?>">Infantil</a><br>
+</div>
+<br>
+<hr>
+<br>
+<h3><p align="center">Idioma</p></h3>
+<div id="menuhorizontal">
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
+{
+    if(isset($_GET['buscar'])){
+        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+    }
+    if(isset($_GET['tipo'])){
+     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "idioma=".urlencode(base64_encode("castellano")).$enlace;
+}else{
+    echo"idioma=".urlencode(base64_encode("castellano"));
+} 
+?>">Castellano</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
+{
+    if(isset($_GET['buscar'])){
+        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+    }
+    if(isset($_GET['tipo'])){
+     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "idioma=".urlencode(base64_encode("ingles")).$enlace;
+}else{
+    echo"idioma=".urlencode(base64_encode("ingles"));
+} 
+?>">Inglés</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
+{
+    if(isset($_GET['buscar'])){
+        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+    }
+    if(isset($_GET['tipo'])){
+     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['ano'])){
+        $enlace = "&ano=".$_GET['ano'].$enlace; 
+    }
+    echo "idioma=".urlencode(base64_encode("frances")).$enlace;
+}else{
+    echo"idioma=".urlencode(base64_encode("frances"));
+} 
+?>">Francés</a><br>
+</div>
+<br>
+<hr>
+<br>
+<h3><p align="center">Fecha publicación</p></h3>
+<div id="menuhorizontal">
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['idioma']) || isset($_GET['buscar']))
+{
+    if(isset($_GET['buscar'])){
+        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+    }
+    if(isset($_GET['tipo'])){
+     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    echo "ano=".urlencode(base64_encode("10")).$enlace;
+}else{
+    echo"ano=".urlencode(base64_encode("10"));
+} 
+?>">Menos de 10 años</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['idioma']) || isset($_GET['buscar']))
+{
+    if(isset($_GET['buscar'])){
+        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+    }
+    if(isset($_GET['tipo'])){
+     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    echo "ano=".urlencode(base64_encode("20")).$enlace;
+}else{
+    echo"ano=".urlencode(base64_encode("20"));
+} 
+?>">Menos de 20 años</a><br>
+<a href="libros.php?
+<?php
+$enlace ="";
+if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['idioma']) || isset($_GET['buscar']))
+{
+    if(isset($_GET['buscar'])){
+        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+    }
+    if(isset($_GET['tipo'])){
+     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    }
+    if(isset($_GET['publico'])){
+        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    }
+    if(isset($_GET['idioma'])){
+        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    }
+    echo "ano=".urlencode(base64_encode("30")).$enlace;
+}else{
+    echo"ano=".urlencode(base64_encode("30"));
+} 
+?>">Menos de 30 años</a><br>
+</div>
+<br>
+<hr>
+<br>
+<h3><p align="center">Borrar filtros</p></h3>
+<a href="libros.php">Borrar filtros</a>
+</div>
+</center>
+        </div>
+    </div>
+
     <div class="general">
     <div class="izquierda">
+    <div id="menupc">
 <h2><p align="center">FILTROS</p></h2>
 <br>
 <div id="menuhorizontal">
@@ -443,6 +834,7 @@ if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['idioma']) || 
 <h3><p align="center">Borrar filtros</p></h3>
 <a href="libros.php">Borrar filtros</a>
 </div>
+</div>
 <?php
 $inc = include("../con_db.php");
 if($inc) {
@@ -503,7 +895,7 @@ if($inc) {
                 </div>
                 <div class="der">
                     <header class="cabeza">
-                        <h3><?php echo $consulta;?></h3>
+                        <h3><?php echo $titulo;?></h3>
                         <div>
                             <p><b>Autor: </b><?php echo $autor;?></p>
                             <p><b>Disponible: </b><?php if($disponible >= 1){echo "SI";}else{echo "NO";}?></p>
@@ -520,7 +912,7 @@ if($inc) {
                         }
                 ?>
             </ul>
-            <br><br><br>
+            <br><br><br><br><br><br>
             <button id="mostrar">Mostrar Elementos Ocultos</button>
                     </div>
             <?php
@@ -529,6 +921,7 @@ if($inc) {
 mysqli_close($conex);
 ?>
 </div>
+<br><br>
 </main>
 <footer>
         <div class="pie">
@@ -568,6 +961,16 @@ document.addEventListener("DOMContentLoaded", function() {
         cambio.innerHTML = '<?php echo $link; ?>';
     }
 });
-</script>
+
+</script><script>
+document.getElementById("desplegar").addEventListener("click", function() {
+            var filtros = document.getElementById("filtrosmovil");
+            if (filtros.style.display === "none") {
+                filtros.style.display = "block";
+            } else {
+                filtros.style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>

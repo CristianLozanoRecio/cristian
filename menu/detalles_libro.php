@@ -34,7 +34,7 @@ if(isset($_SESSION["name"])){
                 <nav>
                     <ul>
                         <li><a href="../principal.php">Inicio</a></li>
-                        <li><a href="#">Nosotros</a></li>
+                        <li><a href="VERreservas.php">Reservas</a></li>
                         <li><a href="#">Horarios</a></li>
                         <li><a href="libros.php">Libros</a></li>
                         <li id="cambio"><a href="../registroinicio/iniciar_sesion.php">INICIAR SESIÓN</a></li>

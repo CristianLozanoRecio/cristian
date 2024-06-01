@@ -6,6 +6,8 @@ $fechaActual->modify('+7 days');
 $fechaActual->setTime(11, 0);
 $fechaFinal = $fechaActual->format('Y-m-d H:i:s');
 
+$_SESSION["fecha_fin"] = $fechaFinal;
+
 $consulta = "INSERT INTO reserva (isbn_libro, nombre_usuario,fecha_fin) VALUES ('" . $_SESSION["isbn"] . "', '" . $_SESSION["name"] . "', '" . $fechaFinal . "')";
 $resultado = mysqli_query($conex, $consulta);
 

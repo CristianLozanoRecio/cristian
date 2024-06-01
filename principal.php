@@ -37,7 +37,7 @@ if(isset($_SESSION["name"])){
                         <li><a href="menu/VERreservas.php">Reservas</a></li>
                         <li><a href="#">Horarios</a></li>
                         <li><a href="menu/libros.php">Libros</a></li>
-                        <li id="cambio"><a href="registroinicio/iniciar_sesion.php">INICIAR SESIÓN</a></li>
+                        <li id="cambio"><a href="registroinicio/iniciar_sesion.php">Iniciar Sesión</a></li>
                         <li><div style="display: flex;">
                             <form method="get" action="menu/libros.php"> 
                                 <div class="buscar">
@@ -52,9 +52,12 @@ if(isset($_SESSION["name"])){
             </div>
         </div>
     </header>
-    <div class="slider">
-        <img src="imagenes/slider1.png"/>
-    </div>
+    <main>
+        <h1 style="Font-Family: Cambria Bold;">Los libros que necesitas en TuBiblioWeb</h1>
+        <h3>Registrate en nuestra biblioteca física y accede a todas la funcionalidades de la web</h3>
+        <br><br>
+        <button>Información</button>
+    </main>
     <footer>
         <div class="pie">
             <table class="tablapie">
@@ -81,52 +84,13 @@ if(isset($_SESSION["name"])){
             </table>
         </div>
     </footer>
-    
-<script>
-        var currentSlide = 0;
-var imagenes = [
-    "imagenes/slider1.png",/*  imágenes tengo que cambiarlas */
-    "imagenes/portada3.png",
-    "imagenes/portada.png"
-];
-
-var totalSlides = imagenes.length;
-
-function showSlide(index) {
-    if (index < 0) {
-        currentSlide = totalSlides - 1;
-    } else if (index >= totalSlides) {
-        currentSlide = 0;
-    } else {
-        currentSlide = index;
-    }
-
-    var imageUrl = imagenes[currentSlide];
-    var sliderImg = document.querySelector('.slider img');
-    sliderImg.src = imageUrl;
-}
-
-function prevSlide() {
-    showSlide(currentSlide - 1);
-}
-function nextSlide() {
-    showSlide(currentSlide + 1);
-}
-showSlide(currentSlide);
-function startSlider() {
-    setInterval(() => {
-        nextSlide();
-    }, 3000);
-}
-startSlider();
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var cambio = document.getElementById("cambio");
-        if (cambio) {
-            cambio.innerHTML = '<?php echo $link; ?>';
-        }
-    });
-</script>
 </body>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var cambio = document.getElementById("cambio");
+    if (cambio) {
+        cambio.innerHTML = '<?php echo $link; ?>';
+    }
+});
+</script>
 </html>

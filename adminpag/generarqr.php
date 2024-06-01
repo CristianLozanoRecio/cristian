@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = trim($_POST['name']);
     $passw = trim($_POST['passw']);
 
-    $url = "http://localhost/cristian/registroinicio/iniciar_sesion.php?name=".urlencode(base64_encode($name))."&passw=".urlencode(base64_encode($passw));
+    $url = "http:///cristian/registroinicio/iniciar_sesion.php?name=".urlencode(base64_encode($name))."&passw=".urlencode(base64_encode($passw));
     
     ob_start();
 

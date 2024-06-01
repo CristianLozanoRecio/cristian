@@ -34,10 +34,10 @@ if(isset($_SESSION["name"])){
                 <nav>
                     <ul>
                         <li><a href="../principal.php">Inicio</a></li>
-                        <li><a href="#">Nosotros</a></li>
+                        <li><a href="VERreservas.php">Reservas</a></li>
                         <li><a href="#">Horarios</a></li>
                         <li><a href="libros.php">Libros</a></li>
-                        <li id="cambio"><a href="../registroinicio/iniciar_sesion.php">INICIAR SESIÓN</a></li>
+                        <li id="cambio"><a href="../registroinicio/iniciar_sesion.php">Iniciar Sesión</a></li>
                         <li><div style="display: flex;">
                             <form method="get" action="libros.php"> 
                                 <div class="buscar">
@@ -51,9 +51,8 @@ if(isset($_SESSION["name"])){
                 </nav>
             </div>
         </div>
-    </header>
+    </header><br><br><br><br>
     <main>
-    <br><br><br><br><br><br>
     <?php 
     include("../con_db.php");
         $consulta = "SELECT * FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE isbn = '" . $_SESSION["isbn"] . "'";
@@ -67,14 +66,51 @@ if(isset($_SESSION["name"])){
             $imagen_url = $row["portada_libro"];
             $autor = $row["nombre"];
             $titulo = $row["titulo"];
-            echo '<img src='.$imagen_url .' " width=20%/>';
+            $tipo = $row["tipo"];
+            echo '<img src='.$imagen_url .' " width=300vw/>';
                 ?>
-            <h3>RESERVA COMPLETA!!! </h3>
+            <h3>RESERVA COMPLETA!!! </h3><br>
+            <p>Tienes <?php echo $_SESSION["fecha_fin"]; ?> para recoger el libro</p>
                 <?php 
                         }
                     }
+                    $consulta = "SELECT * FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE tipo = '" . $tipo . "' ORDER BY RAND() 
+                    LIMIT 3" ;
+                    $resultado = mysqli_query($conex,$consulta);
+                if($resultado) {
+                    ?>
+                    <h2 style="margin-top:20vh;">Nuestras Recomendaciones Por Género</h2>
+                    <table >
+                            <?php
+                     $libros = [];
+                    while ($row = $resultado->fetch_assoc()) {
+                        $libros[] = $row;
+                    }
+
+                    if (count($libros) > 0) {
+                        echo '<table style="width: 100%; text-align: center;">';
+
+                        // Imprimir las imágenes en una fila
+                        echo '<tr>';
+                        foreach ($libros as $libro) {
+                            echo '<td><img src="' . $libro["portada_libro"] . '" width="200vw" /></td>';
+                        }
+                        echo '</tr>';
+
+                        // Imprimir los títulos y autores en otra fila
+                        echo '<tr>';
+                        foreach ($libros as $libro) {
+                            echo '<td>' . $libro["titulo"] . '<br><a href="detalles_libro.php?isbn=' . urlencode(base64_encode($libro["isbn"])) . '">Ver detalles</a></td>';
+                        }
+                        echo '</tr>';
+
+                        echo '</table>';
+                    } 
+                                                        
+                                }
                     mysqli_close($conex);
                 ?>
+                <br><br><br>
                 
 </main>
         <div class="pie">

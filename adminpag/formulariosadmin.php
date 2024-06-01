@@ -138,6 +138,7 @@ if(isset($_GET["q"])){
                 </select>
             </div>
         </div>
+        <div class="rowLARGO">
         <div class="inputLARGO">
             <label for="publico">Selecciona un publico:</label>
                 <select name="publico" id="idioma">
@@ -146,6 +147,11 @@ if(isset($_GET["q"])){
                     <option value="Adulto">Adulto</option>
                 </select>
             </div>
+            <div class="inputLARGO">
+                <label for="disponible">Unidades: </label>
+                <input type="number" id="disponible" name="disponible">
+            </div>
+    </div>
         <label for="sinopsis">Sinopsis: </label>
         <textarea class="cuadrotext" name="sinopsis"></textarea>
         <center>
@@ -302,6 +308,7 @@ if(isset($_GET["q"])){
                 </select>
             </div>
         </div>
+        <div class="rowLARGO">
         <div class="inputLARGO">
             <label for="publico">Selecciona un publico:</label>
                 <select name="publico" id="idioma">
@@ -310,6 +317,11 @@ if(isset($_GET["q"])){
                     <option value="Adulto">Adulto</option>
                 </select>
             </div>
+            <div class="inputLARGO">
+                <label for="disponible">Unidades: </label>
+                <input type="number" id="disponible" name="disponible">
+            </div>
+    </div>
         <label for="sinopsis">Sinopsis: </label>
         <textarea class="cuadrotext" name="sinopsis"></textarea>
         <center>

@@ -18,11 +18,13 @@ body{
 
 .izquierda {
     width: 20%; 
+    float: left;
 }
 
 .derecha {
     width: 70%; 
     text-align: left;
+    float: right;
      } 
 .listalibros{
     list-style: none;
@@ -30,7 +32,7 @@ body{
 .estiloli{
     padding-left: 0px;
     padding-top: 2em;
-    margin-top: 4em;
+    margin-top: 6em;
     border-top: 1px solid rgb(221, 221, 221);
 }
 .izq{
@@ -43,8 +45,7 @@ body{
     width: 50%;
 }
 .img{
-width: 70%;
-max-width: 70%;
+width: 10vw;
 }
 .cabeza{
 margin-bottom: 1em;
@@ -180,4 +181,37 @@ margin-right: 0;
 
 .buscar input:focus {
   width: 340px;
+}
+#menumovil{
+    display: none;
+}
+#desplegar{
+    display: none;
+}
+@media (max-width: 650px) {
+    #menupc {
+        display: none;
+    }
+    #menumovil{
+        display: block;
+    }
+    #desplegar {
+        display:block;
+    }
+    .izquierda {
+        float: none;
+        display: none;
+    }
+    .derecha {
+        width: 100%;
+        margin-right: 10px;
+    }
+    .img{
+        width: 20vw;
+    }
+    .der{
+        margin-left: 20vw;
+        width: 80%;
+    }
+
 }

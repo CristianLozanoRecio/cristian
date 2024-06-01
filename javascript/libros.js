@@ -7,15 +7,9 @@ document.getElementById("mostrar").addEventListener('click', function() {
     for (var i = indiceMostrar; i < indiceMostrar + mostrarCantidad && i < elementosOcultos.length; i++) {
         elementosOcultos[i].style.display = 'list-item';
     }
-
-    // Actualizar el índice
-    indiceMostrar += mostrarCantidad;
-
-    // Truncar las sinopsis de todos los elementos visibles (incluidos los recién mostrados)
     truncarSinopsis();
 
-    // Ocultar el botón si no hay más elementos ocultos para mostrar
-    if (indiceMostrar >= elementosOcultos.length) {
+    if (elementosOcultos.length-3 <= 0) {
         document.getElementById("mostrar").style.display = 'none';
     }
 });
@@ -43,4 +37,11 @@ function truncarSinopsis() {
 // Aplicar truncamiento inicial a las sinopsis
 document.addEventListener('DOMContentLoaded', function() {
     truncarSinopsis();
+    var elementosOcultos = document.querySelectorAll('.estiloli[style="display: none;"]');
+    if (elementosOcultos.length-3 <= 0) {
+        document.getElementById("mostrar").style.display = 'none';
+    }
+    else{
+        document.getElementById("mostrar").style.display = 'block';
+    }
 });
