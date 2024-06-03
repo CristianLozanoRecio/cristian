@@ -1,3 +1,4 @@
+/* Estilos generales */
 form {
     padding: 0.5vw 1vw;
     font-size: 1vw;
@@ -14,15 +15,15 @@ form {
 h1{
     text-align: center;
 }
+
 input[type="text"],
-input[type="password"]
-{
-  font-size: 1.3vw;
-  width: 90%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 15px;
+input[type="password"] {
+    font-size: 1.3vw;
+    width: 90%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
 }
 
 input[type="submit"] {
@@ -36,5 +37,31 @@ input[type="submit"] {
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
-        margin: 0px 20px;
+    margin: 0px 20px;
+}
+
+@media (max-width: 650px) {
+    form {
+        font-size: 4vw;
+        width: 80%;
+        margin: 20px auto;
+        padding: 5vw;
+        margin-top: 25%;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        font-size: 4vw; 
+        width: 90%;
+        padding: 10px;
+    }
+
+    input[type="submit"] {
+        font-size: 4vw; 
+        width: 70%; 
+        padding: 10px;
+        margin: 10px auto;
+        display: block; 
+        
+    }
 }

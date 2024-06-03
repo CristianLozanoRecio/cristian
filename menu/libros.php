@@ -1,11 +1,19 @@
 <?php
 session_start();
+$_SESSION['sitio'] = 'libros';
 if(isset($_SESSION["name"])){
     if ($_SESSION["name"] === "admin") {
-        $link = '<a href="../adminpag/formulariosadmin.php">PAG ADMIN</a>';
+        $link = '<a href="adminpag/formulariosadmin.php">PAG ADMIN</a>';
+        $link2 = '<a href="adminpag/formulariosadmin.php"><i class="fa-solid fa-hat-cowboy"></i>PAG ADMIN</a>';
+
     } else {
-        $link = '<a href="../registroinicio/cerrar_sesion.php">Cerrar sesión</a>';
+        $link = '<a href="registroinicio/cerrar_sesion.php">Cerrar sesión</a>';
+        $link2 = '<a href="registroinicio/cerrar_sesion.php"><i class="fa-solid fa-door-closed"></i>Cerrar sesión</a>';
     }
+}else{
+    $link = '<a href="registroinicio/iniciar_sesion.php">Iniciar Sesión</a>';
+    $link2 = '<a href="registroinicio/iniciar_sesion.php"><i class="fa-solid fa-door-open"></i>Iniciar Sesión</a>';
+
 }
 
 ?>
@@ -23,39 +31,90 @@ if(isset($_SESSION["name"])){
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <header class="cerebro">
         <div class="header-contenido">
             <div class="logo">
-                <a href="../principal.php" style="color: inherit; text-decoration: none;"><h1>TuBiblio<b>Web</b></h1></a>
+            <a href="../principal.php" style="color: inherit; text-decoration: none;"><h1>TuBiblio<b>Web</b></h1></a>
             </div>
             <div class="menu">
                 <nav>
                     <ul>
-                        <li><a href="../principal.php">Inicio</a></li>
-                        <li><a href="VERreservas.php">Reservas</a></li>
-                        <li><a href="#">Horarios</a></li>
-                        <li><a href="#">Libros</a></li>
-                        <li id="cambio"><a href="../registroinicio/iniciar_sesion.php">INICIAR SESIÓN</a></li>
-                        <li><div style="display: flex;">
-                            <form method="get" action="libros.php"> 
-                                <div class="buscar">
+                        <li><a href="../principal.php" id="inicio">Inicio</a></li>
+                        <li><a href="VERreservas.php" id="reserva">Reservas</a></li>
+                        <li><a href="/info.php" id="informacion">Información</a></li>
+                        <li><a href="libros.php" id="libros">Libros</a></li>
+                        <li id="cambio"></li>
+                        <li ><div class="busqueda2">
+            <form method="get" action="libros.php"> 
+                     <div class="buscar">
                                 <input type="text" placeholder="Búsqueda por título" name="buscar" required />
                                 <div class="btn">
-                                    <i class="fas fa-search icon"></i>
+                                    <button class="pulsarbuscar"><i class="fas fa-search icon fa-2x"></i></button>
+                               </div>
                                 </div>
                         </form>
-                            </li>
+            </div>
+        </li>
+                    </ul>
+                </nav>
+                <div class="busqueda" >
+            <form method="get" action="libros.php"> 
+                     <div class="buscar">
+                                <input type="text" placeholder="Búsqueda por título" name="buscar" required />
+                                <div class="btn">
+                                    <button class="pulsarbuscar"><i class="fas fa-search icon fa-2x"></i></button>
+                               </div>
+                                </div>
+                        </form>
+                        </div>
+                        </div>
+            <div class="menu2">
+                <nav>
+                    <ul>
+                            <li><a href="#" class="icon-button" id="menumovil">
+                            <i class="fa-solid fa-bars fa-2x"></i>
+                            </a></li>
+                            <div class="busqueda" id="buscar2">
+            <form method="get" action="libros.php"> 
+                     <div class="buscar">
+                                <input type="text" placeholder="Búsqueda por título" name="buscar" required />
+                                <div class="btn">
+                                    <button class="pulsarbuscar"><i class="fas fa-search icon fa-2x"></i></button>
+                               </div>
+                                </div>
+                        </form>
                     </ul>
                 </nav>
             </div>
-        </div>
 
-</div>
-    </div>
     </header>
     <main>
+        <div id="menulateralmovil">
+            <nav>
+                <ul>
+                    <li><a href="../principal.php" ><i class="fa-solid fa-house"></i>Inicio</a></li>
+                    <br>
+                    <hr style="border: 1px solid black;">
+                    <li><a href="VERreservas.php" ><i class="fa-solid fa-calendar-check"></i>Reservas</a></li>
+                    <br>
+                    <hr style="border: 1px solid black;">
+                    <li><a href="info.php" ><i class="fa-solid fa-info"></i>Información</a></li>
+                    <br>
+                    <hr style="border: 1px solid black;">
+                    <li><a href="libros.php" id="libros2"><i class="fa-solid fa-book"></i>Libros</a></li>
+                    <br>
+                    <hr style="border: 1px solid black;">
+                    <li id="cambio2"><a href="../registroinicio/iniciar_sesion.php"><i class="fa-solid fa-door-open"></i>Iniciar Sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+
     <br><br><br><br>
     <br>
     <div id="menumovil">
@@ -888,10 +947,12 @@ if($inc) {
 
                 ?>
 
-        <li class="estiloli" <?php if ($contador > 3) echo 'style="display: none;"'; ?>>
+        <li class="estiloli" <?php
+         if ($contador > 3){ echo 'style="display: none;"'; }
+         ?>>
             <div class="estilo-div">
                 <div class="izq">
-                    <?php echo '<img src='.$imagen_url .' " class="img"/>';?>
+                <a href="detalles_libro.php?isbn=<?php echo urlencode(base64_encode($isbn)); ?>" title="<?php echo $titulo;?> (Ver detalles)"><img src="<?php echo $imagen_url;?>" class="img"/></a>
                 </div>
                 <div class="der">
                     <header class="cabeza">
@@ -907,12 +968,14 @@ if($inc) {
                     <a href="detalles_libro.php?isbn=<?php echo urlencode(base64_encode($isbn)); ?>">Ver detalles</a>
                 </div>
             </div>
+            <br><br><br>
         </li>
                 <?php
                         }
                 ?>
+                
             </ul>
-            <br><br><br><br><br><br>
+
             <button id="mostrar">Mostrar Elementos Ocultos</button>
                     </div>
             <?php
@@ -955,14 +1018,44 @@ mysqli_close($conex);
 </footer>
 <script src="../javascript/libros.js"></script>
 <script>
+        $(document).ready(function(){
+            $('#menumovil').click(function(){
+                $('#buscar2').toggle(); 
+                var $menu = $('#menulateralmovil');
+                if ($menu.width() === 0) {
+                    $menu.animate({
+                        width: '100%', 
+                        right: '0'
+                    }, 'slow');
+                } else {
+                    $menu.animate({
+                        width: '0', 
+                    }, 'slow');
+                }
+            });
+        });
+
+    </script>
+    <script>
 document.addEventListener("DOMContentLoaded", function() {
     var cambio = document.getElementById("cambio");
     if (cambio) {
         cambio.innerHTML = '<?php echo $link; ?>';
     }
-});
 
-</script><script>
+    var cambio2 = document.getElementById("cambio2");
+    if (cambio2) {
+        cambio2.innerHTML = '<?php echo $link2; ?>';
+    }
+    <?php 
+    if($_SESSION['sitio'] == 'libros'){
+    ?>
+    document.getElementById("libros").style.color = 'orange';
+    document.getElementById("libros2").style.color = 'aliceblue';
+    <?php }?>
+});
+</script>
+<script>
 document.getElementById("desplegar").addEventListener("click", function() {
             var filtros = document.getElementById("filtrosmovil");
             if (filtros.style.display === "none") {
@@ -974,3 +1067,6 @@ document.getElementById("desplegar").addEventListener("click", function() {
     </script>
 </body>
 </html>
+<?php
+$_SESSION['sitio'] = '';
+?>
