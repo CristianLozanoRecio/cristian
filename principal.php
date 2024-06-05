@@ -47,13 +47,13 @@ if(isset($_SESSION["name"])){
                     <ul>
                         <li><a href="#" id="inicio">Inicio</a></li>
                         <li><a href="menu/VERreservas.php" id="reserva">Reservas</a></li>
-                        <li><a href="#" id="informacion">Horarios</a></li>
+                        <li><a href="#" id="informacion">Información</a></li>
                         <li><a href="menu/libros.php" id="libros">Libros</a></li>
                         <li id="cambio"></li>
                         <li ><div class="busqueda2">
             <form method="get" action="menu/libros.php"> 
                      <div class="buscar">
-                                <input type="text" placeholder="Búsqueda por título" name="buscar" required />
+                                <input type="text" placeholder="Búsqueda por título" name="titulo" required />
                                 <div class="btn">
                                     <button class="pulsarbuscar"><i class="fas fa-search icon fa-2x"></i></button>
                                </div>
@@ -66,7 +66,7 @@ if(isset($_SESSION["name"])){
                 <div class="busqueda" >
             <form method="get" action="menu/libros.php"> 
                      <div class="buscar">
-                                <input type="text" placeholder="Búsqueda por título" name="buscar" required />
+                                <input type="text" placeholder="Búsqueda por título" name="titulo" required />
                                 <div class="btn">
                                     <button class="pulsarbuscar"><i class="fas fa-search icon fa-2x"></i></button>
                                </div>
@@ -83,7 +83,7 @@ if(isset($_SESSION["name"])){
                             <div class="busqueda" id="buscar2">
             <form method="get" action="menu/libros.php"> 
                      <div class="buscar">
-                                <input type="text" placeholder="Búsqueda por título" name="buscar" required />
+                                <input type="text" placeholder="Búsqueda por título" name="titulo" required />
                                 <div class="btn">
                                     <button class="pulsarbuscar"><i class="fas fa-search icon fa-2x"></i></button>
                                </div>
@@ -98,7 +98,7 @@ if(isset($_SESSION["name"])){
         <div id="menulateralmovil">
             <nav>
                 <ul>
-                    <li><a href="#"><i class="fa-solid fa-house"></i>Inicio</a></li>
+                    <li><a href="#" id="inicio2"><i class="fa-solid fa-house"></i>Inicio</a></li>
                     <br>
                     <hr style="border: 1px solid black;">
                     <li><a href="menu/VERreservas.php"><i class="fa-solid fa-calendar-check"></i>Reservas</a></li>
@@ -179,6 +179,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if($_SESSION['sitio'] == 'inicio'){
     ?>
     document.getElementById("inicio").style.color = 'orange';
+    document.getElementById("inicio2").style.color = 'aliceblue';
     <?php }?>
 });
 </script>

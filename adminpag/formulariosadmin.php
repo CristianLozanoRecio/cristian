@@ -10,66 +10,76 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
 <meta name="viewport" content ="width=device-width, initial-scale=1.0">
 <title>MENÚ PÁGINA</title>
 <link rel="stylesheet" href="../estilos/estiloformadmin.css"/>
+<link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
 </head>
 <body>
 <div id="general">
     <div id="izq">
             <div id="menulateralB">
-                <a href="#" id="masGrande"><img src="../imagenes/menus.png" width="80%"></a>
-                <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarusuario")); ?>"><img src="../imagenes/usuario.png" width="80%"></a>
+                <a href="#" id="masGrande"><i class="fa-solid fa-bars fa-3x"></i></a>
+                <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarusuario")); ?>"><i class="fa-regular fa-user fa-3x"></i></a>
                 <br>
-                <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarlibro")); ?>"><img src="../imagenes/libro.png" width="80%"></a>
+                <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarlibro")); ?>"><i class="fa-solid fa-book fa-3x"></i></a>
                 <br>
-                <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarautor")); ?>"><img src="../imagenes/lapiz.png" width="80%"></a>
+                <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarautor")); ?>"><i class="fa-solid fa-pencil fa-3x"></i></a>
                 <br>
-                <a href="#"> <img src="../imagenes/reserva.png" width="80%" ></a> 
+                <a href="#"> <i class="fa-solid fa-calendar-check fa-3x"></i></a> 
                 <br>
-                <a href="#"> <img src="../imagenes/consulta.png" width="80%" ></a>
-                <br><br>
-                <a href="../registroinicio/cerrar_sesion.php">CERRAR SESIÓN</a>
+                <a href="#"> <i class="fa-solid fa-magnifying-glass fa-3x"></i></a>
                 <br>
-                <a href="../principal.php">VOLVER</a>
+                <a href="../registroinicio/cerrar_sesion.php"><i class="fa-solid fa-right-from-bracket fa-3x"></i></a>
+                <br>
+                <a href="../principal.php"><i class="fa-solid fa-house  fa-3x"></i></a>
             </div>
         <div id="menulateralA">
             
-        <a href="#" id="maspequeño"><img src="../imagenes/menus.png" width="40%"></a>
-            <a href="#" id="pulsarusuario"><img src="../imagenes/usuario.png" width="40%"><span>Usuario</span></a>
+        <a href="#" id="maspequeño"><i class="fa-solid fa-bars fa-3x"></i></a>
+            <a href="#" id="pulsarusuario"><i class="fa-regular fa-user fa-3x"></i> Usuario<a>
             <div id="submenuUsuario">
             <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("borrarusuario")); ?>">Borrar</a>
                 <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarusuario")); ?>">Crear</a>
                 <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("editarusuario")); ?>">Modificar</a>     
             </div>
             <br>
-            <a href="#" id="pulsarlibro"><img src="../imagenes/libro.png" width="40%" ><span>Libro</span></a>
+            <a href="#" id="pulsarlibro"><i class="fa-solid fa-book fa-3x"></i> Libros</a>
             <div id="submenuLibro">
             <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("borrarlibro")); ?>">Borrar</a>
             <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarlibro")); ?>">Crear</a>
             <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("actualizarlibro")); ?>">Modificar</a>
             </div>
             <br>
-            <a href="#" id="pulsarautor"><img src="../imagenes/lapiz.png" width="40%" ><span>Autores</span></a>
+            <a href="#" id="pulsarautor"><i class="fa-solid fa-pencil fa-3x"></i>Autores</a>
             <div id="submenuAutor">
                 <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("borrarautor")); ?>">Borrar</a>
                 <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("insertarautor")); ?>">Crear</a>
                 <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("editarautor")); ?>">Modificar</a>
             </div>
             <br>
-            <a href="#" id="pulsarreserva"><img src="../imagenes/reserva.png" width="40%"><span>Reservas</span></a>
+            <a href="#" id="pulsarreserva"><i class="fa-solid fa-calendar-check fa-3x"></i>Reservas</a>
             <div id="submenuReserva">
                 <a href="formulariosadmin.php?q=<?php echo urlencode(base64_encode("borrareserva")); ?>">Borrar</a>
             </div>
             <br>
-            <br>
-            <a href="#" id="pulsarconsulta"><img src="../imagenes/consulta.png" width="40%"><span>Consulta</span></a>
+            <a href="#" id="pulsarconsulta"><i class="fa-solid fa-magnifying-glass fa-3x"></i>Consulta</a>
             <div id="submenuConsulta">
                 <a href="excelautor.php">Ver Tabla Autor</a>
                 <a href="excellibros.php">Ver Tabla libros</a>
                 <a href="excelusuario.php">Ver Tabla usuarios</a>
             </div>
             <br>
-            <a href="../registroinicio/cerrar_sesion.php">CERRAR SESIÓN</a>
+                <a href="../registroinicio/cerrar_sesion.php"><i class="fa-solid fa-right-from-bracket fa-3x"></i></a>
                 <br>
-                <a href="../principal.php">VOLVER</a>
+                <a href="../principal.php"><i class="fa-solid fa-house  fa-3x"></i></a>
         </div>
     </div>
 
@@ -100,13 +110,27 @@ if(isset($_GET["q"])){
             </div>
             <div class="inputLARGO">
                 <label for="ano_publicacion">Año publicación: </label>
-                <input type="number" id="ano_publicacion" name="ano_publicacion">
+                <input type="number" id="ano_publicacion" name="ano_publicacion"  max="9999">
             </div>
         </div>
         <div class="rowLARGO">
             <div class="inputLARGO">
                 <label for="autor">Autor: </label>
-                <input type="number" id="autor" name="autor">
+                <select id="autor" name="autor">
+                    <?php 
+                    include("../con_db.php");
+                     $consulta = "SELECT * FROM autor";
+                     $resultado = mysqli_query($conex,$consulta);
+                     if($resultado) {
+                        while($row = $resultado->fetch_array()){
+                            $id_autor = $row["id_autor"];
+                            $nombre = $row["nombre"];
+                            echo "<option value='".$id_autor."'>".$id_autor." ".$nombre."</option>";
+                        }
+                     }
+                     mysqli_close($conex);
+                    ?>
+                </select>
             </div>
             <div class="inputLARGO">
                 <label for="portada_libro">Portada del libro: </label>
@@ -203,7 +227,22 @@ if(isset($_GET["q"])){
 <div id="formuCORTO">
     <form id="formularioCORTO" method="post" >
         <h1>Borrar Autor</h1>
-        <input type="number" name="id" placeholder="ID autor" required>
+        <select id="autor" name="id">
+                    <?php 
+                    include("../con_db.php");
+                     $consulta = "SELECT * FROM autor";
+                     $resultado = mysqli_query($conex,$consulta);
+                     if($resultado) {
+                        while($row = $resultado->fetch_array()){
+                            $id_autor = $row["id_autor"];
+                            $nombre = $row["nombre"];
+                            echo "<option value='".$id_autor."'>".$id_autor." ".$nombre."</option>";
+                        }
+                     }
+                     mysqli_close($conex);
+                    ?>
+                </select>
+                <br><br>
         <center>
         <input type="submit" name="iniciarBORRARAUTOR" id="enviar">
         </center>
@@ -270,13 +309,28 @@ if(isset($_GET["q"])){
             </div>
             <div class="inputLARGO">
                 <label for="ano_publicacion">Año publicación: </label>
-                <input type="number" id="ano_publicacion" name="ano_publicacion">
+                <input type="number" id="ano_publicacion" name="ano_publicacion" max="9999">
             </div>
         </div>
         <div class="rowLARGO">
             <div class="inputLARGO">
-                <label for="autor">Autor: </label>
-                <input type="number" id="autor" name="autor">
+            <label for="autor">Autor: </label>
+                <select id="autor" name="autor">
+                <option value="seleccion" selected disabled> --SELECCIONA--</option>
+                    <?php 
+                    include("../con_db.php");
+                     $consulta = "SELECT * FROM autor";
+                     $resultado = mysqli_query($conex,$consulta);
+                     if($resultado) {
+                        while($row = $resultado->fetch_array()){
+                            $id_autor = $row["id_autor"];
+                            $nombre = $row["nombre"];
+                            echo "<option value='".$id_autor."'>".$id_autor." ".$nombre."</option>";
+                        }
+                     }
+                     mysqli_close($conex);
+                    ?>
+                </select>
             </div>
             <div class="inputLARGO">
                 <label for="portada_libro">Portada del libro: </label>
@@ -355,7 +409,23 @@ if($_GET["q"] === base64_encode("editarautor")){
         <div id="formuCORTO">
             <form id="formularioCORTO" method="post" >
                 <h1>Editar Autor</h1>
-                <input type="number" name="id_autor" placeholder="Id autor">
+                <label for="autor">Autor: </label><br>
+                <select id="autor" name="id_autor">
+                    <?php 
+                    include("../con_db.php");
+                     $consulta = "SELECT * FROM autor";
+                     $resultado = mysqli_query($conex,$consulta);
+                     if($resultado) {
+                        while($row = $resultado->fetch_array()){
+                            $id_autor = $row["id_autor"];
+                            $nombre = $row["nombre"];
+                            echo "<option value='".$id_autor."'>".$id_autor." ".$nombre."</option>";
+                        }
+                     }
+                     mysqli_close($conex);
+                    ?>
+                </select>
+                <br><br>
                 <input type="text" name="name" placeholder="Nombre autor">
                 <label for="biografia">Biografía: </label>
                 <textarea class="cuadrotext" name="biografia"></textarea>
@@ -433,6 +503,14 @@ document.getElementById('pulsarreserva').addEventListener('click', function(){
             submenu.style.display = "none";
         }
     }
+</script>
+<script>
+    $(document).ready(function() {
+        $('#autor').select2({
+            placeholder: 'Selecciona un autor',
+            allowClear: true
+        });
+    });
 </script>
 </body>
 </html>

@@ -3,16 +3,16 @@ session_start();
 $_SESSION['sitio'] = 'libros';
 if(isset($_SESSION["name"])){
     if ($_SESSION["name"] === "admin") {
-        $link = '<a href="adminpag/formulariosadmin.php">PAG ADMIN</a>';
-        $link2 = '<a href="adminpag/formulariosadmin.php"><i class="fa-solid fa-hat-cowboy"></i>PAG ADMIN</a>';
+        $link = '<a href="../adminpag/formulariosadmin.php">PAG ADMIN</a>';
+        $link2 = '<a href="../adminpag/formulariosadmin.php"><i class="fa-solid fa-hat-cowboy"></i>PAG ADMIN</a>';
 
     } else {
-        $link = '<a href="registroinicio/cerrar_sesion.php">Cerrar sesión</a>';
-        $link2 = '<a href="registroinicio/cerrar_sesion.php"><i class="fa-solid fa-door-closed"></i>Cerrar sesión</a>';
+        $link = '<a href="../registroinicio/cerrar_sesion.php">Cerrar sesión</a>';
+        $link2 = '<a href="../registroinicio/cerrar_sesion.php"><i class="fa-solid fa-door-closed"></i>Cerrar sesión</a>';
     }
 }else{
-    $link = '<a href="registroinicio/iniciar_sesion.php">Iniciar Sesión</a>';
-    $link2 = '<a href="registroinicio/iniciar_sesion.php"><i class="fa-solid fa-door-open"></i>Iniciar Sesión</a>';
+    $link = '<a href="../registroinicio/iniciar_sesion.php">Iniciar Sesión</a>';
+    $link2 = '<a href="../registroinicio/iniciar_sesion.php"><i class="fa-solid fa-door-open"></i>Iniciar Sesión</a>';
 
 }
 
@@ -53,7 +53,7 @@ if(isset($_SESSION["name"])){
                         <li ><div class="busqueda2">
             <form method="get" action="libros.php"> 
                      <div class="buscar">
-                                <input type="text" placeholder="Búsqueda por título" name="buscar" required />
+                                <input type="text" placeholder="Búsqueda por título" name="titulo" required />
                                 <div class="btn">
                                     <button class="pulsarbuscar"><i class="fas fa-search icon fa-2x"></i></button>
                                </div>
@@ -66,7 +66,7 @@ if(isset($_SESSION["name"])){
                 <div class="busqueda" >
             <form method="get" action="libros.php"> 
                      <div class="buscar">
-                                <input type="text" placeholder="Búsqueda por título" name="buscar" required />
+                                <input type="text" placeholder="Búsqueda por título" name="titulo" required />
                                 <div class="btn">
                                     <button class="pulsarbuscar"><i class="fas fa-search icon fa-2x"></i></button>
                                </div>
@@ -83,7 +83,7 @@ if(isset($_SESSION["name"])){
                             <div class="busqueda" id="buscar2">
             <form method="get" action="libros.php"> 
                      <div class="buscar">
-                                <input type="text" placeholder="Búsqueda por título" name="buscar" required />
+                                <input type="text" placeholder="Búsqueda por título" name="titulo" required />
                                 <div class="btn">
                                     <button class="pulsarbuscar"><i class="fas fa-search icon fa-2x"></i></button>
                                </div>
@@ -117,789 +117,380 @@ if(isset($_SESSION["name"])){
 
     <br><br><br><br>
     <br>
-    <div id="menumovil">
-        <button id="desplegar" >FILTROS</button>
-        <div id="filtrosmovil" style="display: none;">
-        <center>
-        <div id="menuhorizontal">
-<hr>
-<br>
 
+
+    <div id="menumovil">
+    <button id="desplegar" >FILTROS</button>
+    <div id="filtrosmovil">
+    <a href="#" id="cerrar"><i class="fa-solid fa-x fa-3x"></i></a>b
+<br>
+<?php
+$filtrartipo = ["publico", "ano_publicacion", "idioma","titulo","nombre"];
+$filtrarpublico = ["tipo", "ano_publicacion", "idioma","titulo","nombre"];
+$filtrarano = ["tipo", "publico", "idioma","titulo","nombre"];
+$filtraridioma = ["tipo", "publico", "ano_publicacion","titulo","nombre"];
+
+$enlacetipo = "";
+$enlacepublico = "";
+$enlaceano = "";
+$enlaceidioma = "";
+
+$totaltipo = "";
+$totalpublico = "";
+$totalano = "";
+$totalidioma = "";
+$anoactual = date('Y');
+
+
+for($i = 0; $i<5; $i++){
+    if(isset($_GET[$filtrartipo[$i]])){
+        $enlacetipo .= "&".$filtrartipo[$i]."=".$_GET[$filtrartipo[$i]];
+        if($filtrartipo[$i] === "ano_publicacion"){
+            $anoinicio = $anoactual - base64_decode($_GET[$filtrartipo[$i]]);
+            $totaltipo.= " AND ano_publicacion BETWEEN '$anoinicio' AND '".$anoactual."'";
+        } else if($filtrartipo[$i] === "titulo"){
+            $totaltipo.= " AND titulo LIKE '%".$_GET[$filtrartipo[$i]]."%'";
+        } else {
+            $totaltipo .= " AND $filtrartipo[$i] = '" . base64_decode($_GET[$filtrartipo[$i]]) . "'";
+        }
+    }
+    if(isset($_GET[$filtrarpublico[$i]])){
+        $enlacepublico .= "&".$filtrarpublico[$i]."=".$_GET[$filtrarpublico[$i]];
+        if($filtrarpublico[$i] === "ano_publicacion"){
+            $anoinicio = $anoactual - base64_decode($_GET[$filtrarpublico[$i]]);
+            $totalpublico.= " AND ano_publicacion BETWEEN '$anoinicio' AND '".$anoactual."'";
+        } else if($filtrarpublico[$i] === "titulo"){
+            $totalpublico.= " AND titulo LIKE '%".$_GET[$filtrarpublico[$i]]."%'";
+        } else {
+            $totalpublico .= " AND $filtrarpublico[$i] = '" . base64_decode($_GET[$filtrarpublico[$i]]) . "'";
+        }
+    }
+    if(isset($_GET[$filtrarano[$i]])){
+        $enlaceano .= "&".$filtrarano[$i]."=".$_GET[$filtrarano[$i]];
+        if($filtrarano[$i] === "titulo"){
+            $totalano.= " AND titulo LIKE '%".$_GET[$filtrarano[$i]]."%'";
+        } else {
+            $totalano .= " AND $filtrarano[$i] = '" . base64_decode($_GET[$filtrarano[$i]]) . "'";
+        }
+    }
+    if(isset($_GET[$filtraridioma[$i]])){
+        $enlaceidioma .= "&".$filtraridioma[$i]."=".$_GET[$filtraridioma[$i]];
+        if($filtraridioma[$i] === "ano_publicacion"){
+            $anoinicio = $anoactual - base64_decode($_GET[$filtraridioma[$i]]);
+            $totalidioma.= " AND ano_publicacion BETWEEN '$anoinicio' AND '".$anoactual."'";
+        } else if($filtraridioma[$i] === "titulo"){
+            $totalidioma.= " AND titulo LIKE '%".$_GET[$filtraridioma[$i]]."%'";
+        } else {
+            $totalidioma .= " AND $filtraridioma[$i] = '" . base64_decode($_GET[$filtraridioma[$i]]) . "'";
+        }
+    }
+}
+?>
+
+<h2>Filtrar por</h2>
+<br>
+<div id="menuhorizontal">
 <h3><p align="center">Género</p></h3>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "tipo=".urlencode(base64_encode("ciencia")).$enlace;
-}else{
-    echo"tipo=".urlencode(base64_encode("ciencia"));
-} 
-?>">Ciencia</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "tipo=".urlencode(base64_encode("arte")).$enlace;
-}else{
-    echo"tipo=".urlencode(base64_encode("arte"));
-} 
-?>">Arte</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "tipo=".urlencode(base64_encode("medicina")).$enlace;
-}else{
-    echo"tipo=".urlencode(base64_encode("medicina"));
-} 
-?>">Medicina</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "tipo=".urlencode(base64_encode("deporte")).$enlace;
-}else{
-    echo"tipo=".urlencode(base64_encode("deporte"));
-} 
-?>">Deporte</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "tipo=".urlencode(base64_encode("ficcion")).$enlace;
-}else{
-    echo"tipo=".urlencode(base64_encode("ficcion"));
-} 
-?>">Ficcion</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "tipo=".urlencode(base64_encode("aventura")).$enlace;
-}else{
-    echo"tipo=".urlencode(base64_encode("aventura"));
-} 
-?>">Aventura</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "tipo=".urlencode(base64_encode("religion")).$enlace;
-}else{
-    echo"tipo=".urlencode(base64_encode("religion"));
-} 
-?>">Religion</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "tipo=".urlencode(base64_encode("historia")).$enlace;
-}else{
-    echo"tipo=".urlencode(base64_encode("historia"));
-} 
-?>">Historia</a><br>
-</div>
 <br>
-<hr>
-<br>
-<h3><p align="center">Público</p></h3>
-<div id="menuhorizontal">
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['tipo']) || isset($_GET['idioma']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+<?php 
+include("../con_db.php");
+
+$tipo = ["ciencia","arte","medicina","deporte","ficción","aventura","religión","historia"];
+
+for($i = 0; $i < count($tipo); $i++) {
+    $consulta = "SELECT COUNT(*) AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE tipo = '".$tipo[$i]."'";
+    if(isset($_GET["tipo"]) && base64_decode($_GET['tipo'])=== $tipo[$i] ){
+        $consulta = "SELECT COUNT(*) AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE tipo = '".base64_decode($_GET['tipo'])."'";
     }
-    if(isset($_GET['tipo'])){
-     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    if(isset($_GET["tipo"]) && base64_decode($_GET['tipo']) != $tipo[$i] ){
+        $consulta = "SELECT 0 AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE tipo = '".base64_decode($_GET['tipo'])."'";
     }
-    if(isset($_GET['idioma'])){
-        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    $consulta = $consulta. " ".$totaltipo;
+    $resultado = mysqli_query($conex, $consulta);
+
+    if ($resultado) {
+        $fila = mysqli_fetch_assoc($resultado);
+        if ($fila !== null) {
+            $total = $fila['total'];
+        } else {
+            $total = 0;
+        }
+        if($total != 0){
+        echo '<a href="libros.php?tipo=' . urlencode(base64_encode($tipo[$i])) .  $enlacetipo . '" id="' . htmlspecialchars($tipo[$i]) . '">' . ucfirst(htmlspecialchars($tipo[$i])) . ' (' . $total . ')</a>';
+        }
     }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "publico=".urlencode(base64_encode("adulto")).$enlace;
-}else{
-    echo"publico=".urlencode(base64_encode("adulto"));
-} 
-?>">Adulto</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['tipo']) || isset($_GET['idioma']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['tipo'])){
-     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "publico=".urlencode(base64_encode("infantil")).$enlace;
-}else{
-    echo"publico=".urlencode(base64_encode("infantil"));
-} 
-?>">Infantil</a><br>
-</div>
-<br>
-<hr>
-<br>
+}
+
+mysqli_close($conex);
+?>
+
 <h3><p align="center">Idioma</p></h3>
-<div id="menuhorizontal">
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['tipo'])){
-     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "idioma=".urlencode(base64_encode("castellano")).$enlace;
-}else{
-    echo"idioma=".urlencode(base64_encode("castellano"));
-} 
-?>">Castellano</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['tipo'])){
-     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "idioma=".urlencode(base64_encode("ingles")).$enlace;
-}else{
-    echo"idioma=".urlencode(base64_encode("ingles"));
-} 
-?>">Inglés</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['tipo'])){
-     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "idioma=".urlencode(base64_encode("frances")).$enlace;
-}else{
-    echo"idioma=".urlencode(base64_encode("frances"));
-} 
-?>">Francés</a><br>
-</div>
 <br>
-<hr>
+<?php 
+include("../con_db.php");
+
+$idioma = ["castellano","inglés","francés"];
+
+for($i = 0; $i<count($idioma); $i++){
+    $consulta = "SELECT COUNT(*) AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE idioma = '".$idioma[$i]."'";
+    if(isset($_GET["idioma"]) && base64_decode($_GET['idioma'])=== $idioma[$i] ){
+        $consulta = "SELECT COUNT(*) AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE idioma = '".base64_decode($_GET['idioma'])."'";
+    }
+    if(isset($_GET["idioma"]) && base64_decode($_GET['idioma']) != $idioma[$i] ){
+        $consulta = "SELECT 0 AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE idioma = '".base64_decode($_GET['idioma'])."'";
+    }
+    $consulta = $consulta. " ".$totalidioma;
+    $resultado = mysqli_query($conex, $consulta);
+
+    if ($resultado) {
+        $fila = mysqli_fetch_assoc($resultado);
+        if ($fila !== null) {
+            $total = $fila['total'];
+        } else {
+            $total = 0;
+        }
+        if($total != 0){
+        echo '<a href="libros.php?idioma=' . urlencode(base64_encode($idioma[$i])) . $enlaceidioma . '" id = "'.htmlspecialchars($idioma[$i]).'">' .  ucfirst(htmlspecialchars($idioma[$i])) . ' (' . $total . ')</a>';
+        }
+    }
+}
+
+mysqli_close($conex);
+?>
+
+<h3><p align="center">Público</p></h3>
 <br>
-<h3><p align="center">Fecha publicación</p></h3>
-<div id="menuhorizontal">
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['idioma']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+<?php 
+include("../con_db.php");
+
+$publico = ["infantil","adulto"];
+
+for($i = 0; $i<count($publico); $i++){
+    $consulta = "SELECT COUNT(*) AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE publico = '".$publico[$i]."'";
+    if(isset($_GET["publico"]) && base64_decode($_GET['publico'])=== $publico[$i] ){
+        $consulta = "SELECT COUNT(*) AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE publico = '".base64_decode($_GET['publico'])."'";
     }
-    if(isset($_GET['tipo'])){
-     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    if(isset($_GET["publico"]) && base64_decode($_GET['publico']) != $publico[$i] ){
+        $consulta = "SELECT 0 AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE publico = '".base64_decode($_GET['publico'])."'";
     }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    $consulta = $consulta. " ".$totalpublico;
+    $resultado = mysqli_query($conex, $consulta);
+
+    if ($resultado) {
+        $fila = mysqli_fetch_assoc($resultado);
+        if ($fila !== null) {
+            $total = $fila['total'];
+        } else {
+            $total = 0;
+        }
+        if($total != 0){
+        echo '<a href="libros.php?publico=' . urlencode(base64_encode($publico[$i])) . $enlacepublico . '" id = "'.htmlspecialchars($publico[$i]).'">' .  ucfirst(htmlspecialchars($publico[$i])). ' (' . $total . ')</a>';
+        }
     }
-    if(isset($_GET['idioma'])){
-        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    echo "ano=".urlencode(base64_encode("10")).$enlace;
-}else{
-    echo"ano=".urlencode(base64_encode("10"));
-} 
-?>">Menos de 10 años</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['idioma']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['tipo'])){
-     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    echo "ano=".urlencode(base64_encode("20")).$enlace;
-}else{
-    echo"ano=".urlencode(base64_encode("20"));
-} 
-?>">Menos de 20 años</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['idioma']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['tipo'])){
-     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    echo "ano=".urlencode(base64_encode("30")).$enlace;
-}else{
-    echo"ano=".urlencode(base64_encode("30"));
-} 
-?>">Menos de 30 años</a><br>
-</div>
+}
+
+mysqli_close($conex);
+?>
+
+<h3><p align="center">Año publicación</p></h3>
 <br>
-<hr>
-<br>
+<?php 
+include("../con_db.php");
+
+$ano = ["10","20","30"];
+
+for($i = 0; $i<count($ano); $i++){
+    $anoactual = date('Y');
+    $anoinicio = $anoactual - $ano[$i];
+    $consulta = "SELECT COUNT(*) AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE ano_publicacion BETWEEN '$anoinicio' AND '$anoactual'";
+    if(isset($_GET["ano_publicacion"]) && base64_decode($_GET['ano_publicacion'])=== $ano[$i] ){
+        $consulta = "SELECT COUNT(*) AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE ano_publicacion BETWEEN '$anoinicio' AND '$anoactual'";
+    }
+    if(isset($_GET["ano_publicacion"]) && base64_decode($_GET['ano_publicacion']) != $ano[$i] ){
+        $consulta = "SELECT 0 AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE ano_publicacion BETWEEN '$anoinicio' AND '$anoactual'";
+    }
+    $consulta = $consulta. " ".$totalano;
+    $resultado = mysqli_query($conex, $consulta);
+
+    if ($resultado) {
+        $fila = mysqli_fetch_assoc($resultado);
+        if ($fila !== null) {
+            $total = $fila['total'];
+        } else {
+            $total = 0;
+        }
+        if($total != 0){
+        echo '<a href="libros.php?ano_publicacion=' . urlencode(base64_encode($ano[$i])) . $enlaceano. '" id = "'.htmlspecialchars($ano[$i]).'">Menos de ' .  ucfirst(htmlspecialchars($ano[$i])). ' años(' . $total . ')</a>';
+        }
+    }
+}
+
+mysqli_close($conex);
+?>
 <h3><p align="center">Borrar filtros</p></h3>
 <a href="libros.php">Borrar filtros</a>
-</div>
-</center>
-        </div>
+    </div>
+    </div>
     </div>
 
     <div class="general">
     <div class="izquierda">
     <div id="menupc">
-<h2><p align="center">FILTROS</p></h2>
+<h2>Filtrar por</h2>
 <br>
 <div id="menuhorizontal">
-<hr>
-<br>
 <h3><p align="center">Género</p></h3>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "tipo=".urlencode(base64_encode("ciencia")).$enlace;
-}else{
-    echo"tipo=".urlencode(base64_encode("ciencia"));
-} 
-?>">Ciencia</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "tipo=".urlencode(base64_encode("arte")).$enlace;
-}else{
-    echo"tipo=".urlencode(base64_encode("arte"));
-} 
-?>">Arte</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "tipo=".urlencode(base64_encode("medicina")).$enlace;
-}else{
-    echo"tipo=".urlencode(base64_encode("medicina"));
-} 
-?>">Medicina</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "tipo=".urlencode(base64_encode("deporte")).$enlace;
-}else{
-    echo"tipo=".urlencode(base64_encode("deporte"));
-} 
-?>">Deporte</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "tipo=".urlencode(base64_encode("ficcion")).$enlace;
-}else{
-    echo"tipo=".urlencode(base64_encode("ficcion"));
-} 
-?>">Ficcion</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "tipo=".urlencode(base64_encode("aventura")).$enlace;
-}else{
-    echo"tipo=".urlencode(base64_encode("aventura"));
-} 
-?>">Aventura</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "tipo=".urlencode(base64_encode("religion")).$enlace;
-}else{
-    echo"tipo=".urlencode(base64_encode("religion"));
-} 
-?>">Religion</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['idioma']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-     $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "tipo=".urlencode(base64_encode("historia")).$enlace;
-}else{
-    echo"tipo=".urlencode(base64_encode("historia"));
-} 
-?>">Historia</a><br>
-</div>
 <br>
-<hr>
-<br>
-<h3><p align="center">Público</p></h3>
-<div id="menuhorizontal">
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['tipo']) || isset($_GET['idioma']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+<?php 
+include("../con_db.php");
+
+$tipo = ["ciencia","arte","medicina","deporte","ficción","aventura","religión","historia"];
+
+for($i = 0; $i < count($tipo); $i++) {
+    $consulta = "SELECT COUNT(*) AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE tipo = '".$tipo[$i]."'";
+    if(isset($_GET["tipo"]) && base64_decode($_GET['tipo'])=== $tipo[$i] ){
+        $consulta = "SELECT COUNT(*) AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE tipo = '".base64_decode($_GET['tipo'])."'";
     }
-    if(isset($_GET['tipo'])){
-     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    if(isset($_GET["tipo"]) && base64_decode($_GET['tipo']) != $tipo[$i] ){
+        $consulta = "SELECT 0 AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE tipo = '".base64_decode($_GET['tipo'])."'";
     }
-    if(isset($_GET['idioma'])){
-        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
+    $consulta = $consulta. " ".$totaltipo;
+    $resultado = mysqli_query($conex, $consulta);
+
+    if ($resultado) {
+        $fila = mysqli_fetch_assoc($resultado);
+        if ($fila !== null) {
+            $total = $fila['total'];
+        } else {
+            $total = 0;
+        }
+        if($total != 0){
+        echo '<a href="libros.php?tipo=' . urlencode(base64_encode($tipo[$i])) .  $enlacetipo . '" id="' . htmlspecialchars($tipo[$i]) . '">' . ucfirst(htmlspecialchars($tipo[$i])) . ' (' . $total . ')</a>';
+        }
     }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "publico=".urlencode(base64_encode("adulto")).$enlace;
-}else{
-    echo"publico=".urlencode(base64_encode("adulto"));
-} 
-?>">Adulto</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['tipo']) || isset($_GET['idioma']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['tipo'])){
-     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "publico=".urlencode(base64_encode("infantil")).$enlace;
-}else{
-    echo"publico=".urlencode(base64_encode("infantil"));
-} 
-?>">Infantil</a><br>
-</div>
-<br>
-<hr>
-<br>
+}
+
+mysqli_close($conex);
+?>
+
 <h3><p align="center">Idioma</p></h3>
-<div id="menuhorizontal">
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['tipo'])){
-     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "idioma=".urlencode(base64_encode("castellano")).$enlace;
-}else{
-    echo"idioma=".urlencode(base64_encode("castellano"));
-} 
-?>">Castellano</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['tipo'])){
-     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "idioma=".urlencode(base64_encode("ingles")).$enlace;
-}else{
-    echo"idioma=".urlencode(base64_encode("ingles"));
-} 
-?>">Inglés</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['ano']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['tipo'])){
-     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['ano'])){
-        $enlace = "&ano=".$_GET['ano'].$enlace; 
-    }
-    echo "idioma=".urlencode(base64_encode("frances")).$enlace;
-}else{
-    echo"idioma=".urlencode(base64_encode("frances"));
-} 
-?>">Francés</a><br>
-</div>
 <br>
-<hr>
+<?php 
+include("../con_db.php");
+
+$idioma = ["castellano","inglés","francés"];
+
+for($i = 0; $i<count($idioma); $i++){
+    $consulta = "SELECT COUNT(*) AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE idioma = '".$idioma[$i]."'";
+    if(isset($_GET["idioma"]) && base64_decode($_GET['idioma'])=== $idioma[$i] ){
+        $consulta = "SELECT COUNT(*) AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE idioma = '".base64_decode($_GET['idioma'])."'";
+    }
+    if(isset($_GET["idioma"]) && base64_decode($_GET['idioma']) != $idioma[$i] ){
+        $consulta = "SELECT 0 AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE idioma = '".base64_decode($_GET['idioma'])."'";
+    }
+    $consulta = $consulta. " ".$totalidioma;
+    $resultado = mysqli_query($conex, $consulta);
+
+    if ($resultado) {
+        $fila = mysqli_fetch_assoc($resultado);
+        if ($fila !== null) {
+            $total = $fila['total'];
+        } else {
+            $total = 0;
+        }
+        if($total != 0){
+        echo '<a href="libros.php?idioma=' . urlencode(base64_encode($idioma[$i])) . $enlaceidioma . '" id = "'.htmlspecialchars($idioma[$i]).'">' .  ucfirst(htmlspecialchars($idioma[$i])) . ' (' . $total . ')</a>';
+        }
+    }
+}
+
+mysqli_close($conex);
+?>
+
+<h3><p align="center">Público</p></h3>
 <br>
-<h3><p align="center">Fecha publicación</p></h3>
-<div id="menuhorizontal">
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['idioma']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
+<?php 
+include("../con_db.php");
+
+$publico = ["infantil","adulto"];
+
+for($i = 0; $i<count($publico); $i++){
+    $consulta = "SELECT COUNT(*) AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE publico = '".$publico[$i]."'";
+    if(isset($_GET["publico"]) && base64_decode($_GET['publico'])=== $publico[$i] ){
+        $consulta = "SELECT COUNT(*) AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE publico = '".base64_decode($_GET['publico'])."'";
     }
-    if(isset($_GET['tipo'])){
-     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
+    if(isset($_GET["publico"]) && base64_decode($_GET['publico']) != $publico[$i] ){
+        $consulta = "SELECT 0 AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE publico = '".base64_decode($_GET['publico'])."'";
     }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
+    $consulta = $consulta. " ".$totalpublico;
+    $resultado = mysqli_query($conex, $consulta);
+
+    if ($resultado) {
+        $fila = mysqli_fetch_assoc($resultado);
+        if ($fila !== null) {
+            $total = $fila['total'];
+        } else {
+            $total = 0;
+        }
+        if($total != 0){
+        echo '<a href="libros.php?publico=' . urlencode(base64_encode($publico[$i])) . $enlacepublico . '" id = "'.htmlspecialchars($publico[$i]).'">' .  ucfirst(htmlspecialchars($publico[$i])). ' (' . $total . ')</a>';
+        }
     }
-    if(isset($_GET['idioma'])){
-        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    echo "ano=".urlencode(base64_encode("10")).$enlace;
-}else{
-    echo"ano=".urlencode(base64_encode("10"));
-} 
-?>">Menos de 10 años</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['idioma']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['tipo'])){
-     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    echo "ano=".urlencode(base64_encode("20")).$enlace;
-}else{
-    echo"ano=".urlencode(base64_encode("20"));
-} 
-?>">Menos de 20 años</a><br>
-<a href="libros.php?
-<?php
-$enlace ="";
-if(isset($_GET['tipo']) || isset($_GET['publico']) || isset($_GET['idioma']) || isset($_GET['buscar']))
-{
-    if(isset($_GET['buscar'])){
-        $enlace = "&buscar=".$_GET['buscar'].$enlace; 
-    }
-    if(isset($_GET['tipo'])){
-     $enlace = "&tipo=".$_GET['tipo'].$enlace; 
-    }
-    if(isset($_GET['publico'])){
-        $enlace = "&publico=".$_GET['publico'].$enlace; 
-    }
-    if(isset($_GET['idioma'])){
-        $enlace = "&idioma=".$_GET['idioma'].$enlace; 
-    }
-    echo "ano=".urlencode(base64_encode("30")).$enlace;
-}else{
-    echo"ano=".urlencode(base64_encode("30"));
-} 
-?>">Menos de 30 años</a><br>
-</div>
+}
+
+mysqli_close($conex);
+?>
+
+<h3><p align="center">Año publicación</p></h3>
 <br>
-<hr>
-<br>
+<?php 
+include("../con_db.php");
+
+$ano = ["10","20","30"];
+
+for($i = 0; $i<count($ano); $i++){
+    $anoactual = date('Y');
+    $anoinicio = $anoactual - $ano[$i];
+    $consulta = "SELECT COUNT(*) AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE ano_publicacion BETWEEN '$anoinicio' AND '$anoactual'";
+    if(isset($_GET["ano_publicacion"]) && base64_decode($_GET['ano_publicacion'])=== $ano[$i] ){
+        $consulta = "SELECT COUNT(*) AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE ano_publicacion BETWEEN '$anoinicio' AND '$anoactual'";
+    }
+    if(isset($_GET["ano_publicacion"]) && base64_decode($_GET['ano_publicacion']) != $ano[$i] ){
+        $consulta = "SELECT 0 AS total FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE ano_publicacion BETWEEN '$anoinicio' AND '$anoactual'";
+    }
+    $consulta = $consulta. " ".$totalano;
+    $resultado = mysqli_query($conex, $consulta);
+
+    if ($resultado) {
+        $fila = mysqli_fetch_assoc($resultado);
+        if ($fila !== null) {
+            $total = $fila['total'];
+        } else {
+            $total = 0;
+        }
+        if($total != 0){
+        echo '<a href="libros.php?ano_publicacion=' . urlencode(base64_encode($ano[$i])) . $enlaceano. '" id = "'.htmlspecialchars($ano[$i]).'">Menos de ' .  ucfirst(htmlspecialchars($ano[$i])). ' años(' . $total . ')</a>';
+        }
+    }
+}
+
+mysqli_close($conex);
+?>
 <h3><p align="center">Borrar filtros</p></h3>
 <a href="libros.php">Borrar filtros</a>
+</div>
 </div>
 </div>
 <?php
 $inc = include("../con_db.php");
 if($inc) {
     $consulta = "SELECT * FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE 1";
-    if (isset($_GET['buscar'])) {
-        $buscar =  $_GET['buscar'];
+    if (isset($_GET['nombre'])) {
+        $autor =  base64_decode($_GET['nombre']);
+        $consulta = "SELECT * FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE 1 AND AUTOR.nombre = '$autor'";
+    }
+    if (isset($_GET['titulo'])) {
+        $buscar =  $_GET['titulo'];
         $consultatipo = "AND titulo LIKE '%$buscar%'";
      $consulta = $consulta. " ".$consultatipo;
      }
@@ -919,13 +510,15 @@ if($inc) {
      $consulta = $consulta. " ".$consultatipo;
     }
     if (isset($_GET['ano'])) {
-        $ano =  base64_decode($_GET['ano']);
+        $ano =  base64_decode($_GET['ano_publicacion']);
         $anoactual = date('Y');
         $anoinicio = $anoactual - $ano;
         $consultatipo = "AND ano_publicacion BETWEEN '$anoinicio' AND '$anoactual'";
      $consulta = $consulta. " ".$consultatipo;
     }
-    if(!isset($_GET['tipo']) && !isset($_GET['publico']) && !isset($_GET['idioma']) && !isset($_GET['ano']) && !isset($_GET['buscar']))
+
+    
+    if(!isset($_GET['tipo']) && !isset($_GET['publico']) && !isset($_GET['idioma']) && !isset($_GET['ano']) && !isset($_GET['titulo']) && !isset($_GET['nombre']))
     {
         $consulta = "SELECT * FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE 1";
     } 
@@ -936,7 +529,9 @@ if($inc) {
     <ul class="listalibros">
                 <?php
                 $contador = 0;
+                $resultadoVER = false;
         while($row = $resultado->fetch_array()){
+            $resultadoVER = true;
             $contador++;
             $imagen_url = $row["portada_libro"];
             $autor = $row["nombre"];
@@ -958,7 +553,8 @@ if($inc) {
                     <header class="cabeza">
                         <h3><?php echo $titulo;?></h3>
                         <div>
-                            <p><b>Autor: </b><?php echo $autor;?></p>
+                            
+                            <p><b>Autor: </b><a href="libros.php?nombre=<?php echo urlencode(base64_encode($autor)); ?>"><?php echo $autor;?></a></p>
                             <p><b>Disponible: </b><?php if($disponible >= 1){echo "SI";}else{echo "NO";}?></p>
                         </div>
                     </header>
@@ -971,6 +567,8 @@ if($inc) {
             <br><br><br>
         </li>
                 <?php
+                        }            if (!$resultadoVER) {
+                            echo '<p>No se encontraron libros.</p>';
                         }
                 ?>
                 
@@ -1016,26 +614,6 @@ mysqli_close($conex);
             </table>
         </div>
 </footer>
-<script src="../javascript/libros.js"></script>
-<script>
-        $(document).ready(function(){
-            $('#menumovil').click(function(){
-                $('#buscar2').toggle(); 
-                var $menu = $('#menulateralmovil');
-                if ($menu.width() === 0) {
-                    $menu.animate({
-                        width: '100%', 
-                        right: '0'
-                    }, 'slow');
-                } else {
-                    $menu.animate({
-                        width: '0', 
-                    }, 'slow');
-                }
-            });
-        });
-
-    </script>
     <script>
 document.addEventListener("DOMContentLoaded", function() {
     var cambio = document.getElementById("cambio");
@@ -1055,16 +633,40 @@ document.addEventListener("DOMContentLoaded", function() {
     <?php }?>
 });
 </script>
+<script src="../javascript/libros.js"></script>
 <script>
-document.getElementById("desplegar").addEventListener("click", function() {
-            var filtros = document.getElementById("filtrosmovil");
-            if (filtros.style.display === "none") {
-                filtros.style.display = "block";
-            } else {
-                filtros.style.display = "none";
-            }
-        });
-    </script>
+    <?php
+$arrayGET = array("tipo", "ano_publicacion", "publico", "idioma");
+$arraydecodificar = array();
+for($i = 0; $i < count($arrayGET); $i++){
+    if(isset($_GET[$arrayGET[$i]])){
+        $arraydecodificar[] = base64_decode($_GET[$arrayGET[$i]]);
+    }
+}
+?>
+
+document.addEventListener("DOMContentLoaded", function() {
+    var cambiarA = document.querySelector("#menupc");
+    var soloA = cambiarA.querySelectorAll("a");
+    var cambiarB = document.querySelector("#filtrosmovil");
+    var soloB = cambiarB.querySelectorAll("a");
+    
+    
+    var arraydecodificar = <?php echo json_encode($arraydecodificar); ?>;
+    
+    for (var i = 0; i < soloA.length; ++i) {
+        if (arraydecodificar.includes(soloA[i].id)) {
+            soloA[i].style.color = "red";
+        }
+    }
+    for (var i = 0; i < soloB.length; ++i) {
+        if (arraydecodificar.includes(soloB[i].id)) {
+            soloB[i].style.color = "red";
+        }
+    }
+});
+
+</script>
 </body>
 </html>
 <?php

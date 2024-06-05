@@ -1,9 +1,9 @@
 <?php
 session_start();
-$_SESSION['sitio'] = 'reservas';
+$_SESSION['sitio'] = 'info';
 if(isset($_SESSION["name"])){
     if ($_SESSION["name"] === "admin") {
-        $link = '<a href="../adminpag/formulariosadmin.php">PAG ADMIN</a>';
+        $link = '<a href="adminpag/formulariosadmin.php">PAG ADMIN</a>';
         $link2 = '<a href="../adminpag/formulariosadmin.php"><i class="fa-solid fa-hat-cowboy"></i>PAG ADMIN</a>';
 
     } else {
@@ -23,7 +23,7 @@ if(isset($_SESSION["name"])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TuBiblioWeb</title>
-    <link rel="stylesheet" href="../estilos/estilodetallelibros.css">
+    <link rel="stylesheet" href="../estilos/estiloinfo.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
@@ -31,9 +31,6 @@ if(isset($_SESSION["name"])){
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -94,113 +91,37 @@ if(isset($_SESSION["name"])){
             </div>
 
     </header>
-    <main style="height: 100vh;">
-        <div id="menulateralmovil">
-            <nav>
-                <ul>
-                    <li><a href="../principal.php"><i class="fa-solid fa-house"></i>Inicio</a></li>
-                    <br>
-                    <hr style="border: 1px solid black;">
-                    <li><a href="VERreservas.php" id="reservas2"><i class="fa-solid fa-calendar-check"></i>Reservas</a></li>
-                    <br>
-                    <hr style="border: 1px solid black;">
-                    <li><a href="info.php" ><i class="fa-solid fa-info"></i>Información</a></li>
-                    <br>
-                    <hr style="border: 1px solid black;">
-                    <li><a href="libros.php" id="libros2"><i class="fa-solid fa-book"></i>Libros</a></li>
-                    <br>
-                    <hr style="border: 1px solid black;">
-                    <li id="cambio2"><a href="../registroinicio/iniciar_sesion.php"><i class="fa-solid fa-door-open"></i>Iniciar Sesión</a></li>
-                </ul>
-            </nav>
+    <main>
+<br><br><br>
+    <div class="row">                     
+        <div class="txt" style="width: 35%;">
+        <h2>Tu Biblioteca de apoyo a la física</h2>
+        <p>
+        En está página web encontrarás de manera rápida los libros que buscas desesperadamente en la biblioteca física, todos los libros y de búsqueda rápida y sencilla.
+        </p>
+        <button> Catálogo</button>
         </div>
-    <br><br><br><br><br><br>
-    <?php 
-    if(isset($_SESSION["name"])){
-include("../con_db.php");
-$consulta = "SELECT * FROM reserva INNER JOIN libro ON reserva.isbn_libro = libro.isbn WHERE  nombre_usuario = '" . $_SESSION["name"] . "'";
-$resultado = mysqli_query($conex, $consulta);
+        <div class="img" style="width: 30%;">
+            <img src="../imagenes/librofeliz.png" style="width: 60%;"/>
+        </div>
+    </div>   
+    <div class="row">     
+         <div class="img" style="width: 30%;">
+            <img src="../imagenes/librofeliz.png" style="width: 60%;"/>
+        </div>                
+        <div class="txt" style="width: 35%;">
+        <h2>Accede a todo</h2>
+        <p>
+        Para acceder a todas las funcionalidades deberás registrarte físicamente en la biblioteca, asi podras reservar libros!
+        </p>
+        <button>Reserva</button>
+        </div>
 
-if ($resultado) {
-    if ($resultado->num_rows>0){
-    ?>
+    </div>
     <center>
-        <caption>TUS RESERVAS</caption>
-    <table class="tablaRESERVA">
-        <tr>
-            <td><strong>TÍTULO</strong></td>
-            <td><strong>ISBN LIBRO</strong></td>
-            <td><strong>TIEMPO LÍMITE RECOGIDA</strong></td>
-        </tr>
-        <?php
-        while ($row = $resultado->fetch_array()) {
-            $fecha_fin_str = $row["fecha_fin"];
-            $fecha_inicio = new DateTime();
-            $fecha_fin = DateTime::createFromFormat('Y-m-d H:i:s', $fecha_fin_str);
-            $isbn_libro = $row["isbn_libro"];
-            $intervalo = $fecha_inicio->diff($fecha_fin);
-            $dias = $intervalo->format('%a'); 
-            $horas = $intervalo->format('%h');
-            $minutos = $intervalo->format('%i');
-            $segundos = $intervalo->format('%s');
-            $titulo = $row["titulo"];
-            ?>
-            <tr>
-            <td><?php echo $titulo?></td>
-                <td><?php echo $isbn_libro?></td>
-                <td style="width: 20vw;">
-            <div class="contador" data-dias="<?php echo $dias; ?>" data-horas="<?php echo $horas; ?>" data-minutos="<?php echo $minutos; ?>" data-segundos="<?php echo $segundos; ?>">
-                <?php echo "$dias días, $horas horas, $minutos minutos, $segundos segundos"; ?>
-            </div></td>
-        <?php } ?> </table>
+    <h2>¡Recuerda nuestro horario!</h2>
     </center>
-
-    <script>
-
-        var contadores = document.querySelectorAll('.contador');
-        contadores.forEach(function(contador) {
-            var dias = parseInt(contador.getAttribute('data-dias'));
-            var horas = parseInt(contador.getAttribute('data-horas'));
-            var minutos = parseInt(contador.getAttribute('data-minutos'));
-            var segundos = parseInt(contador.getAttribute('data-segundos'));
-            function actualizarContador() {
-                if (segundos > 0) {
-                    segundos--;
-                } else {
-                    segundos = 59;
-                    if (minutos > 0) {
-                        minutos--;
-                    } else {
-                        minutos = 59;
-                        if (horas > 0) {
-                            horas--;
-                        } else {
-                            horas = 23;
-                            if (dias > 0) {
-                                dias--;
-                            }
-                        }
-                    }
-                }
-                contador.innerHTML = dias + " días, " + horas + " horas, " + minutos + " minutos, " + segundos + " segundos";
-            }
-
-            setInterval(actualizarContador, 1000);
-        });
-    </script>
-
-<?php
-    }else{
-        echo "<h1>No has realizado ninguna reserva</h1>";
-    }
-}
-mysqli_close($conex);
-    }else{
-        echo "<h1>No estas registrado</h1>";
-    }
-?>
-
-                
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3222.351686793864!2d-5.454407399597181!3d36.13364937006811!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd0c94ceaad65e99%3A0x7897e0a967658cc8!2sIES%20Kursaal!5e0!3m2!1ses!2ses!4v1717514128509!5m2!1ses!2ses" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>  
 </main>
         <div class="pie">
             <table class="tablapie">
@@ -261,10 +182,10 @@ document.addEventListener("DOMContentLoaded", function() {
         cambio2.innerHTML = '<?php echo $link2; ?>';
     }
     <?php 
-    if($_SESSION['sitio'] == 'reservas'){
+    if($_SESSION['sitio'] == 'info'){
     ?>
-    document.getElementById("reservas").style.color = 'orange';
-    document.getElementById("reservas2").style.color = 'aliceblue';
+    document.getElementById("informacion").style.color = 'orange';
+    document.getElementById("informacion2").style.color = 'aliceblue';
     <?php }?>
 });
 </script>

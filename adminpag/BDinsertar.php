@@ -3,8 +3,8 @@ try {
 include("../con_db.php");
 //BORRARAUTOR
 if(isset($_POST["iniciarBORRARAUTOR"])) {
-    if($_POST["id"] >= 0) {
-        $isbn =  mysqli_real_escape_string($conex,trim($_POST["id"]));
+    if(isset($_POST["id"])) {
+        $id =  mysqli_real_escape_string($conex,trim($_POST["id"]));
         $consulta = "DELETE FROM autor WHERE id_autor = '$id'";
         $resultado = mysqli_query($conex, $consulta);
         if ($resultado) {
@@ -200,7 +200,7 @@ if(isset($_POST["datosEDITAR"])) {
         $consultaUPDATE = '';     
         $isbn = mysqli_real_escape_string($conex, trim($_POST["isbn"]));
 
-        if(strlen($_POST["autor"]) >=1){
+        if(isset($_POST["autor"]) >=1){
             $autor = mysqli_real_escape_string($conex, trim($_POST["autor"]));
             $consultaUPDATE .= ", id_autor = '$autor'";
         }
@@ -306,7 +306,7 @@ if(isset($_POST["iniciarEDITARAUTOR"])) {
     if (strlen($_POST["id_autor"]) >= 1 ) {
         $consultaUPDATE = '';     
         $id_autor = mysqli_real_escape_string($conex, trim($_POST["id_autor"]));
-        $comprobar = "SELECT usuario FROM autor WHERE id_autor = '$id_autor'";
+        $comprobar = "SELECT * FROM autor WHERE id_autor = '$id_autor'";
         $resultado_comprobar = mysqli_query($conex, $comprobar);
         if(mysqli_num_rows($resultado_comprobar) > 0) {
             if(strlen($_POST["name"]) >=1){

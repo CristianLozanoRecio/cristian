@@ -48,6 +48,11 @@ body{
     padding-left: 1.5em;
     width: 50%;
 }
+.der a,
+.der a{
+  text-decoration: none;
+  color: #252850;
+}
 .img{
     width: 8vw;
 }
@@ -121,7 +126,24 @@ margin-right: 0;
 
 
 #menumovil{
-    display: none;
+    display: none;    
+}
+
+#filtrosmovil{
+    background-color: #ffb552;
+    width: 0;
+    height: 100%;
+    position: fixed;
+    overflow-y: auto; 
+    left: 0;
+    top: 0;
+    color: white;
+    margin-top: 80px;
+}
+#filtrosmovil a{
+    text-decoration: none;
+    color: black;
+    display: block;
 }
 #desplegar{
     display: none;
@@ -264,9 +286,23 @@ margin-right: 0;
   #menulateralmovil i{
     margin-right: 3vw;
   }
+  #menupc a{
+    display: block;
+    text-decoration: none;
+    color: black;
+    padding: .15em .25em;
+  }
 @media (max-width: 710px) {
     #menupc {
-        display: none;
+        background-color: #ffb552;
+        width: 0;
+        height: 100%;
+        position: fixed;
+        overflow-y: auto; 
+        left: 0;
+        top: 0;
+        color: white;
+        margin-top: 80px;
     }
     #menumovil{
         display: block;

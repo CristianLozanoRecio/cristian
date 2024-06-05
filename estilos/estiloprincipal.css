@@ -79,12 +79,11 @@ header{
 
 
 .pie{
-    position: relative;
-    top: 0;
+      top: 0;
     left: 0;
     width: 100%;
     background: aliceblue;
-    z-index: 2;
+    z-index: 1;
 }
 .tablapie{
     padding: 10px;
@@ -163,7 +162,6 @@ header{
   }
 
   main {
-    margin-top: 80px;
     min-height: calc(100vh);
     padding: 20px;
     box-sizing: border-box;
@@ -217,10 +215,11 @@ main::after {
     background-color: #ffb552;
     width: 0;
     height: 100%;
-    position: absolute;
+    position: fixed;
     overflow-y: auto; 
     right: 0;
     color: white;
+    top: 0;
   }
   #menulateralmovil nav{
     margin-top: 100px;

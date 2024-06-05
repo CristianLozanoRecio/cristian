@@ -34,7 +34,6 @@ function truncarSinopsis() {
     });
 }
 
-// Aplicar truncamiento inicial a las sinopsis
 document.addEventListener('DOMContentLoaded', function() {
     truncarSinopsis();
     var elementosOcultos = document.querySelectorAll('.estiloli[style="display: none;"]');
@@ -45,3 +44,5 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("mostrar").style.display = 'block';
     }
 });
+
+

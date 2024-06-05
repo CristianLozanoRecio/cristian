@@ -3,16 +3,16 @@ session_start();
 $_SESSION['sitio'] = 'libros';
 if(isset($_SESSION["name"])){
     if ($_SESSION["name"] === "admin") {
-        $link = '<a href="adminpag/formulariosadmin.php">PAG ADMIN</a>';
-        $link2 = '<a href="adminpag/formulariosadmin.php"><i class="fa-solid fa-hat-cowboy"></i>PAG ADMIN</a>';
+        $link = '<a href="../adminpag/formulariosadmin.php">PAG ADMIN</a>';
+        $link2 = '<a href="../adminpag/formulariosadmin.php"><i class="fa-solid fa-hat-cowboy"></i>PAG ADMIN</a>';
 
     } else {
-        $link = '<a href="registroinicio/cerrar_sesion.php">Cerrar sesión</a>';
-        $link2 = '<a href="registroinicio/cerrar_sesion.php"><i class="fa-solid fa-door-closed"></i>Cerrar sesión</a>';
+        $link = '<a href="../registroinicio/cerrar_sesion.php">Cerrar sesión</a>';
+        $link2 = '<a href="../registroinicio/cerrar_sesion.php"><i class="fa-solid fa-door-closed"></i>Cerrar sesión</a>';
     }
 }else{
-    $link = '<a href="registroinicio/iniciar_sesion.php">Iniciar Sesión</a>';
-    $link2 = '<a href="registroinicio/iniciar_sesion.php"><i class="fa-solid fa-door-open"></i>Iniciar Sesión</a>';
+    $link = '<a href="../registroinicio/iniciar_sesion.php">Iniciar Sesión</a>';
+    $link2 = '<a href="../registroinicio/iniciar_sesion.php"><i class="fa-solid fa-door-open"></i>Iniciar Sesión</a>';
 
 }
 
@@ -24,7 +24,8 @@ if(isset($_SESSION["name"])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TuBiblioWeb</title>
     <link rel="stylesheet" href="../estilos/estilodetallelibros.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />    <link
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+       <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
       integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -53,7 +54,7 @@ if(isset($_SESSION["name"])){
                         <li ><div class="busqueda2">
             <form method="get" action="libros.php"> 
                      <div class="buscar">
-                                <input type="text" placeholder="Búsqueda por título" name="buscar" required />
+                                <input type="text" placeholder="Búsqueda por título" name="titulo" required />
                                 <div class="btn">
                                     <button class="pulsarbuscar"><i class="fas fa-search icon fa-2x"></i></button>
                                </div>
@@ -66,7 +67,7 @@ if(isset($_SESSION["name"])){
                 <div class="busqueda" >
             <form method="get" action="libros.php"> 
                      <div class="buscar">
-                                <input type="text" placeholder="Búsqueda por título" name="buscar" required />
+                                <input type="text" placeholder="Búsqueda por título" name="titulo" required />
                                 <div class="btn">
                                     <button class="pulsarbuscar"><i class="fas fa-search icon fa-2x"></i></button>
                                </div>
@@ -83,7 +84,7 @@ if(isset($_SESSION["name"])){
                             <div class="busqueda" id="buscar2">
             <form method="get" action="libros.php"> 
                      <div class="buscar">
-                                <input type="text" placeholder="Búsqueda por título" name="buscar" required />
+                                <input type="text" placeholder="Búsqueda por título" name="titulo" required />
                                 <div class="btn">
                                     <button class="pulsarbuscar"><i class="fas fa-search icon fa-2x"></i></button>
                                </div>
@@ -147,15 +148,16 @@ if($inc) {
             <div class="estilo-div">
                 <div class="izq">
                     <div style =" width:20vw;">
-                    <?php echo '<img src='.$imagen_url .' " class="img"/>';?></div><br><center>
+                    <?php echo '<img src='.$imagen_url .' " class="img"/>';?></div><br>
                     <?php 
                     if ($disponible >= 1) {
-                        echo "<button id='buttonclick'>UNIDADES PARA RESERVAR".$disponible."</button>";
+                        echo "<button id='buttonclick'>UNIDADES PARA RESERVAR <b>".$disponible."</b></button>";
                     } else {
                         echo "NO TENEMOS UNIDADES PARA RESERVAR";
                     }
+                    
                     ?>
-<br></center>
+<br><br>
                     <div class="datos">
                         <div>
                             <dt><b>Editorial</b></dt>
@@ -193,13 +195,15 @@ if($inc) {
                     <header class="cabeza">
                         <h3><?php echo $titulo;?></h3>
                         <div>
-                            <p><b>Autor: </b><?php echo $autor;?></p>
+                        <p><b>Autor: </b><a href="libros.php?autor=<?php echo urlencode(base64_encode($autor)); ?>"><?php echo $autor;?></a></p>
                         </div>
                     </header>
-                    <p class="sinopsis">
+                    <div class="sinopsis">
                         <h3>Sinopsis</h3>
                         <?php echo $sinopsis;?>
-                    </p>
+                </div>
+                <button id="mostrarmas"><i class="fa-solid fa-chevron-down"></i>Leer Más</button>
+                <button id="mostrarmenos"><i class="fa-solid fa-chevron-up"></i>Leer Menos</button>
                     
                     <?php if (isset($biografia)){ ?>
                     <h2>Biografía autor</h2>
@@ -222,7 +226,7 @@ if($inc) {
 <div class="general2">
     <h3 style="font-size: 28px;"><?php echo $titulo;?></h3>
   
-    <p style="font-size: 24px;"><b>Autor: </b><?php echo $autor;?></p>
+    <p  style="font-size: 24px;"><b>Autor: </b><a href="libros.php?autor=<?php echo urlencode(base64_encode($autor)); ?>"><?php echo $autor;?></a></p>
     <br><br>
     <center>
     <?php
@@ -230,10 +234,12 @@ echo'<img src='.$imagen_url .' " class="img"/>';
 ?>
 </center>
 <br><br>
-                    <p class="sinopsis">
+                    <div class="sinopsismovil">
                         <h3>Sinopsis</h3>
                         <?php echo $sinopsis;?>
-                    </p>
+                    </div>
+                    <button id="mostrarmasmovil"><i class="fa-solid fa-chevron-down"></i>Leer Más</button>
+                <button id="mostrarmenosmovil"><i class="fa-solid fa-chevron-up"></i>Leer Menos</button>
                     <br><br>
                     <?php if (isset($biografia)){ ?>
                     <h2>Biografía autor</h2>
@@ -318,6 +324,7 @@ if(isset($_SESSION['name'])){
 }
 ?>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("buttonclick").addEventListener('click', function() {
         <?php if(isset($_SESSION['name']) && $num_reservas <= 3){ ?>
         if(confirm("Se realizará la reserva del libro con ISBN <?php echo $isbn;?>")){
@@ -329,6 +336,37 @@ if(isset($_SESSION['name'])){
         alert('PRIMERO DEBES ESTAR REGISTRADO o HAS ALCANZADO EL MÁXIMO DE RESERVAS!!');
         <?php } ?>
     });
+var sinopsis = document.querySelector('.sinopsis');
+var mostrarmas = document.getElementById('mostrarmas');
+var mostrarmenos = document.getElementById('mostrarmenos');
+var sinopsismovil = document.querySelector('.sinopsismovil');
+var mostrarmasmovil = document.getElementById('mostrarmasmovil');
+var mostrarmenosmovil = document.getElementById('mostrarmenosmovil');
+
+  mostrarmas.addEventListener('click', function() {
+    sinopsis.classList.add('vermas');
+    mostrarmas.style.display = 'none'; 
+    mostrarmenos.style.display = 'block';
+  });
+
+  mostrarmenos.addEventListener('click', function() {
+    sinopsis.classList.remove('vermas');
+    mostrarmenos.style.display = 'none'; 
+    mostrarmas.style.display = 'block'; 
+  });
+
+  mostrarmasmovil.addEventListener('click', function() {
+    sinopsismovil.classList.add('vermasmovil');
+    mostrarmasmovil.style.display = 'none'; 
+    mostrarmenosmovil.style.display = 'block';
+  });
+
+  mostrarmenosmovil.addEventListener('click', function() {
+    sinopsismovil.classList.remove('vermasmovil');
+    mostrarmenosmovil.style.display = 'none'; 
+    mostrarmasmovil.style.display = 'block'; 
+  });
+});
 </script>
 <script>
         $(document).ready(function(){
