@@ -20,7 +20,7 @@ a{
 #menulateralB{
   background-color: orange;
   width: 5%;
-  height: 100vh;
+  height: 100%;
   position: fixed;
   display: '';
   overflow-y: auto; 
@@ -28,7 +28,7 @@ a{
 #menulateralA{
   background-color: orange;
   width: 10%;
-  height: 100vh;
+  height: 100%;
   position: fixed;
   display: none;
   overflow-y: auto;

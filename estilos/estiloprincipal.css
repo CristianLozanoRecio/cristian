@@ -16,6 +16,9 @@ header{
     box-shadow: 0 4px 25px -22px red;
     z-index: 2;
 }
+main {
+  overflow-x: hidden;
+}
 
 .header-contenido{
     max-width: 1200px;
@@ -75,6 +78,11 @@ header{
 .menu nav ul li:hover
 {
     border-bottom: 3px solid black;
+}
+
+.carousel-inner img{
+  width:200px;
+  height: 300px;
 }
 
 
@@ -200,7 +208,9 @@ main::after {
 .menu2{
     display: none;
 }
-.icon-button{
+.icon-button,
+.mas,
+.menos{
     background: none;
     border: none;
     text-decoration: none;

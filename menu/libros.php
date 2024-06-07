@@ -616,15 +616,7 @@ mysqli_close($conex);
 </footer>
     <script>
 document.addEventListener("DOMContentLoaded", function() {
-    var cambio = document.getElementById("cambio");
-    if (cambio) {
-        cambio.innerHTML = '<?php echo $link; ?>';
-    }
 
-    var cambio2 = document.getElementById("cambio2");
-    if (cambio2) {
-        cambio2.innerHTML = '<?php echo $link2; ?>';
-    }
     <?php 
     if($_SESSION['sitio'] == 'libros'){
     ?>
@@ -633,8 +625,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <?php }?>
 });
 </script>
-<script src="../javascript/libros.js"></script>
-<script>
+<script src="../javascript/despleagarmenu.js"></script>
     <?php
 $arrayGET = array("tipo", "ano_publicacion", "publico", "idioma");
 $arraydecodificar = array();
@@ -643,30 +634,14 @@ for($i = 0; $i < count($arrayGET); $i++){
         $arraydecodificar[] = base64_decode($_GET[$arrayGET[$i]]);
     }
 }
+echo "<script>
+    var linkcambio = '$link';
+    var link2cambio = '$link2';
+    var arraydecodificar = ".json_encode($arraydecodificar)."
+</script>";
 ?>
+<script src="../javascript/libros.js"></script>
 
-document.addEventListener("DOMContentLoaded", function() {
-    var cambiarA = document.querySelector("#menupc");
-    var soloA = cambiarA.querySelectorAll("a");
-    var cambiarB = document.querySelector("#filtrosmovil");
-    var soloB = cambiarB.querySelectorAll("a");
-    
-    
-    var arraydecodificar = <?php echo json_encode($arraydecodificar); ?>;
-    
-    for (var i = 0; i < soloA.length; ++i) {
-        if (arraydecodificar.includes(soloA[i].id)) {
-            soloA[i].style.color = "red";
-        }
-    }
-    for (var i = 0; i < soloB.length; ++i) {
-        if (arraydecodificar.includes(soloB[i].id)) {
-            soloB[i].style.color = "red";
-        }
-    }
-});
-
-</script>
 </body>
 </html>
 <?php

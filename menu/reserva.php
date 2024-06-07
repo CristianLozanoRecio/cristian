@@ -40,13 +40,13 @@ if ($resultado) {
     $mail->Body = utf8_decode("Se realizo una reserva para el libro con ISBN ".$_SESSION["isbn"].", con id de reserva ". $_SESSION["reserva"]);
 
     if ($mail->send()) {
-        header("Location: formularioreserva.php");
+      echo "formularioreserva.php";
     } else {
-        header("Location: libros.php");
+        echo "libros.php";
     }
 
 } else {
-    header("Location: libros.php");
+    echo "Location: libros.php";
 }
 
 mysqli_close($conex);

@@ -1,6 +1,7 @@
 <?php
 session_start();
 $_SESSION['sitio'] = 'libros';
+$num_reservas = 0;
 if(isset($_SESSION["name"])){
     if ($_SESSION["name"] === "admin") {
         $link = '<a href="../adminpag/formulariosadmin.php">PAG ADMIN</a>';
@@ -36,6 +37,7 @@ if(isset($_SESSION["name"])){
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../javascript/like.js"></script>
 </head>
 <body>
     <header class="cerebro">
@@ -143,6 +145,7 @@ if($inc) {
             $idioma = $row["idioma"];
             $tipo = $row["tipo"];
             $publico = $row["publico"];
+            $num_likes = $row["num_like"];
 
                 ?>
             <div class="estilo-div">
@@ -155,8 +158,9 @@ if($inc) {
                     } else {
                         echo "NO TENEMOS UNIDADES PARA RESERVAR";
                     }
-                    
-                    ?>
+
+
+    ?>
 <br><br>
                     <div class="datos">
                         <div>
@@ -195,7 +199,7 @@ if($inc) {
                     <header class="cabeza">
                         <h3><?php echo $titulo;?></h3>
                         <div>
-                        <p><b>Autor: </b><a href="libros.php?autor=<?php echo urlencode(base64_encode($autor)); ?>"><?php echo $autor;?></a></p>
+                        <p><b>Autor: </b><a href="libros.php?nombre=<?php echo urlencode(base64_encode($autor)); ?>"><?php echo $autor;?></a></p>
                         </div>
                     </header>
                     <div class="sinopsis">
@@ -204,7 +208,19 @@ if($inc) {
                 </div>
                 <button id="mostrarmas"><i class="fa-solid fa-chevron-down"></i>Leer Más</button>
                 <button id="mostrarmenos"><i class="fa-solid fa-chevron-up"></i>Leer Menos</button>
-                    
+                <br><br>
+                <?php
+                if(isset($_SESSION["name"])){
+                $query = mysqli_query($conex, "SELECT * FROM like_libro WHERE isbn_libro = '" . mysqli_real_escape_string($conex, $isbn) . "' AND nombre_usuario = '" . mysqli_real_escape_string($conex, $_SESSION["name"]) . "'");
+                    if (mysqli_num_rows($query) == 0) {
+                    echo "<button id='" . $isbn . "' class='like'><i class='fa-regular fa-thumbs-up fa-2x'></i></button><span id='likes_" . $isbn . "'>" . $num_likes . "</span>";
+                    }else{
+                        echo "<button id='" . $isbn . "' class='like'><i class='fa-solid fa-thumbs-up fa-2x'></i></button><span id='likes_" . $isbn . "'>" . $num_likes . "</span>";
+
+                    }
+                }
+                    ?>
+                    <br><br>
                     <?php if (isset($biografia)){ ?>
                     <h2>Biografía autor</h2>
                     <h3><?php echo $autor?></h3>
@@ -226,7 +242,7 @@ if($inc) {
 <div class="general2">
     <h3 style="font-size: 28px;"><?php echo $titulo;?></h3>
   
-    <p  style="font-size: 24px;"><b>Autor: </b><a href="libros.php?autor=<?php echo urlencode(base64_encode($autor)); ?>"><?php echo $autor;?></a></p>
+    <p  style="font-size: 24px;"><b>Autor: </b><a href="libros.php?nombre=<?php echo urlencode(base64_encode($autor)); ?>"><?php echo $autor;?></a></p>
     <br><br>
     <center>
     <?php
@@ -241,11 +257,25 @@ echo'<img src='.$imagen_url .' " class="img"/>';
                     <button id="mostrarmasmovil"><i class="fa-solid fa-chevron-down"></i>Leer Más</button>
                 <button id="mostrarmenosmovil"><i class="fa-solid fa-chevron-up"></i>Leer Menos</button>
                     <br><br>
+                    <?php
+                                    if(isset($_SESSION["name"])){
+
+                    if (mysqli_num_rows($query) == 0) {
+                    echo "<button id='" . $isbn . "' class='like2'><i class='fa-regular fa-thumbs-up fa-2x'></i></button><span id='likes2_" . $isbn . "'>" . $num_likes . "</span>";
+                    }else{
+                        echo "<button id='" . $isbn . "' class='like2'><i class='fa-solid fa-thumbs-up fa-2x'></i></button><span id='likes2_" . $isbn . "'>" . $num_likes . "</span>";
+
+                    }
+                }
+                    ?>
+                    <br><br>
                     <?php if (isset($biografia)){ ?>
                     <h2>Biografía autor</h2>
                     <h3><?php echo $autor?></h3>
                     <p><?php echo $biografia?></p>
+                    
                     <?php }?>
+
                     <br><br>
                     <h3>Detalles libro</h3>
                     <div class="datos">
@@ -324,98 +354,31 @@ if(isset($_SESSION['name'])){
 }
 ?>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById("buttonclick").addEventListener('click', function() {
-        <?php if(isset($_SESSION['name']) && $num_reservas <= 3){ ?>
-        if(confirm("Se realizará la reserva del libro con ISBN <?php echo $isbn;?>")){
-            window.location.href = "reserva.php?isbn=<?php echo urlencode(base64_encode($isbn)); ?>";
-        }else{
-            alert("No se realizó ninguna reserva");
-        }
-        <?php } else { ?>
-        alert('PRIMERO DEBES ESTAR REGISTRADO o HAS ALCANZADO EL MÁXIMO DE RESERVAS!!');
-        <?php } ?>
-    });
-var sinopsis = document.querySelector('.sinopsis');
-var mostrarmas = document.getElementById('mostrarmas');
-var mostrarmenos = document.getElementById('mostrarmenos');
-var sinopsismovil = document.querySelector('.sinopsismovil');
-var mostrarmasmovil = document.getElementById('mostrarmasmovil');
-var mostrarmenosmovil = document.getElementById('mostrarmenosmovil');
 
-  mostrarmas.addEventListener('click', function() {
-    sinopsis.classList.add('vermas');
-    mostrarmas.style.display = 'none'; 
-    mostrarmenos.style.display = 'block';
-  });
-
-  mostrarmenos.addEventListener('click', function() {
-    sinopsis.classList.remove('vermas');
-    mostrarmenos.style.display = 'none'; 
-    mostrarmas.style.display = 'block'; 
-  });
-
-  mostrarmasmovil.addEventListener('click', function() {
-    sinopsismovil.classList.add('vermasmovil');
-    mostrarmasmovil.style.display = 'none'; 
-    mostrarmenosmovil.style.display = 'block';
-  });
-
-  mostrarmenosmovil.addEventListener('click', function() {
-    sinopsismovil.classList.remove('vermasmovil');
-    mostrarmenosmovil.style.display = 'none'; 
-    mostrarmasmovil.style.display = 'block'; 
-  });
-});
 </script>
-<script>
-        $(document).ready(function(){
-            $('#menumovil').click(function(){
-                $('#buscar2').toggle(); 
-                var $menu = $('#menulateralmovil');
-                if ($menu.width() === 0) {
-                    $menu.animate({
-                        width: '100%', 
-                        right: '0'
-                    }, 'slow');
-                } else {
-                    $menu.animate({
-                        width: '0', 
-                    }, 'slow');
-                }
-            });
-        });
+<?php
+$name = isset($_SESSION['name']) ? $_SESSION['name'] : '';
+echo "<script>
+    var userName = '$name';
+    var numReservas = $num_reservas;
+    var linkcambio = '$link';
+    var link2cambio = '$link2';
+</script>";
+?>
+<script src="../javascript/detalles.js"></script>
+<script src="../javascript/cambio.js"></script>
 
-    </script>
+</script>
+<script src="../javascript/menumovil.js"></script>
     <script>
-document.addEventListener("DOMContentLoaded", function() {
-    var cambio = document.getElementById("cambio");
-    if (cambio) {
-        cambio.innerHTML = '<?php echo $link; ?>';
-    }
 
-    var cambio2 = document.getElementById("cambio2");
-    if (cambio2) {
-        cambio2.innerHTML = '<?php echo $link2; ?>';
-    }
     <?php 
     if($_SESSION['sitio'] == 'libros'){
     ?>
     document.getElementById("libros").style.color = 'orange';
     document.getElementById("libros2").style.color = 'aliceblue';
     <?php }?>
-});
 </script>
-<script>
-document.getElementById("desplegar").addEventListener("click", function() {
-            var filtros = document.getElementById("filtrosmovil");
-            if (filtros.style.display === "none") {
-                filtros.style.display = "block";
-            } else {
-                filtros.style.display = "none";
-            }
-        });
-    </script>
 </body>
 </html>
 <?php

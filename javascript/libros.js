@@ -43,6 +43,34 @@ document.addEventListener('DOMContentLoaded', function() {
     else{
         document.getElementById("mostrar").style.display = 'block';
     }
-});
+
+
+        var cambiarA = document.querySelector("#menupc");
+        var soloA = cambiarA.querySelectorAll("a");
+        var cambiarB = document.querySelector("#filtrosmovil");
+        var soloB = cambiarB.querySelectorAll("a");
+        
+        for (var i = 0; i < soloA.length; ++i) {
+            if (arraydecodificar.includes(soloA[i].id)) {
+                soloA[i].style.color = "red";
+            }
+        }
+        for (var i = 0; i < soloB.length; ++i) {
+            if (arraydecodificar.includes(soloB[i].id)) {
+                soloB[i].style.color = "red";
+            }
+        }
+        var cambio = document.getElementById("cambio");
+        if (cambio) {
+            cambio.innerHTML = linkcambio;
+        }
+    
+        var cambio2 = document.getElementById("cambio2");
+        if (cambio2) {
+            cambio2.innerHTML = link2cambio;
+        }
+
+    });
+
 
 

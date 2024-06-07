@@ -172,7 +172,8 @@ margin-bottom: 1em;
   }
 
   .tablaRESERVA td{
-    border: 3px solid black;
+    border: 3px solid  orange;
+  padding: 5px;
   }
   .general2{
     display: none;
@@ -278,7 +279,9 @@ margin-bottom: 1em;
 .menu2{
     display: none;
 }
-.icon-button{
+.icon-button,
+.like,
+.like2{
     background: none;
     border: none;
     text-decoration: none;

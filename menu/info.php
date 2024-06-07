@@ -3,7 +3,7 @@ session_start();
 $_SESSION['sitio'] = 'info';
 if(isset($_SESSION["name"])){
     if ($_SESSION["name"] === "admin") {
-        $link = '<a href="adminpag/formulariosadmin.php">PAG ADMIN</a>';
+        $link = '<a href="../adminpag/formulariosadmin.php">PAG ADMIN</a>';
         $link2 = '<a href="../adminpag/formulariosadmin.php"><i class="fa-solid fa-hat-cowboy"></i>PAG ADMIN</a>';
 
     } else {
@@ -31,6 +31,9 @@ if(isset($_SESSION["name"])){
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -43,8 +46,8 @@ if(isset($_SESSION["name"])){
                 <nav>
                     <ul>
                         <li><a href="../principal.php" id="inicio">Inicio</a></li>
-                        <li><a href="VERreservas.php" id="reservas">Reservas</a></li>
-                        <li><a href="info.php" id="informacion">Información</a></li>
+                        <li><a href="VERreservas.php" id="reserva">Reservas</a></li>
+                        <li><a href="/info.php" id="informacion">Información</a></li>
                         <li><a href="libros.php" id="libros">Libros</a></li>
                         <li id="cambio"></li>
                         <li ><div class="busqueda2">
@@ -92,6 +95,25 @@ if(isset($_SESSION["name"])){
 
     </header>
     <main>
+        <div id="menulateralmovil">
+            <nav>
+                <ul>
+                    <li><a href="../principal.php" ><i class="fa-solid fa-house"></i>Inicio</a></li>
+                    <br>
+                    <hr style="border: 1px solid black;">
+                    <li><a href="VERreservas.php" ><i class="fa-solid fa-calendar-check"></i>Reservas</a></li>
+                    <br>
+                    <hr style="border: 1px solid black;">
+                    <li><a href="info.php" ><i class="fa-solid fa-info"></i>Información</a></li>
+                    <br>
+                    <hr style="border: 1px solid black;">
+                    <li><a href="libros.php" id="libros2"><i class="fa-solid fa-book"></i>Libros</a></li>
+                    <br>
+                    <hr style="border: 1px solid black;">
+                    <li id="cambio2"><a href="../registroinicio/iniciar_sesion.php"><i class="fa-solid fa-door-open"></i>Iniciar Sesión</a></li>
+                </ul>
+            </nav>
+        </div>
 <br><br><br>
     <div class="row">                     
         <div class="txt" style="width: 35%;">
@@ -151,36 +173,15 @@ if(isset($_SESSION["name"])){
                 </tr>
             </table>
         </div>
-        <script>
-        $(document).ready(function(){
-            $('#menumovil').click(function(){
-                $('#buscar2').toggle(); 
-                var $menu = $('#menulateralmovil');
-                if ($menu.width() === 0) {
-                    $menu.animate({
-                        width: '100%', 
-                        right: '0'
-                    }, 'slow');
-                } else {
-                    $menu.animate({
-                        width: '0', 
-                    }, 'slow');
-                }
-            });
-        });
-
-    </script>
+        <script src="../javascript/menumovil.js"></script>
+     <?php   echo "<script>
+    var linkcambio = '$link';
+    var link2cambio = '$link2';
+</script>";
+?>
+<script src="../javascript/cambio.js"></script>
     <script>
 document.addEventListener("DOMContentLoaded", function() {
-    var cambio = document.getElementById("cambio");
-    if (cambio) {
-        cambio.innerHTML = '<?php echo $link; ?>';
-    }
-
-    var cambio2 = document.getElementById("cambio2");
-    if (cambio2) {
-        cambio2.innerHTML = '<?php echo $link2; ?>';
-    }
     <?php 
     if($_SESSION['sitio'] == 'info'){
     ?>
@@ -189,16 +190,6 @@ document.addEventListener("DOMContentLoaded", function() {
     <?php }?>
 });
 </script>
-<script>
-document.getElementById("desplegar").addEventListener("click", function() {
-            var filtros = document.getElementById("filtrosmovil");
-            if (filtros.style.display === "none") {
-                filtros.style.display = "block";
-            } else {
-                filtros.style.display = "none";
-            }
-        });
-    </script>
 </body>
 </html>
 <?php

@@ -230,54 +230,23 @@ mysqli_close($conex);
                 </tr>
             </table>
         </div>
-        <script>
-        $(document).ready(function(){
-            $('#menumovil').click(function(){
-                $('#buscar2').toggle(); 
-                var $menu = $('#menulateralmovil');
-                if ($menu.width() === 0) {
-                    $menu.animate({
-                        width: '100%', 
-                        right: '0'
-                    }, 'slow');
-                } else {
-                    $menu.animate({
-                        width: '0', 
-                    }, 'slow');
-                }
-            });
-        });
-
-    </script>
+        <script src="../javascript/menumovil.js"> </script>
+    <?php    echo "<script>
+    var linkcambio = '$link';
+    var link2cambio = '$link2';
+</script>";
+?>
+    <script src="../javascript/cambio.js"></script>
     <script>
-document.addEventListener("DOMContentLoaded", function() {
-    var cambio = document.getElementById("cambio");
-    if (cambio) {
-        cambio.innerHTML = '<?php echo $link; ?>';
-    }
-
-    var cambio2 = document.getElementById("cambio2");
-    if (cambio2) {
-        cambio2.innerHTML = '<?php echo $link2; ?>';
-    }
+        document.addEventListener("DOMContentLoaded", function() {
     <?php 
     if($_SESSION['sitio'] == 'reservas'){
     ?>
     document.getElementById("reservas").style.color = 'orange';
     document.getElementById("reservas2").style.color = 'aliceblue';
     <?php }?>
-});
+    });
 </script>
-<script>
-document.getElementById("desplegar").addEventListener("click", function() {
-            var filtros = document.getElementById("filtrosmovil");
-            if (filtros.style.display === "none") {
-                filtros.style.display = "block";
-            } else {
-                filtros.style.display = "none";
-            }
-        });
-    </script>
 </body>
 </html>
 <?php
