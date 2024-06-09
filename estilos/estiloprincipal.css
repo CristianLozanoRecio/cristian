@@ -14,7 +14,8 @@ header{
     height: 80px;
     background: aliceblue;
     box-shadow: 0 4px 25px -22px red;
-    z-index: 2;
+    margin-bottom: 80px;
+    z-index: 10000;
 }
 main {
   overflow-x: hidden;
@@ -170,19 +171,12 @@ main {
   }
 
   main {
+    margin-top: 20px;
     min-height: calc(100vh);
     padding: 20px;
     box-sizing: border-box;
     overflow: auto;
-    background-image: url('../imagenes/fondobueno.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    background-color: seashell;
 }
 
 main::after {
@@ -230,6 +224,7 @@ main::after {
     right: 0;
     color: white;
     top: 0;
+    z-index: 3;
   }
   #menulateralmovil nav{
     margin-top: 100px;

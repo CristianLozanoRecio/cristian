@@ -1,9 +1,9 @@
 <?php
 include("../con_db.php");
 if(isset($_POST["register"])) {
-    if(strlen($_POST["name"]) >= 1 && strlen($_POST["passw"]) >= 1) {
-        $name = trim($_POST["name"]);
-        $passw = trim($_POST["passw"]);
+    if(strlen($_POST["nameMETERUSUARIO"]) >= 1 && strlen($_POST["passwMETERUSUARIO"]) >= 1) {
+        $name = trim($_POST["nameMETERUSUARIO"]);
+        $passw = trim($_POST["passwMETERUSUARIO"]);
         $comprobar = "SELECT nombre FROM usuario WHERE nombre = '$name'";
         $resultado_comprobar = mysqli_query($conex, $comprobar);
 
@@ -29,8 +29,8 @@ require('fpdf/fpdf.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $name = trim($_POST['name']);
-    $passw = trim($_POST['passw']);
+    $name = trim($_POST['nameMETERUSUARIO']);
+    $passw = trim($_POST['passwMETERUSUARIO']);
 
     $url = "http:///cristian/registroinicio/iniciar_sesion.php?name=".urlencode(base64_encode($name))."&passw=".urlencode(base64_encode($passw));
     

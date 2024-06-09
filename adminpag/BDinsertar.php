@@ -1,139 +1,107 @@
 <?php
-try {
 include("../con_db.php");
+$mensaje = "";
+
 //BORRARAUTOR
-if(isset($_POST["iniciarBORRARAUTOR"])) {
-    if(isset($_POST["id"])) {
-        $id =  mysqli_real_escape_string($conex,trim($_POST["id"]));
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if(isset($_POST["id_autor"])) {
+        $id =  mysqli_real_escape_string($conex,trim($_POST["id_autor"]));
         $consulta = "DELETE FROM autor WHERE id_autor = '$id'";
         $resultado = mysqli_query($conex, $consulta);
         if ($resultado) {
             // Verifica el número de filas afectadas
             if (mysqli_affected_rows($conex) > 0) {
-                ?>
-                <script>
-                    alert("Borrado Correctamente");
-                </script>
-                <?php
+               
+                
+                    $mensaje = "OK";
+             
             } else {
-                ?>
-                <script>
-                    alert("No se encontró el autor con ese ID.");
-                </script>
-                <?php
+            
+                
+                    $mensaje = "No se encontró el autor con ese ID.";
+                
+                
             }
         } else {
-            ?>
-            <script>
-                alert("¡Ups, ha ocurrido un error!");
-            </script>
-            <?php
+        
+            
+                $mensaje = "¡Ups, ha ocurrido un error!";
+            
+        
         }
-    } else {
-        ?>
-        <script>
-            alert("¡Por favor completa la ID!");
-        </script>
-        <?php
-    }
 }
-
-//BORRARLIBRO
-if(isset($_POST["iniciarBORRARLIBRO"])) {
-    if($_POST["isbn"] >= 0) {
+    if(isset($_POST["isbn"])) {
         $isbn =  mysqli_real_escape_string($conex,trim($_POST["isbn"]));
         $consulta = "DELETE FROM libro WHERE isbn = '$isbn'";
         $resultado = mysqli_query($conex, $consulta);
         if ($resultado) {
             // Verifica el número de filas afectadas
             if (mysqli_affected_rows($conex) > 0) {
-                ?>
-                <script>
-                    alert("Borrado Correctamente");
-                </script>
-                <?php
+                
+                
+                    $mensaje = "OK";
+                
+              
             } else {
-                ?>
-                <script>
-                    alert("No se encontró el libro con ese ISBN.");
-                </script>
-                <?php
+              
+                
+                    $mensaje = "No se encontró el libro con ese ISBN.";
+                
+              
             }
         } else {
-            ?>
-            <script>
-                alert("¡Ups, ha ocurrido un error!");
-            </script>
-            <?php
+          
+            
+                $mensaje = "¡Ups, ha ocurrido un error!";
+            
+    
         }
-    } else {
-        ?>
-        <script>
-            alert("¡Por favor completa la ISBN!");
-        </script>
-        <?php
     }
-}
-//BORRARUSUARIO
-if(isset($_POST["iniciarBORRARUSUARIO"])) {
-    if($_POST["name"] >= 1) {
-        $usuario = mysqli_real_escape_string($conex, trim($_POST["name"]));
+    if(isset($_POST["usuario"]) >0) {
+        $usuario = mysqli_real_escape_string($conex, trim($_POST["usuario"]));
         $consulta = "DELETE FROM usuario WHERE nombre = '$usuario'";
         $resultado = mysqli_query($conex, $consulta);
         if ($resultado) {
             // Verifica el número de filas afectadas
             if (mysqli_affected_rows($conex) > 0) {
-                ?>
-                <script>
-                    alert("Borrado Correctamente");
-                </script>
-                <?php
+                
+                
+                    $mensaje = "OK";
             } else {
-                ?>
-                <script>
-                    alert("No se encontró el usuario con ese nombre.");
-                </script>
-                <?php
+                    $mensaje = "MAL";
+                
+                
             }
         } else {
-            ?>
-            <script>
-                alert("¡Ups, ha ocurrido un error!");
-            </script>
-            <?php
+            
+            
+                $mensaje = "¡Ups, ha ocurrido un error!";
+            
+            
         }
-    } else {
-        ?>
-        <script>
-            alert("¡Por favor completa el Usuario!");
-        </script>
-        <?php
     }
-}
-
-//METER AUTOR
+    
 if(isset($_POST["iniciarMETERAUTOR"])) {
-    if (strlen($_POST["name"]) >= 1 ) { 
-        $nombre = mysqli_real_escape_string($conex, trim($_POST["name"])); 
+    $mensaje = "Completa nombre";
+    if (strlen($_POST["nameMETERAUTOR"]) >0){ 
+        $nombre = mysqli_real_escape_string($conex, trim($_POST["nameMETERAUTOR"])); 
         $biografia =  mysqli_real_escape_string($conex, nl2br($_POST["biografia"]));       
         $consulta = "INSERT INTO autor(nombre,biografia) VALUES ('$nombre', '$biografia')";
         $resultado = mysqli_query($conex, $consulta);
 
         if ($resultado) {
-            echo '<script>alert("EXITO");</script>';
+            $mensaje = "EXITO";
         } else {
-            echo '<script>alert("ERROR EN METER DATOS");</script>';
+       $mensaje = "ERROR EN METER DATOS";
         }
-    } else {
-        echo '<script>alert("COMPLETA CORRECTAMENTE LOS DATOS");</script>';
+    } else{
+        $mensaje = "Completa nombre";
     }
-}
+} 
 
-
-//METER LIBRO
 if(isset($_POST["datos"])) {
-    if (strlen($_POST["isbn"]) >= 1 ) {        
-        $isbn = mysqli_real_escape_string($conex, trim($_POST["isbn"]));
+    if ($_POST["isbnMETERLIBRO"]>0) {        
+        $isbn = mysqli_real_escape_string($conex, trim($_POST["isbnMETERLIBRO"]));
         $autor = mysqli_real_escape_string($conex, trim($_POST["autor"]));
         $titulo = mysqli_real_escape_string($conex, trim($_POST["titulo"]));
         $nombre_archivo = str_replace(' ', '_', $_FILES['portada_libro']['name']);
@@ -160,45 +128,18 @@ if(isset($_POST["datos"])) {
          $resultado = mysqli_query($conex, $consulta);
 
         if ($resultado) {
-            echo '<script>alert("EXITO");</script>';
+           $mensaje = "EXITO";
         } else {
-            echo '<script>alert("ERROR EN METER DATOS");</script>';
+            $mensaje = "ERROR EN METER DATOS";
         }
-    } else {
-        echo '<script>alert("COMPLETA CORRECTAMENTE LOS DATOS");</script>';
+    } else{
+        $mensaje = "HOLA";
     }
 }
-
-//METER USUARIO
-if(isset($_POST["register"])) {
-    if(strlen($_POST["name"]) >= 1 && strlen($_POST["passw"]) >= 1) {
-        $name = trim($_POST["name"]);
-        $passw = trim($_POST["passw"]);
-        $comprobar = "SELECT nombre FROM usuario WHERE nombre = '$name'";
-        $resultado_comprobar = mysqli_query($conex, $comprobar);
-
-        if(mysqli_num_rows($resultado_comprobar) > 0) {
-            echo '<h3>Nombre de usuario ya existe</h3>';
-        } else {
-            $consulta = "INSERT INTO Usuario(nombre, passw) VALUES ('$name', '$passw')";
-            $resultado = mysqli_query($conex, $consulta);
-
-            if ($resultado) {
-                $_SESSION["name"] = $name;
-            } else {
-                echo '<h3>Error en el registro</h3>';
-            }
-        }
-    } else {
-        echo '<h3>Completa los campos</h3>';
-    }
-}
-
-//EDITARLIBRO
-if(isset($_POST["datosEDITAR"])) {
-    if (strlen($_POST["isbn"]) >= 1 ) {
+    if (isset($_POST["isbn_editar"])) {
         $consultaUPDATE = '';     
-        $isbn = mysqli_real_escape_string($conex, trim($_POST["isbn"]));
+        $isbn = mysqli_real_escape_string($conex, trim($_POST["isbn_editar"]));
+        $isbnANT = mysqli_real_escape_string($conex, trim($_POST["isbnANT"]));
 
         if(isset($_POST["autor"]) >=1){
             $autor = mysqli_real_escape_string($conex, trim($_POST["autor"]));
@@ -229,8 +170,8 @@ if(isset($_POST["datosEDITAR"])) {
             $consultaUPDATE .= ", editorial = '$editorial'";
         }
 
-        if(isset($_POST["tipo"])){
-            $tipo = mysqli_real_escape_string($conex, trim($_POST["tipo"]));
+        if(isset($_POST["tipolibro"])){
+            $tipo = mysqli_real_escape_string($conex, trim($_POST["tipolibro"]));
             $consultaUPDATE .= ", tipo = '$tipo'";
         }
 
@@ -248,128 +189,72 @@ if(isset($_POST["datosEDITAR"])) {
             $ano_publicacion = mysqli_real_escape_string($conex, trim($_POST["ano_publicacion"]));
             $consultaUPDATE .= ", ano_publicacion = '$ano_publicacion'";
         }
-        $consulta = "UPDATE libro SET isbn = '$isbn' $consultaUPDATE where isbn = '$isbn'";
+        if(strlen($_POST["disponible"])>=1){
+            $disponible = mysqli_real_escape_string($conex, trim($_POST["disponible"]));
+            $consultaUPDATE .= ", disponible = '$disponible'";
+        }
+        $consulta = "UPDATE libro SET isbn = '$isbn' $consultaUPDATE where isbn = '$isbnANT'";
         $resultado = mysqli_query($conex, $consulta);
 
         if ($resultado) {
-            echo '<script>alert("EXITO");</script>';
+            $mensaje = $consulta;
         } else {
-            echo '<script>alert("ERROR EN METER DATOS");</script>';
+  $mensaje = "ERROR EN METER DATOS";
         }
-    } else {
-        echo '<script>alert("COMPLETA CORRECTAMENTE LOS DATOS");</script>';
     }
-}
 
-
-//EDITAR USUARIO
-if(isset($_POST["usuarioEDITOR"])) {
-    if (strlen($_POST["nombreEDITAR"]) >= 1 ) {
-        $consultaUPDATE = '';     
-        $nombreEDITAR = mysqli_real_escape_string($conex, trim($_POST["nombreEDITAR"]));
-        $comprobar = "SELECT nombre FROM usuario WHERE nombre = '$nombreEDITAR'";
-        $resultado_comprobar = mysqli_query($conex, $comprobar);
-        if(mysqli_num_rows($resultado_comprobar) > 0) {
-            if(strlen($_POST["name"]) >=1){
-                $name = mysqli_real_escape_string($conex, trim($_POST["name"]));
-                $comprobar = "SELECT nombre FROM usuario WHERE nombre = '$name'";
-                $resultado_comprobar = mysqli_query($conex, $comprobar);
-                if(mysqli_num_rows($resultado_comprobar) > 0) {
-                } else {
-                    $consultaUPDATE .= ", nombre = '$name'";
-                }
-            }        
-            if(strlen($_POST["passw"])>=1){
-                $passw = mysqli_real_escape_string($conex, trim($_POST["passw"]));
-                $consultaUPDATE .= ", passw = '$passw'";
-            }
-            $consulta = "UPDATE usuario SET  nombre =  '$nombreEDITAR' $consultaUPDATE where nombre = '$nombreEDITAR'";
+if(isset($_POST["usuario_act"]) && isset($_POST["passw_act"])){
+    if (strlen($_POST["usuario_act"])>0 && strlen($_POST["passw_act"])>4) {   
+        $usuario_act = mysqli_real_escape_string($conex, trim($_POST["usuario_act"]));
+        $passw_act = mysqli_real_escape_string($conex, trim($_POST["passw_act"]));
+        $usuarioANT = mysqli_real_escape_string($conex, trim($_POST["usuarioANT"]));    
+            $consulta = "UPDATE usuario SET  nombre =  '$usuario_act' , passw='$passw_act' where nombre = '$usuarioANT'";
             $resultado = mysqli_query($conex, $consulta);
-
-            if(mysqli_num_rows($resultado_comprobar) > 0) {
-                echo '<script>alert("Nombre de usuario ya existe");</script>';
-            } else if ($resultado) {
-                echo '<script>alert("EXITO");</script>';
+             if ($resultado) {
+              $mensaje = "EXITO";
             } else {
-                echo '<script>alert("ERROR EN METER DATOS");</script>';
+              $mensaje = "ERROR EN METER DATOS";
             }
-        } else {
-            echo '<script>alert("COMPLETA CORRECTAMENTE LOS DATOS");</script>';
+        }else{
+            $mensaje  = "Pocos carácteres";
         }
-    } else {
-        echo '<script>alert("COMPLETA EL NOMBRE A EDITAR");</script>';
     }
-}
 
-// EDITAR AUTOR
-if(isset($_POST["iniciarEDITARAUTOR"])) {
-    if (strlen($_POST["id_autor"]) >= 1 ) {
-        $consultaUPDATE = '';     
-        $id_autor = mysqli_real_escape_string($conex, trim($_POST["id_autor"]));
-        $comprobar = "SELECT * FROM autor WHERE id_autor = '$id_autor'";
-        $resultado_comprobar = mysqli_query($conex, $comprobar);
-        if(mysqli_num_rows($resultado_comprobar) > 0) {
-            if(strlen($_POST["name"]) >=1){
-                $name = mysqli_real_escape_string($conex, trim($_POST["name"]));
-                $consultaUPDATE .= ", nombre = '$name'";
-            }        
-            if(strlen($_POST["biografia"])>=1){
-                $biografia = mysqli_real_escape_string($conex, nl2br($_POST["biografia"]));
-                $consultaUPDATE .= ", biografia = '$biografia'";
-            }
-            $consulta = "UPDATE autor SET  id_autor =  '$id_autor' $consultaUPDATE where id_autor = '$id_autor'";
-            $resultado = mysqli_query($conex, $consulta);
+    if (isset($_POST["id_autor_act"])) {   
+        $id_autor = mysqli_real_escape_string($conex, trim($_POST["id_autor_act"]));
+        $nombre = mysqli_real_escape_string($conex, trim($_POST["nombre_autor"])); 
+        $biografia =  mysqli_real_escape_string($conex, nl2br($_POST["biografia"]));  
+        $consulta = "UPDATE autor SET  id_autor =  '$id_autor', nombre = '$nombre', biografia='$biografia'  where id_autor = '$id_autor'";
+        $resultado = mysqli_query($conex, $consulta);
             if ($resultado) {
-                echo '<script>alert("EXITO");</script>';
+                $mensaje = "PERFE";
             } else {
-                echo '<script>alert("ERROR EN METER DATOS");</script>';
+                $mensaje = "ERROR EN METER DATOS";
             }
-        } else {
-            echo '<script>alert("COMPLETA CORRECTAMENTE LOS DATOS");</script>';
         }
-    } else {
-        echo '<script>alert("COMPLETA LA ID A EDITAR");</script>';
-    }
-}
 
 //BORRARRESERVA
-if(isset($_POST["iniciarBORRARRESERVA"])) {
-    if($_POST["id_reserva"] >= 0) {
-        $id_reserva = mysqli_real_escape_string($conex, trim($_POST["id_reserva"]));
-        $consulta = "DELETE FROM reserva WHERE id_reserva = '$id_reserva'";
-        $resultado = mysqli_query($conex, $consulta);
-        if ($resultado) {
-            // Verifica el número de filas afectadas
-            if (mysqli_affected_rows($conex) > 0) {
-                ?>
-                <script>
-                    alert("Borrado Correctamente");
-                </script>
-                <?php
-            } else {
-                ?>
-                <script>
-                    alert("No se encontró la reserva con ese ID.");
-                </script>
-                <?php
-            }
+if(isset($_POST["id_reserva"])) {
+    // Recibe la clave correcta que estás enviando desde JavaScript
+    $id_reserva = mysqli_real_escape_string($conex, trim($_POST["id_reserva"]));
+    $consulta = "DELETE FROM reserva WHERE id_reserva = '$id_reserva'";
+    $resultado = mysqli_query($conex, $consulta);
+    if ($resultado) {
+        // Verifica el número de filas afectadas
+        if (mysqli_affected_rows($conex) > 0) {
+            $mensaje = "OK";
         } else {
-            ?>
-            <script>
-                alert("¡Ups, ha ocurrido un error!");
-            </script>
-            <?php
+            $mensaje = "MAL";
         }
     } else {
-        ?>
-        <script>
-            alert("¡Por favor completa el ID de la reserva!");
-        </script>
-        <?php
+        $mensaje = "MAL";
     }
 }
-mysqli_close($conex);
-} catch (Exception $e) {
-    // Manejo de excepciones
-    echo '<script>alert("Se ha producido un error: ' . $e->getMessage() . '");</script>';}
+
+
+    header('Content-Type: application/json');
+echo json_encode(array("mensaje" => $mensaje));
+
+    mysqli_close($conex);
+}
 ?>
