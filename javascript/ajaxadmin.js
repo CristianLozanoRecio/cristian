@@ -109,7 +109,9 @@ $(document).ready(function() {
         } else if (tipo === 'usuario') {
             var usuario_act = fila.find('.usuario').val();
             var passw_act = fila.find('.passw').val();
+            var correo_act = fila.find('.correo').val();
     
+            formData.append('correo_act', correo_act);
             formData.append('usuario_act', usuario_act);
             formData.append('passw_act', passw_act);
             formData.append('usuarioANT', id);

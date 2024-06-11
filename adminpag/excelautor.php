@@ -1,7 +1,8 @@
 <?php
 header("Content-type: application/xls");
 header("Content-Disposition: attachment; filename= autor.xls");
-
+session_start();
+if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
 ?>
 <head>
 <meta charset="UTF-8">
@@ -38,4 +39,7 @@ if($inc) {
     }
 }
 mysqli_close($conex);
+}else{
+    header("Location: ../error.php");
+}
 ?>

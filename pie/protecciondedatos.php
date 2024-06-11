@@ -1,35 +1,21 @@
 <?php
 session_start();
-if (isset($_SESSION["name"]) === "admin") {
-    echo '<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var cambio = document.getElementById("cambio");
-        if (cambio) {
-            cambio.innerHTML = \'<a href="../adminpag/formulariosadmin.php">PAG ADMIN</a>\';
-        }
-    });
-  </script>';
+$_SESSION['sitio'] = 'inicio';
+if(isset($_SESSION["name"])){
+    if ($_SESSION["name"] === "admin") {
+        $link = '<a href="../adminpag/formulariosadmin.php">PAG ADMIN</a>';
+        $link2 = '<a href="../adminpag/formulariosadmin.php"><i class="fa-solid fa-hat-cowboy"></i>PAG ADMIN</a>';
 
-}else if(isset($_SESSION["name"])){
-    echo '<script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var cambio = document.getElementById("cambio");
-                if (cambio) {
-                    cambio.innerHTML = \'<a href="../registroinicio/cerrar_sesion.php">Cerrar sesión</a>\';
-                }
-            });
-          </script>';
+    } else {
+        $link = '<a href="../registroinicio/cerrar_sesion.php">Cerrar sesión</a>';
+        $link2 = '<a href="../registroinicio/cerrar_sesion.php"><i class="fa-solid fa-door-closed"></i>Cerrar sesión</a>';
+    }
+}else{
+    $link = '<a href="../registroinicio/iniciar_sesion.php">Iniciar Sesión</a>';
+    $link2 = '<a href="../registroinicio/iniciar_sesion.php"><i class="fa-solid fa-door-open"></i>Iniciar Sesión</a>';
+
 }
-else{
-    echo '<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var cambio = document.getElementById("cambio");
-        if (cambio) {
-            cambio.innerHTML = \'<a href="../registroinicio/registro.php">REGISTRATE</a>\';
-        }
-    });
-  </script>';
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -37,75 +23,143 @@ else{
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TuBiblioWeb</title>
-    <link rel="stylesheet" href="../estilos/estilolibros.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />    <link
+    <link rel="stylesheet" href="../estilos/estilodetallelibros.css">
+    <link rel="stylesheet" href="../estilos/estilogeneral.css">
+    <link rel="icon" href="../imagenes/favicon.png" type="image/png">
+     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
       integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+<div class="cookie"><p>
+    Utilizamos cookies para mejorar tu experiencia en nuestro sitio web. Al continuar navegando, aceptas nuestra 
+    <a href="../pie/politicacookies.php" target="_blank" style="color: #fff; text-decoration: underline;">Política de Privacidad</a> y el uso de cookies.
+  </p>
+        <button class="cookieboton" id="ok">ACEPTAR</button>
+        <button class="cookieboton" id="mal">RECHAZAR</button>
+    </div>
     <header class="cerebro">
         <div class="header-contenido">
             <div class="logo">
-                <a href="../principal.php" style="color: inherit; text-decoration: none;"><h1>TuBiblio<b>Web</b></h1></a>
+            <a href="../principal/index.php"  style="color: inherit; text-decoration: none;"><h1>TuBiblio<b>Web</b></h1></a>
             </div>
             <div class="menu">
                 <nav>
                     <ul>
-                        <li><a href="../principal.php">Inicio</a></li>
-                        <li><a href="#">Nosotros</a></li>
-                        <li><a href="#">Horarios</a></li>
-                        <li><a href="#">Libros</a></li>
-                        <li id="cambio"><a href="../registroinicio/registro.php">REGISTRATE</a></li>
-                        <li><div style="display: flex;">
-                            <form method="get" action="../menu/libros.php"> 
-                                <div class="buscar">
-                                <input type="text" placeholder="Búsqueda por título" name="buscar" required />
+                        <li><a href="../principal/index.php"  id="inicio">Inicio</a></li>
+                        <li><a href="VERreservas.php" id="reservas">Reservas</a></li>
+                        <li><a href="info.php" id="informacion">Información</a></li>
+                        <li><a href="libros.php" id="libros">Libros</a></li>
+                        <li id="cambio"></li>
+                        <li ><div class="busqueda2">
+            <form method="get" action="libros.php"> 
+                     <div class="buscar">
+                                <input type="text" placeholder="Búsqueda por título" name="titulo" required />
                                 <div class="btn">
-                                    <i class="fas fa-search icon"></i>
+                                    <button class="pulsarbuscar"><i class="fas fa-search icon fa-2x"></i></button>
+                               </div>
                                 </div>
                         </form>
-                            </li>
+            </div>
+        </li>
+                    </ul>
+                </nav>
+                <div class="busqueda" >
+            <form method="get" action="libros.php"> 
+                     <div class="buscar">
+                                <input type="text" placeholder="Búsqueda por título" name="titulo" required />
+                                <div class="btn">
+                                    <button class="pulsarbuscar"><i class="fas fa-search icon fa-2x"></i></button>
+                               </div>
+                                </div>
+                        </form>
+                        </div>
+                        </div>
+            <div class="menu2">
+                <nav>
+                    <ul>
+                            <li><a href="#" class="icon-button" id="menumovil">
+                            <i class="fa-solid fa-bars fa-2x"></i>
+                            </a></li>
+                            <div class="busqueda" id="buscar2">
+            <form method="get" action="libros.php"> 
+                     <div class="buscar">
+                                <input type="text" placeholder="Búsqueda por título" name="titulo" required />
+                                <div class="btn">
+                                    <button class="pulsarbuscar"><i class="fas fa-search icon fa-2x"></i></button>
+                               </div>
+                                </div>
+                        </form>
                     </ul>
                 </nav>
             </div>
-        </div>
 
-</div>
-    </div>
     </header>
-    <main style="margin: 30px; margin-top:100px">
-    <p>En cumplimiento con lo establecido en el Reglamento General de Protección de Datos (RGPD), a continuación se detallan las prácticas de protección de datos de este sitio web:</p>
 
-<h2>Responsable del tratamiento de datos</h2>
-<p>El responsable del tratamiento de los datos personales recogidos a través de este sitio web es [Nombre de la Biblioteca], con domicilio en [Dirección] y número de identificación fiscal [CIF].</p>
-
-<h2>Finalidad del tratamiento</h2>
-<p>Los datos personales que recopilamos a través de este sitio web se utilizan para los siguientes propósitos:</p>
-<ul>
-    <li>Gestión de préstamos y devoluciones de material bibliográfico.</li>
-    <li>Envío de comunicaciones relacionadas con actividades y servicios de la biblioteca.</li>
-    <li>Análisis estadístico y mejora de nuestros servicios.</li>
-</ul>
-
-<h2>Base legal para el tratamiento</h2>
-<p>El tratamiento de datos personales se basa en el consentimiento del usuario o en la necesidad de llevar a cabo medidas contractuales o precontractuales.</p>
-
-<h2>Derechos de los usuarios</h2>
-<p>Los usuarios tienen derecho a acceder, rectificar, limitar u oponerse al tratamiento de sus datos personales. Para ejercer estos derechos, pueden ponerse en contacto con nosotros a través de los datos de contacto proporcionados en nuestro <a href="/aviso-legal">Aviso Legal</a>.</p>
-
-<h2>Seguridad de los datos</h2>
-<p>Implementamos medidas de seguridad técnicas y organizativas adecuadas para proteger los datos personales contra la pérdida, el acceso no autorizado u otras formas de tratamiento indebido.</p>
-
-<h2>Transferencias internacionales</h2>
-<p>En caso de que se realicen transferencias internacionales de datos, se tomarán las medidas necesarias para garantizar un nivel adecuado de protección de acuerdo con la legislación aplicable.</p>
-
-<h2>Modificaciones en la política</h2>
-<p>Nos reservamos el derecho de actualizar o modificar esta política de protección de datos en cualquier momento. Se publicará la versión actualizada en nuestro sitio web junto con la fecha de entrada en vigor.</p>
-
+    <main style="min-heigth: 100vh;">
+        <div id="menulateralmovil">
+            <nav>
+                <ul>
+                    <li><a href="../principal/index.php" ><i class="fa-solid fa-house"></i>Inicio</a></li>
+                    <br>
+                    <hr style="border: 1px solid black;">
+                    <li><a href="VERreservas.php" id="reservas2"><i class="fa-solid fa-calendar-check"></i>Reservas</a></li>
+                    <br>
+                    <hr style="border: 1px solid black;">
+                    <li><a href="info.php" ><i class="fa-solid fa-info"></i>Información</a></li>
+                    <br>
+                    <hr style="border: 1px solid black;">
+                    <li><a href="libros.php" id="libros2"><i class="fa-solid fa-book"></i>Libros</a></li>
+                    <br>
+                    <hr style="border: 1px solid black;">
+                    <li id="cambio2"><a href="../registroinicio/iniciar_sesion.php"><i class="fa-solid fa-door-open"></i>Iniciar Sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    <br><br><br>
+    <div style="margin: 20px;">
+<p>
+<h1>Política de Protección de Datos</h1>
+<br>
+En TuBiBlioWeb, nos comprometemos a proteger la privacidad y la seguridad de sus datos personales. Esta política describe cómo recopilamos, utilizamos y protegemos la información que usted proporciona cuando utiliza nuestro sitio web.
+<br><br>
+<h2>Recopilación de Datos Personales</h2>
+<br>
+Recopilamos datos personales cuando usted nos los proporciona directamente, por ejemplo, al registrarse en nuestro sitio, completar formularios en línea, suscribirse a nuestro boletín informativo o comunicarse con nosotros por correo electrónico. Los tipos de datos personales que podemos recopilar incluyen su nombre, dirección de correo electrónico, dirección postal y otra información que usted decida compartir con nosotros.
+<br>
+También recopilamos automáticamente cierta información cuando usted visita nuestro sitio web, incluyendo su dirección IP, tipo de navegador, sistema operativo, páginas visitadas y la fecha y hora de su visita. Utilizamos esta información para mejorar la funcionalidad y el rendimiento de nuestro sitio, así como para fines de análisis y estadísticas.
+<br><br>
+<h2>Uso de Datos Personales</h2>
+<br>
+Utilizamos los datos personales que recopilamos para proporcionarle los servicios solicitados, responder a sus consultas, enviarle información relevante y mejorar su experiencia en nuestro sitio web. Podemos utilizar sus datos personales para enviarle comunicaciones de marketing, siempre y cuando hayamos obtenido su consentimiento previo.
+<br>
+<h2>Divulgación de Datos Personales</h2>
+<br>
+No vendemos, alquilamos ni divulgamos sus datos personales a terceros, excepto en los casos que se describen en esta política o cuando la ley así lo exige. Podemos compartir sus datos personales con proveedores de servicios de confianza que nos ayudan a operar nuestro sitio web y prestar servicios a nuestros usuarios.
+<br><br>
+<h2>Seguridad de los Datos Personales</h2>
+<br>
+Tomamos medidas para proteger la seguridad de sus datos personales y prevenir el acceso no autorizado, el uso indebido o la divulgación de información sensible. Utilizamos tecnologías de seguridad y procedimientos de gestión de datos para proteger sus datos personales contra pérdida, robo y acceso no autorizado.
+<br><br>
+<h2>Sus Derechos</h2>
+<br>
+Usted tiene derecho a acceder, corregir, actualizar o eliminar sus datos personales en cualquier momento. Si desea ejercer alguno de estos derechos, por favor póngase en contacto con nosotros utilizando la información de contacto proporcionada al final de esta política.
+<br><br>
+<h2>Cambios en la Política de Protección de Datos</h2>
+<br>
+Nos reservamos el derecho de modificar esta política de protección de datos en cualquier momento. Cualquier cambio significativo será notificado a través de nuestro sitio web o por correo electrónico, si es posible. Se recomienda revisar periódicamente esta política para estar informado sobre cómo protegemos sus datos personales.
+<br><br>
+<h2>Contacto</h2>
+<br>
+Si tiene alguna pregunta o inquietud sobre nuestra política de cookies, no dude en ponerse en contacto con nosotros a través de la información proporcionada en la sección de contacto de este sitio web.
+</p>
+</div>      
+<br>
 </main>
 <footer>
         <div class="pie">
@@ -116,23 +170,35 @@ else{
                     <td><h3>Políticas</h3></td>
                 </tr>
                 <tr>
-                    <td><img src="../imagenes/tlf.png" width="40px">TLF: 666 666 666</td>
-                    <td><img src="../imagenes/facebook.png" width="40px">facebook</td>
-                    <td><a href="../pie/avisolegal.php">Aviso legal</a></td>
+                    <td>TLF:  956 67 07 67</td>
+                    <td><a href="https://www.facebook.com/institutokursaal/?locale=es_ES" target="_blank"><i class="fa-brands fa-facebook fa-2x"></i></a></td>
+                    <td><a href="avisolegal.php">Aviso legal</a></td>
                 </tr>
                 <tr>
-                    <td>Dirección: C/XXXX</td>
-                    <td><img src="../imagenes/Insta.png" width="40px">Instagram</td>
-                    <td><a href="../pie/politicacookies.php">Política de Cookies</a></td>
+                    <td>Dirección: Av. <br>Virgen de Europa, 4</td>
+                    <td><a href="https://www.youtube.com/channel/UCj7am8zL4_-yEIvjWPSl1_A" target="_blank"><i class="fa-brands fa-youtube fa-2x"></i></td>
+                    <td><a href="politicacookies.php">Política de Cookies</a></td>
                 </tr>
                 <tr>
-                    <td>CP: 112XX</td>
-                    <td><img src="../imagenes/yt.png" width="40px"> YT</td>
-                    <td><a href="../pie/protecciondedatos.php">Protección de datos</a></td>
+                    <td>CP: 11202</td>
+                    <td><a href="https://www.instagram.com/ieskursaal/?hl=es" target="_blank"><i class="fa-brands fa-instagram fa-2x"></i></td>
+                    <td><a href="protecciondedatos.php">Protección de datos</a></td>
                 </tr>
             </table>
         </div>
-</footer>
-<script src="../javascript/libros.js"></script>
+    </footer>
+        <script src="../javascript/menumovil.js"> </script>
+    <?php    echo "<script>
+    var linkcambio = '$link';
+    var link2cambio = '$link2';
+</script>";
+?>
+    <script src="../javascript/cambio.js"></script>
+<script src="../javascript/borrarrservaajax.js"></script>
+<script src="../javascript/cookie.js"></script>
 </body>
 </html>
+<?php
+$_SESSION['sitio'] = '';
+?>
+

@@ -1,5 +1,6 @@
 <?php
 session_start();
+include("../especial.php");
 $_SESSION['sitio'] = 'libros';
 $num_reservas = 0;
 if(isset($_SESSION["name"])){
@@ -25,7 +26,10 @@ if(isset($_SESSION["name"])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TuBiblioWeb</title>
     <link rel="stylesheet" href="../estilos/estilodetallelibros.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+    <link rel="stylesheet" href="../estilos/estilogeneral.css">
+    <link rel="stylesheet" href="../estilos/estilocookie.css">
+    <link rel="icon" href="../imagenes/favicon.png" type="image/png">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
        <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
@@ -40,17 +44,24 @@ if(isset($_SESSION["name"])){
     <script src="../javascript/like.js"></script>
 </head>
 <body>
+<div class="cookie"><p>
+    Utilizamos cookies para mejorar tu experiencia en nuestro sitio web. Al continuar navegando, aceptas nuestra 
+    <a href="../pie/politicacookies.php" target="_blank" style="color: #fff; text-decoration: underline;">Política de Privacidad</a> y el uso de cookies.
+  </p>
+        <button class="cookieboton" id="ok">ACEPTAR</button>
+        <button class="cookieboton" id="mal">RECHAZAR</button>
+    </div>
     <header class="cerebro">
         <div class="header-contenido">
             <div class="logo">
-            <a href="../principal.php" style="color: inherit; text-decoration: none;"><h1>TuBiblio<b>Web</b></h1></a>
+            <a href="../principal/index.php"  style="color: inherit; text-decoration: none;"><h1>TuBiblio<b>Web</b></h1></a>
             </div>
             <div class="menu">
                 <nav>
                     <ul>
-                        <li><a href="../principal.php" id="inicio">Inicio</a></li>
+                        <li><a href="../principal/index.php" id="inicio">Inicio</a></li>
                         <li><a href="VERreservas.php" id="reserva">Reservas</a></li>
-                        <li><a href="/info.php" id="informacion">Información</a></li>
+                        <li><a href="info.php" id="informacion">Información</a></li>
                         <li><a href="libros.php" id="libros">Libros</a></li>
                         <li id="cambio"></li>
                         <li ><div class="busqueda2">
@@ -101,7 +112,7 @@ if(isset($_SESSION["name"])){
         <div id="menulateralmovil">
             <nav>
                 <ul>
-                    <li><a href="../principal.php" ><i class="fa-solid fa-house"></i>Inicio</a></li>
+                    <li><a href="../principal/index.php"><i class="fa-solid fa-house"></i>Inicio</a></li>
                     <br>
                     <hr style="border: 1px solid black;">
                     <li><a href="VERreservas.php" ><i class="fa-solid fa-calendar-check"></i>Reservas</a></li>
@@ -123,29 +134,29 @@ if(isset($_SESSION["name"])){
 $inc = include("../con_db.php");
 if($inc) {
     if (isset($_GET['isbn'])) {
-        $isbn = base64_decode($_GET['isbn']);
+        $isbn = cambioSQL($_GET['isbn']);
         $_SESSION["isbn"] = $isbn;
         $consulta = "SELECT * FROM LIBRO INNER JOIN AUTOR ON LIBRO.id_autor = AUTOR.id_autor WHERE isbn = '$isbn'";
     $resultado = mysqli_query($conex,$consulta);
-    if($resultado) {
+    if(mysqli_num_rows($resultado) > 0) {
         ?>
         <div class="general">
                 <?php
         while($row = $resultado->fetch_array()){
-            $imagen_url = $row["portada_libro"];
-            $autor = $row["nombre"];
-            $biografia = $row["biografia"];
-            $titulo = $row["titulo"];
-            $sinopsis = $row["sinopsis"];
-            $isbn = $row["isbn"];
-            $editorial = $row["editorial"];
-            $ano_publicacion = $row["ano_publicacion"];
-            $disponible = $row["disponible"];
+            $imagen_url = cambio($row["portada_libro"]);
+            $autor = cambio($row["nombre"]);
+            $biografia = cambio($row["biografia"]);
+            $titulo = cambio($row["titulo"]);
+            $sinopsis = cambio($row["sinopsis"]);
+            $isbn = cambio($row["isbn"]);
+            $editorial = cambio($row["editorial"]);
+            $ano_publicacion = cambio($row["ano_publicacion"]);
+            $disponible = cambio($row["disponible"]);
 
-            $idioma = $row["idioma"];
-            $tipo = $row["tipo"];
-            $publico = $row["publico"];
-            $num_likes = $row["num_like"];
+            $idioma = cambio($row["idioma"]);
+            $tipo = cambio($row["tipo"]);
+            $publico = cambio($row["publico"]);
+            $num_likes = cambio($row["num_like"]);
 
                 ?>
             <div class="estilo-div">
@@ -154,9 +165,9 @@ if($inc) {
                     <?php echo '<img src='.$imagen_url .' " class="img"/>';?></div><br>
                     <?php 
                     if ($disponible >= 1) {
-                        echo "<button id='buttonclick'>UNIDADES PARA RESERVAR <b>".$disponible."</b></button>";
+                        echo "<button class='buttonclick'>UNIDADES DISPONIBLES <b>".$disponible."</b></button>";
                     } else {
-                        echo "NO TENEMOS UNIDADES PARA RESERVAR";
+                        echo "NO TENEMOS DISPONIBLES";
                     }
 
 
@@ -211,7 +222,7 @@ if($inc) {
                 <br><br>
                 <?php
                 if(isset($_SESSION["name"])){
-                $query = mysqli_query($conex, "SELECT * FROM like_libro WHERE isbn_libro = '" . mysqli_real_escape_string($conex, $isbn) . "' AND nombre_usuario = '" . mysqli_real_escape_string($conex, $_SESSION["name"]) . "'");
+                $query = mysqli_query($conex, "SELECT * FROM like_libro WHERE isbn_libro = '" . mysqli_real_escape_string($conex, $isbn) . "' AND correo_usuario = '" . mysqli_real_escape_string($conex, $_SESSION["correo"]) . "'");
                     if (mysqli_num_rows($query) == 0) {
                     echo "<button id='" . $isbn . "' class='like'><i class='fa-regular fa-thumbs-up fa-2x'></i></button><span id='likes_" . $isbn . "'>" . $num_likes . "</span>";
                     }else{
@@ -234,12 +245,7 @@ if($inc) {
                 ?>
             </ul>
                     </div>
-            <?php
-        }
-    }
-}
-?>
-<div class="general2">
+        <div class="general2">
     <h3 style="font-size: 28px;"><?php echo $titulo;?></h3>
   
     <p  style="font-size: 24px;"><b>Autor: </b><a href="libros.php?nombre=<?php echo urlencode(base64_encode($autor)); ?>"><?php echo $autor;?></a></p>
@@ -248,6 +254,16 @@ if($inc) {
     <?php
 echo'<img src='.$imagen_url .' " class="img"/>';
 ?>
+<br>
+                    <?php 
+                    if ($disponible >= 1) {
+                        echo "<button class='buttonclick'>UNIDADES DISPONIBLES <b>".$disponible."</b></button>";
+                    } else {
+                        echo "NO TENEMOS DISPONIBLES";
+                    }
+
+
+    ?>
 </center>
 <br><br>
                     <div class="sinopsismovil">
@@ -315,8 +331,26 @@ echo'<img src='.$imagen_url .' " class="img"/>';
 <?php
 mysqli_close($conex);
 ?>
-
+<?php
+    }else{
+        ?><center><h1>No encontramos el libro pero no te pongas como</h1><br>
+            <img src="../imagenes/triste<?php echo rand(1,4);?>.png" style="width:200px; height:250px;">
+            <br><h1> Y sigue buscando <a href="libros.php" style="color: blue;">LIBROS</a></h1>
+    </center>
+        <?php
+    }
+    }else{
+     ?>
+     <center><h1>No encontramos el libro pero no te pongas como</h1><br>
+     <img src="../imagenes/triste<?php echo rand(1,4);?>.png" style="width:200px; height:250px;">
+     <br><h1> Y sigue buscando <a href="libros.php" style="color: blue;">LIBROS</a></h1>
+    </center>
+     <?php
+    }
+}
+?>
 </main>
+<footer>
         <div class="pie">
             <table class="tablapie">
                 <tr>
@@ -325,41 +359,35 @@ mysqli_close($conex);
                     <td><h3>Políticas</h3></td>
                 </tr>
                 <tr>
-                    <td><img src="../imagenes/tlf.png" width="40px">TLF: 666 666 666</td>
-                    <td><img src="../imagenes/facebook.png" width="40px">facebook</td>
+                    <td>TLF:  956 67 07 67</td>
+                    <td><a href="https://www.facebook.com/institutokursaal/?locale=es_ES" target="_blank"><i class="fa-brands fa-facebook fa-2x"></i></a></td>
                     <td><a href="../pie/avisolegal.php">Aviso legal</a></td>
                 </tr>
                 <tr>
-                    <td>Dirección: C/XXXX</td>
-                    <td><img src="../imagenes/Insta.png" width="40px">Instagram</td>
+                    <td>Dirección: Av. <br>Virgen de Europa, 4</td>
+                    <td><a href="https://www.youtube.com/channel/UCj7am8zL4_-yEIvjWPSl1_A" target="_blank"><i class="fa-brands fa-youtube fa-2x"></i></td>
                     <td><a href="../pie/politicacookies.php">Política de Cookies</a></td>
                 </tr>
                 <tr>
-                    <td>CP: 112XX</td>
-                    <td><img src="../imagenes/yt.png" width="40px"> YT</td>
+                    <td>CP: 11202</td>
+                    <td><a href="https://www.instagram.com/ieskursaal/?hl=es" target="_blank"><i class="fa-brands fa-instagram fa-2x"></i></td>
                     <td><a href="../pie/protecciondedatos.php">Protección de datos</a></td>
-                </tr>
-                <tr>
-                    <td></td> <td></td>
-                    <td><a href="#">Mapa web</a></td>
                 </tr>
             </table>
         </div>
+    </footer>
         <?php
 if(isset($_SESSION['name'])){
     include("../con_db.php");
-    $consulta = "SELECT COUNT(*) FROM reserva WHERE nombre_usuario = '" . $_SESSION['name'] . "'";
+    $consulta = "SELECT COUNT(*) FROM reserva WHERE correo_usuario = '" . $_SESSION['correo'] . "'";
     $resultado = mysqli_query($conex, $consulta);
     $num_reservas = mysqli_fetch_row($resultado)[0];
 }
 ?>
-<script>
-
-</script>
 <?php
-$name = isset($_SESSION['name']) ? $_SESSION['name'] : '';
+$correo = isset($_SESSION['correo']) ? $_SESSION['correo'] : '';
 echo "<script>
-    var userName = '$name';
+    var correo = '$correo';
     var numReservas = $num_reservas;
     var linkcambio = '$link';
     var link2cambio = '$link2';
@@ -370,6 +398,7 @@ echo "<script>
 
 </script>
 <script src="../javascript/menumovil.js"></script>
+<script src="../javascript/cookie.js"></script>
     <script>
 
     <?php 

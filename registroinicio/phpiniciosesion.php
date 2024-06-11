@@ -1,27 +1,31 @@
 <?php
 session_start();
 include("../con_db.php");
-
-if(isset($_POST["iniciar"])) {
-    if(strlen($_POST["name"]) >= 1 && strlen($_POST["passw"]) >= 1) {
+$admin = "";
+$mensaje = "";
+    if(isset($_POST["name"])  && isset($_POST["passw"]) ) {
         $name =  mysqli_real_escape_string($conex,trim($_POST["name"]));
         $passw =  mysqli_real_escape_string($conex,trim($_POST["passw"]));
-        $comprobar = "SELECT nombre,passw FROM usuario WHERE nombre = '$name' and passw = '$passw'";
+        $comprobar = "SELECT * FROM usuario WHERE nombre = '$name' and passw = '$passw'";
         $resultado_comprobar = mysqli_query($conex, $comprobar);
 
         if(mysqli_num_rows($resultado_comprobar) > 0) {
-            $_SESSION["name"] = $name;
+            while ($fila = mysqli_fetch_assoc($resultado_comprobar)) {
+               $_SESSION['name'] = $fila["nombre"];
+               $_SESSION['correo'] = $fila["correo"];
+            }
             if($name == "admin" && $passw == "admin12"){
-                header("Location: ../adminpag/formulariosadmin.php");
+               $admin = "../adminpag/formulariosadmin.php";
             }else{
-            header("Location: ../principal.php");
+            $mensaje = "ok";
             }
         } else {
-            echo '<h3>Datos incorrectos</h3>';
+            $mensaje ="Datos incorrectos";
         }
     } else {
-        echo '<h3>Completa los campos</h3>';
+        $mensaje ="Completa los campos";
     }
-}
+
 mysqli_close($conex);
-?>
+header('Content-Type: application/json');
+echo json_encode(array("mensaje" => $mensaje,"admin" => $admin)); ?>

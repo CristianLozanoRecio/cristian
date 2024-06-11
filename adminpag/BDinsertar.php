@@ -1,8 +1,12 @@
 <?php
+session_start();
+if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
 include("../con_db.php");
 $mensaje = "";
 
-//BORRARAUTOR
+$consultaRESERVA = "DELETE FROM reserva WHERE fecha_fin <= NOW()";
+$borrar  = mysqli_query($conex, $consultaRESERVA);
+try{
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(isset($_POST["id_autor"])) {
         $id =  mysqli_real_escape_string($conex,trim($_POST["id_autor"]));
@@ -19,15 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
                 
                     $mensaje = "No se encontró el autor con ese ID.";
-                
-                
+ 
             }
-        } else {
-        
-            
+        } else {    
                 $mensaje = "¡Ups, ha ocurrido un error!";
             
-        
         }
 }
     if(isset($_POST["isbn"])) {
@@ -203,12 +203,13 @@ if(isset($_POST["datos"])) {
         }
     }
 
-if(isset($_POST["usuario_act"]) && isset($_POST["passw_act"])){
+if(isset($_POST["usuario_act"]) && isset($_POST["passw_act"]) && isset($_POST["correo_act"])){
     if (strlen($_POST["usuario_act"])>0 && strlen($_POST["passw_act"])>4) {   
+        $correo_act = mysqli_real_escape_string($conex, trim($_POST["correo_act"]));
         $usuario_act = mysqli_real_escape_string($conex, trim($_POST["usuario_act"]));
         $passw_act = mysqli_real_escape_string($conex, trim($_POST["passw_act"]));
         $usuarioANT = mysqli_real_escape_string($conex, trim($_POST["usuarioANT"]));    
-            $consulta = "UPDATE usuario SET  nombre =  '$usuario_act' , passw='$passw_act' where nombre = '$usuarioANT'";
+            $consulta = "UPDATE usuario SET  nombre =  '$usuario_act' , passw='$passw_act' , correo='$correo_act' where nombre = '$usuarioANT'";
             $resultado = mysqli_query($conex, $consulta);
              if ($resultado) {
               $mensaje = "EXITO";
@@ -235,12 +236,10 @@ if(isset($_POST["usuario_act"]) && isset($_POST["passw_act"])){
 
 //BORRARRESERVA
 if(isset($_POST["id_reserva"])) {
-    // Recibe la clave correcta que estás enviando desde JavaScript
     $id_reserva = mysqli_real_escape_string($conex, trim($_POST["id_reserva"]));
     $consulta = "DELETE FROM reserva WHERE id_reserva = '$id_reserva'";
     $resultado = mysqli_query($conex, $consulta);
     if ($resultado) {
-        // Verifica el número de filas afectadas
         if (mysqli_affected_rows($conex) > 0) {
             $mensaje = "OK";
         } else {
@@ -252,9 +251,17 @@ if(isset($_POST["id_reserva"])) {
 }
 
 
-    header('Content-Type: application/json');
-echo json_encode(array("mensaje" => $mensaje));
 
+}
+}catch(Exception $e) {
+   
+    $mensaje = "Se produjo un error: " . $e->getMessage();
+    
+}
+header('Content-Type: application/json');
+echo json_encode(array("mensaje" => $mensaje));
     mysqli_close($conex);
+}else{
+        header("Location: ../error.php");
 }
 ?>

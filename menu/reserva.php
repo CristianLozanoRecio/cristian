@@ -8,7 +8,7 @@ $fechaFinal = $fechaActual->format('Y-m-d H:i:s');
 
 $_SESSION["fecha_fin"] = $fechaFinal;
 
-$consulta = "INSERT INTO reserva (isbn_libro, nombre_usuario,fecha_fin) VALUES ('" . $_SESSION["isbn"] . "', '" . $_SESSION["name"] . "', '" . $fechaFinal . "')";
+$consulta = "INSERT INTO reserva (isbn_libro, correo_usuario,fecha_fin) VALUES ('" . $_SESSION["isbn"] . "', '" . $_SESSION["correo"] . "', '" . $fechaFinal . "')";
 $resultado = mysqli_query($conex, $consulta);
 
 if ($resultado) {
@@ -18,9 +18,9 @@ if ($resultado) {
     $consulta2 = "UPDATE libro SET disponible = disponible-1 WHERE isbn = '" . $_SESSION['isbn'] . "'";
     mysqli_query($conex, $consulta2);
 
-    require 'C:\Users\crist\Downloads\pacris\pacris\PHPMailer-master\src\PHPMailer.php';
-    require 'C:\Users\crist\Downloads\pacris\pacris\PHPMailer-master\src\SMTP.php'; 
-    require 'C:\Users\crist\Downloads\pacris\pacris\PHPMailer-master\src\Exception.php';
+    require 'PHPMailer-master\src\PHPMailer.php';
+    require 'PHPMailer-master\src\SMTP.php'; 
+    require 'PHPMailer-master\src\Exception.php';
 
     $mail = new PHPMailer\PHPMailer\PHPMailer();
 
@@ -32,8 +32,8 @@ if ($resultado) {
     $mail->SMTPSecure = 'tls';  
     $mail->Port = 587;
     
-    $mail->setFrom('kolapep12@gmail.com', utf8_decode('Nombre Remitente'));
-    $mail->addAddress('kolapep12@gmail.com', utf8_decode('Nombre Destinatario'));
+    $mail->setFrom('kolapep12@gmail.com', utf8_decode('TuBiblioWeb'));
+    $mail->addAddress('kolapep12@gmail.com', utf8_decode('TuBlioWeb'));
     
     $mail->isHTML(true);
     $mail->Subject = utf8_decode($_SESSION['name'] . ' Realizó una reserva');

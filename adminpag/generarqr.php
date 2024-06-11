@@ -1,7 +1,10 @@
 <?php
+session_start();
+if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
 include("../con_db.php");
 if(isset($_POST["register"])) {
     if(strlen($_POST["nameMETERUSUARIO"]) >= 1 && strlen($_POST["passwMETERUSUARIO"]) >= 1) {
+        $email = trim($_POST["correo"]);
         $name = trim($_POST["nameMETERUSUARIO"]);
         $passw = trim($_POST["passwMETERUSUARIO"]);
         $comprobar = "SELECT nombre FROM usuario WHERE nombre = '$name'";
@@ -10,7 +13,7 @@ if(isset($_POST["register"])) {
         if(mysqli_num_rows($resultado_comprobar) > 0) {
             echo '<h3>Nombre de usuario ya existe</h3>';
         } else {
-            $consulta = "INSERT INTO Usuario(nombre, passw) VALUES ('$name', '$passw')";
+            $consulta = "INSERT INTO Usuario(correo,nombre, passw) VALUES ('$email','$name', '$passw')";
             $resultado = mysqli_query($conex, $consulta);
 
             if ($resultado) {
@@ -66,5 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pdf->Output($name . '.pdf', 'D');
 
     unlink($qrTempFile);
-}
+}}else{
+    header("Location: ../error.php");
+ }
 ?>

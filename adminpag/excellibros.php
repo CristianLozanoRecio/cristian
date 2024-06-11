@@ -1,7 +1,8 @@
 <?php
 header("Content-type: application/xls");
 header("Content-Disposition: attachment; filename= libros.xls");
-
+session_start();
+if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
 ?>
 <head>
     <meta charset="UTF-8">
@@ -25,6 +26,8 @@ if($inc) {
                     <td><b>Idioma</b></td>
                     <td><b>Tipo</b></td>
                     <td><b>Publico</b></td>
+                    <td><b>Stock</b></td>
+                    <td><b>Likes</b></td>
                 </tr>
                 <?php
         while($row = $resultado->fetch_array()){
@@ -38,6 +41,8 @@ if($inc) {
             $idioma=$row['idioma'];
             $tipo=$row['tipo'];
             $publico=$row['publico'];
+            $like = $row['num_like'];
+            $disponilbe = $row['disponible']
                 ?>
                 <tr>
                     <td><?php echo $isbn;?></td>
@@ -50,6 +55,8 @@ if($inc) {
                     <td><?php echo $idioma;?></td>
                     <td><?php echo $tipo;?></td>
                     <td><?php echo $publico;?></td>
+                    <td><?php echo $like;?></td>
+                    <td><?php echo $disponible;?></td>
 
                 </tr>
                 <?php
@@ -60,4 +67,6 @@ if($inc) {
     }
 }
 mysqli_close($conex);
+}else{
+header("Location: ../error.php");}
 ?>

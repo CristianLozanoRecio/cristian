@@ -7,8 +7,8 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>MENÚ PÁGINA</title>
+<link rel="icon" href="../imagenes/favicon.png" type="image/png">
+<title>TuBiblioWeb/ADMIN</title>
 <link rel="stylesheet" href="../estilos/estiloformadmin.css"/>
 <link
       rel="stylesheet"
@@ -62,7 +62,7 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
     </ul>
   </li>
   <li><a href="../registroinicio/cerrar_sesion.php"><i class="fa-solid fa-right-from-bracket fa-3x"></i></a>  </li>
-    <li><a href="../principal.php"><i class="fa-solid fa-house  fa-3x"></i></a></li>
+    <li><a href="../principal/index.php"><i class="fa-solid fa-house  fa-3x"></i></a></li>
 </ul>
 </div>
 <div id="izq">
@@ -80,7 +80,7 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
                 <br>
                 <a href="../registroinicio/cerrar_sesion.php"><i class="fa-solid fa-right-from-bracket fa-3x"></i></a>
                 <br>
-                <a href="../principal.php"><i class="fa-solid fa-house  fa-3x"></i></a>
+                <a href="../principal/index.php"><i class="fa-solid fa-house  fa-3x"></i></a>
             </div>
         <div id="menulateralA">
             
@@ -118,7 +118,7 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
             <br>
                 <a href="../registroinicio/cerrar_sesion.php"><i class="fa-solid fa-right-from-bracket fa-3x"></i></a>
                 <br>
-                <a href="../principal.php"><i class="fa-solid fa-house  fa-3x"></i></a>
+                <a href="../principal/index.php"><i class="fa-solid fa-house  fa-3x"></i></a>
         </div>
     </div>
 
@@ -155,7 +155,7 @@ if(isset($_GET["q"])){
         <div class="rowLARGO">
             <div class="inputLARGO">
                 <label for="autor">Autor: </label>
-                <select id="autor" name="autor">
+                <select class="autor" name="autor">
                     <?php 
                     include("../con_db.php");
                      $consulta = "SELECT * FROM autor";
@@ -273,9 +273,9 @@ if ($inc) {
     if ($resultado) {
 ?>
         <form method="POST">
-            <label for="nombreBuscar">Buscar por NOmbre de Autor:</label>
+            <label for="nombreBuscar">Buscar por Nombre de Autor:</label>
             <input type="text" name="nombreBuscar" id="nombreBuscar" />
-            <button type="submit" name="buscarnombre" value="buscar">Buscar</button>
+            <button type="submit" name="buscarnombre" value="buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
         <table>
             <thead>
@@ -322,6 +322,7 @@ mysqli_close($conex);
 <div id="formuCORTO">
     <form class="formularioCORTO" method="post" action="generarqr.php">
         <h1>CREAR USUARIO</h1>
+        <input type="email" name="correo" placeholder="Nombre de usuario" maxlength = "7">
         <input type="text" name="nameMETERUSUARIO" placeholder="Nombre de usuario" maxlength = "7">
         <input type="password" name="passwMETERUSUARIO" placeholder="Contraseña"  maxlength = "7">
         <center>
@@ -350,11 +351,12 @@ if ($inc) {
         <form method="POST">
             <label for="nombreBuscar">Buscar por Usuario:</label>
             <input type="text" name="nombreBuscar" id="nombreBuscar" />
-            <button type="submit" name="buscarnombre" value="buscar">Buscar</button>
+            <button type="submit" name="buscarnombre" value="buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
         <table>
     <thead>
         <tr>
+                <td><b>Correo</b></td>
                 <td><b>Usuario</b></td>
                 <td><b>Passw</b></td>
                 <td><b>Acciones</b></td>
@@ -364,10 +366,12 @@ if ($inc) {
 <?php
 
         while($row = $resultado->fetch_array()){
+            $correo = $row['correo'];
             $usuario=$row['nombre'];
             $passw=$row['passw'];
                 ?>
                 <tr>
+        <td data-label="Correo"><input type="email" class="correo" name="correo" value="<?php echo $correo; ?>"></td>
         <td data-label="Usuario"><input type="text" class="usuario" name="usuario" value="<?php echo $usuario; ?>"></td>
         <td data-label="Passw"><input type="text" class="passw" name="passw" value="<?php echo $passw; ?>"></td>        
         <td data-label="Acciones">
@@ -408,7 +412,7 @@ if ($inc) {
         <form method="POST">
             <label for="nombreBuscar">Buscar por Título:</label>
             <input type="text" name="nombreBuscar" id="nombreBuscar" />
-            <button type="submit" name="buscarnombre" value="buscar">Buscar</button>
+            <button type="submit" name="buscarnombre" value="buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
         <table class="grande">
             <thead>
@@ -538,7 +542,7 @@ if ($inc) {
         <form method="POST">
             <label for="id_reserva">Buscar por ID de reserva:</label>
             <input type="text" name="id_reserva" id="id_reserva" />
-            <button type="submit" name="buscar" value="buscar">Buscar</button>
+            <button type="submit" name="buscar" value="buscar">><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
         <table>
             <thead>
@@ -548,7 +552,7 @@ if ($inc) {
                 <td><b>Usuario</b></td>
                 <td><a href="?q=<?php echo urlencode(base64_encode("borrarreserva"));?>&orden=fecha_inicio&sentido=DESC"><b>Fecha inicio</b></a></td>
                 <td><a href="?q=<?php echo urlencode(base64_encode("borrarreserva"));?>&orden=fecha_fin&sentido=DESC"><b>Fecha fin</b></a></td>
-                <td>Acciones</td>
+                <td><b>Acciones</b></td>
             </tr>
     </thead>
     <tbody>
@@ -556,7 +560,7 @@ if ($inc) {
         while($row = $resultado->fetch_array()){
             $id_reserva=$row['id_reserva'];
             $isbn_libro=$row['isbn_libro'];
-            $usuario=$row['nombre_usuario'];
+            $usuario=$row['correo_usuario'];
             $fecha_inicio=$row['fecha_inicio'];
             $fecha_fin=$row['fecha_fin'];
                 ?>
@@ -594,7 +598,7 @@ mysqli_close($conex);
 <?php
 }
 else{
-    echo "ERROR, NO TIENES PERMISOS";
+   header("Location: ../error.php");
 }
         ?>
 <script src="../javascript/admin.js">s</script>

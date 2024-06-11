@@ -1,0 +1,280 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: black;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.cerebro{
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: aliceblue;
+    box-shadow: 0 4px 25px -22px red;
+    z-index: 998;
+}
+
+.header-contenido{
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo{
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.logo h1 b{
+    border: 1px solid black;
+    border-radius: 15%;
+    background-color: orange;
+    color: black;
+}
+
+
+.pie {
+    width: 100%;
+    background-color: aliceblue;
+    z-index: 2;
+}
+
+.tablapie{
+    padding: 10px;
+    width: 100%;
+}
+.tablapie td{
+    padding: 10px; 
+    vertical-align: middle; 
+    text-align: center;
+}
+.tablapie img {
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.menu nav,
+.menu2 nav{
+    height: 100%;
+}
+
+.menu nav ul,
+.menu2 nav ul{
+    height: 100%;
+    display: flex;
+    list-style: none;
+}
+
+.menu nav ul li,
+.menu2 nav ul li{
+    height: 100%;
+    margin: 0px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.menu nav ul li a
+{
+   text-decoration: none;
+   color: black;
+}
+
+.menu nav ul li:hover
+{
+    border-bottom: 3px solid black;
+}
+.menu2{
+    display: none;
+}
+
+.buscar {
+    position: relative;
+    padding: 5px;
+  }
+  
+  .buscar input {
+    width: 0;
+    height: 40px;
+    padding: 0 20px;
+    font-size: 18px;
+    color: #222;
+    outline: none;
+    border: 1px solid silver;
+    border-radius: 30px;
+    transition: all 0.6s ease;
+  }
+  .pulsarbuscar{
+    background: none;
+    border: none;
+  }
+  
+  .btn {
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    top: 0;
+    right: 0;
+    position: absolute;
+    background: #ffb552;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+.busqueda{
+    position: fixed;
+    right: 0;
+    top: 20;
+    display: none;
+}
+  
+  .btn i{
+      margin-top: 18px;
+      color: black;
+  }
+  
+  .buscar:hover input {
+    width: 340px;
+  }
+  
+  .buscar input:focus {
+    width: 340px;
+  }
+  
+#menulateralmovil{
+    background-color: #ffb552;
+    width: 0;
+    height: 100%;
+    position: fixed;
+    overflow-y: auto; 
+    right: 0;
+    color: white;
+    text-align: center;
+    z-index: 997;
+  }
+  #menulateralmovil nav{
+    margin-top: 100px;
+  }
+
+  #menulateralmovil a{
+    padding: 0px 25px 0px;
+    margin-top: 20px;
+    text-decoration: none;
+    display: block;
+    color: black;
+    font-size: 7vw;
+  }
+  #menulateralmovil i{
+    margin-right: 3vw;
+  }
+
+  .cookie {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 80vw; 
+    height: auto; 
+    max-width: 300px;
+    background-color: #ffb552;
+    z-index: 100000000;
+    display: none;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .cookie p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .cookie a {
+    color: #fff;
+    text-decoration: underline;
+  }
+  
+  .cookie button {
+    background-color: #fff;
+    color: #ffb552;
+    border: 2px solid #ffb552;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    margin: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .cookie button:hover {
+    background-color: black;
+    color: #fff;
+  }
+  body.oscuro::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 999;
+  }
+  
+  
+
+  @media only screen and (max-width: 600px) {
+    .cookie {
+      width: 90vw; 
+    }
+  }
+  @media (min-width: 711px) {
+    #menulateralmovil{
+        display: none;
+    }
+    #menu2{
+        display: none;
+    }
+    }
+    @media (min-width: 711px) and (max-width: 1070px){
+        .busqueda{
+            display: flex;
+        }
+        .busqueda2{
+            display: none;
+        }
+    }
+    @media (max-width: 710px) {
+        .menu{
+            display: none;
+        }
+        .menu2{
+            display: block;
+        }
+          .busqueda{
+            display: flex;
+            top: 80px;
+            right: 10px;
+          }
+          .buscar:hover input {
+            width: 240px;
+          }
+          
+          .buscar input:focus {
+            width: 240px;
+          }
+    }

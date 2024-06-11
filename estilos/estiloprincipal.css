@@ -1,166 +1,16 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
 
-header{
-    position:fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    background: aliceblue;
-    box-shadow: 0 4px 25px -22px red;
-    margin-bottom: 80px;
-    z-index: 10000;
-}
+
 main {
   overflow-x: hidden;
 }
 
-.header-contenido{
-    max-width: 1200px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-}
 
-.logo{
-    height: 80px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-
-.logo h1 b{
-    border: 1px solid black;
-    border-radius: 15%;
-    background-color: orange;
-    color: black;
-}
-
-.menu{
-    height: 80px;
-    text-decoration: none;
-}
-
-.menu nav,
-.menu2 nav{
-    height: 100%;
-}
-
-.menu nav ul,
-.menu2 nav ul{
-    height: 100%;
-    display: flex;
-    list-style: none;
-}
-
-.menu nav ul li,
-.menu2 nav ul li{
-    height: 100%;
-    margin: 0px 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    text-decoration: none;
-}
-
-.menu nav ul li a
-{
-   text-decoration: none;
-   color: black;
-}
-
-.menu nav ul li:hover
-{
-    border-bottom: 3px solid black;
-}
 
 .carousel-inner img{
   width:200px;
   height: 300px;
 }
 
-
-.pie{
-      top: 0;
-    left: 0;
-    width: 100%;
-    background: aliceblue;
-    z-index: 1;
-}
-.tablapie{
-    padding: 10px;
-    width: 100%;
-}
-.tablapie td{
-    padding: 10px;
-    vertical-align: middle;
-    text-align: center;
-}
-.tablapie img {
-    vertical-align: middle;
-    margin-right: 10px;
-}
-.busqueda{
-    position: fixed;
-    right: 0;
-    top: 20;
-    display: none;
-}
-.buscar {
-    position: relative;
-    padding: 5px;
-  }
-  
-  .buscar input {
-    width: 0;
-    height: 40px;
-    padding: 0 20px;
-    font-size: 18px;
-    color: #222;
-    outline: none;
-    border: 1px solid silver;
-    border-radius: 30px;
-    transition: all 0.6s ease;
-  }
-  .pulsarbuscar{
-    background: none;
-    border: none;
-  }
-  
-  .btn {
-    width: 55px;
-    height: 55px;
-    line-height: 55px;
-    top: 0;
-    right: 0;
-    position: absolute;
-    background: #ffb552;
-    text-align: center;
-    color: white;
-    font-size: 18px;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  
-  .btn i{
-      margin-top: 18px;
-      color: black;
-  }
-  
-  .buscar:hover input {
-    width: 340px;
-  }
-  
-  .buscar input:focus {
-    width: 340px;
-  }
 
   #der{
     float: right;
@@ -179,29 +29,8 @@ main {
     background-color: seashell;
 }
 
-main::after {
-    content: "";
-    display: block;
-    clear: both;
-}
 
-    .info{
-    padding: 0.5vw 1vw;
-    font-size: 1.3vw;
-    width: 15vw;
-    background-color: white;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-        margin: 0px 20px;
-}
 
-.menu2{
-    display: none;
-}
 .icon-button,
 .mas,
 .menos{
@@ -212,36 +41,254 @@ main::after {
     font-size: 24px;
     cursor: pointer;
 }
-.icon-button:hover {
-    color: #ffb552;
-}
-#menulateralmovil{
-    background-color: #ffb552;
-    width: 0;
-    height: 100%;
-    position: fixed;
-    overflow-y: auto; 
-    right: 0;
-    color: white;
-    top: 0;
-    z-index: 3;
-  }
-  #menulateralmovil nav{
-    margin-top: 100px;
+  
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+    margin-top: 50px;
   }
 
-  #menulateralmovil a{
-    padding: 0px 25px 0px;
-    margin-top: 20px;
-    text-decoration: none;
+  .list-container img{
+      width: 100%;
+      height: 230px;
+      max-width: 400px;
+
+  }
+
+  .list-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 80vw; 
+    overflow: hidden;
+    transition: all 300ms;
+  }
+
+  .list-container  ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .lislider {
+      position: relative;
+  display: inline-block;
+    width: 15.66%;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  }
+
+  .lislider.visible {
+    opacity: 1;
+  }
+
+  .lislider.slide-in-right {
+    transform: translateX(10%);
+  }
+
+  .lislider.slide-in-left {
+    transform: translateX(-10%);
+  }
+
+  .botonquieto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #menos {
+    margin-right: 10px;
+  }
+
+  #mas {
+    margin-left: 10px;
+  }
+  .hover-fondo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.lislider:hover .hover-fondo {
+opacity: 1;
+}
+.hover-fondo a{
+  text-decoration :none;
+  color:white;
+}
+
+h2 {
+  font-family: 'Arial', sans-serif; 
+  color: #333;
+  font-size: 2em; 
+  margin-bottom: 20px;
+  position: relative; 
+  padding: 10px 0; 
+  text-align: center; 
+}
+h2:hover{
+  color:orange;
+}
+
+.swiper {
+  max-width: 1000px;
+    height: 280px;
+    border: 1px solid black;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:orangered;
+  }
+
+  .swiper-slide .imagenportada {
     display: block;
-    color: black;
-    font-size: 7vw;
+    width: 100%;
+    height: 100%;
+    object-position: 20%;
   }
-  #menulateralmovil i{
-    margin-right: 3vw;
+  .swiper-slide .librodestacado {
+      width: 20%;
+      max-height: 700px;
   }
+.text-overlay {
+position: absolute;
+top: 50%;
+left: 80%;
+transform: translate(-50%, -50%);
+color: white;
+font-size: 24px;
+font-weight: bold;
+background-color: orange;
+padding: 10px;
+border-radius: 5px;
+}
+.text-overlay2 {
+position: absolute;
+top: 20%;
+left: 50%;
+transform: translate(-50%, -50%);
+color: white;
+font-size: 24px;
+font-weight: bold;
+background-color: orange;
+padding: 10px;
+border-radius: 5px;
+}
+.text-overlay3 {
+position: absolute;
+top: 20%; 
+left: 10%; 
+color: white;
+font-size: 18px;
+font-weight: bold;
+background-color: orange;
+padding: 5px 10px; 
+border-radius: 5px;
+}
+
+.text-overlay4 {
+position: absolute;
+top: 20%;
+right: 10%; 
+color: white;
+font-size: 18px;
+font-weight: bold;
+background-color: orange;
+padding: 5px 10px; 
+border-radius: 5px;
+}
+
+.vertodo {
+  background-color: orange;
+  color: white;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.vertodo:hover {
+  background-color: darkorange;
+}
+
+
+.vertodo:active {
+  background-color: orangered;
+}
+
+@media (max-width: 768px) {
+  .text-overlay2 ,.text-overlay{
+  font-size: 14px; 
+}
+.text-overlay3 {
+  top: 0; 
+  left: 0px; 
+  font-size: 12px; 
+}
+
+.text-overlay4 {
+  top: 0;
+  right: 0; 
+  font-size: 12px; 
+}
+.swiper {
+    height: 20vh;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+
+.lislider{
+  width: 45%;
   
+}
+
+}
+
+@media (min-width:481px) and (max-width: 630px) {
+
+
+.lislider{
+  width: 30.3333333%;
+  
+}
+}
+@media (min-width:631px) and (max-width: 1035px) {
+
+
+      .lislider{
+          width: 23%;
+          
+      }
+  }
+
 
 @media (max-width:710px){
     .info{
@@ -250,40 +297,4 @@ main::after {
         font-size: 4vw;
     }
 
-    .menu{
-        display: none;
-    }
-    .menu2{
-        display: block;
-    }
-      .busqueda{
-        display: flex;
-        top: 80px;
-        right: 10px;
-      }
-      .buscar:hover input {
-        width: 240px;
-      }
-      
-      .buscar input:focus {
-        width: 240px;
-      }
 }
-@media (min-width: 711px) {
-#menulateralmovil{
-    display: none;
-}
-#menu2{
-    display: none;
-}
-}
-
-
-@media (min-width: 711px) and (max-width: 1070px){
-        .busqueda{
-            display: flex;
-        }
-        .busqueda2{
-            display: none;
-        }
-    }

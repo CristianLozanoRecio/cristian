@@ -1,6 +1,8 @@
 *{
   margin: 0px;
   padding: 0px;
+  text-decoration: none;
+  color: black;
 }
 
 body {
@@ -164,7 +166,8 @@ h1 {
 
 .formularioCORTO input[type="text"],
 .formularioCORTO input[type="password"],
-.formularioCORTO input[type="number"] {
+.formularioCORTO input[type="number"],
+.formularioCORTO input[type="email"] {
   font-size: 1.3vw;
   width: 90%;
   padding: 8px;
@@ -213,21 +216,20 @@ table {
 
 
 table tr {
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
+  background-color: #ff913d;
+  border: 1px solid #ec6b06;
+}
+table thead td{
+  background-color: #ec6b06;
 }
 
 table th, table td {
   font-size: 16px;
   padding: 8px;
   text-align: center;
-  border: 1px solid #ccc;
+  border: 1px solid #ec6b06;
 }
 
-table thead th{ 
-  text-transform: uppercase;
-  background-color: #ddd;
-}
 
 table tbody tr:hover {
   background-color: orange;
@@ -316,7 +318,8 @@ table tbody td:hover {
 
   .formularioCORTO input[type="text"],
   .formularioCORTO input[type="password"],
-  .formularioCORTO input[type="number"] {
+  .formularioCORTO input[type="number"],
+  .formularioCORTO input[type="email"] {
     font-size: 3vw;
     width: 90%;
     padding: 8px;
