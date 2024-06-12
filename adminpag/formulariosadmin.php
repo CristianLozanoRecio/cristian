@@ -322,7 +322,7 @@ mysqli_close($conex);
 <div id="formuCORTO">
     <form class="formularioCORTO" method="post" action="generarqr.php">
         <h1>CREAR USUARIO</h1>
-        <input type="email" name="correo" placeholder="Nombre de usuario" maxlength = "7">
+        <input type="email" name="correo" placeholder="Correo Electrónico">
         <input type="text" name="nameMETERUSUARIO" placeholder="Nombre de usuario" maxlength = "7">
         <input type="password" name="passwMETERUSUARIO" placeholder="Contraseña"  maxlength = "7">
         <center>
@@ -402,7 +402,7 @@ if ($inc) {
     $filtro = "";
     if (isset($_POST['buscarnombre'])) {
         $nombrebuscar = $_POST['nombreBuscar'];
-        $filtro = "WHERE titulo LIKE '%" . $nombrebuscar . "%'";
+        $filtro = "WHERE isbn = " . $nombrebuscar . "";
             }
 
     $consulta = "SELECT * FROM libro $filtro";
@@ -410,7 +410,7 @@ if ($inc) {
     if ($resultado) {
 ?>
         <form method="POST">
-            <label for="nombreBuscar">Buscar por Título:</label>
+            <label for="nombreBuscar">Buscar por ISBN:</label>
             <input type="text" name="nombreBuscar" id="nombreBuscar" />
             <button type="submit" name="buscarnombre" value="buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
@@ -551,7 +551,8 @@ if ($inc) {
                 <td><b>ISBN</b></td>
                 <td><b>Usuario</b></td>
                 <td><a href="?q=<?php echo urlencode(base64_encode("borrarreserva"));?>&orden=fecha_inicio&sentido=DESC"><b>Fecha inicio</b></a></td>
-                <td><a href="?q=<?php echo urlencode(base64_encode("borrarreserva"));?>&orden=fecha_fin&sentido=DESC"><b>Fecha fin</b></a></td>
+                <td><b>Día</b></td>
+                <td><b>Hora</b></td>
                 <td><b>Acciones</b></td>
             </tr>
     </thead>
@@ -562,14 +563,16 @@ if ($inc) {
             $isbn_libro=$row['isbn_libro'];
             $usuario=$row['correo_usuario'];
             $fecha_inicio=$row['fecha_inicio'];
-            $fecha_fin=$row['fecha_fin'];
+            $dia=$row['dia'];
+            $hora=$row['hora'];
                 ?>
                 <tr>
                     <td data-label="ID"><?php echo $id_reserva;?></td>
                     <td data-label="ISBN"><?php echo $isbn_libro;?></td>
                     <td data-label="Usuario"><?php echo $usuario;?></td>
                     <td data-label="Fecha inicio"><?php echo $fecha_inicio;?></td>
-                    <td data-label="fecha fin"><?php echo $fecha_fin;?></td>
+                    <td data-label="Día"><?php echo $dia;?></td>
+                    <td data-label="Día"><?php echo $hora;?></td>
                     <td data-label="Acciones"><button class="borrar" data-id="<?php echo $id_reserva; ?>" data-tipo="id_reserva"><i class="fa-solid fa-square-minus fa-2x"></i></button></td>
 
                 </tr>

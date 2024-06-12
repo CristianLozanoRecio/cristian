@@ -4,7 +4,7 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] === "admin") {
 include("../con_db.php");
 $mensaje = "";
 
-$consultaRESERVA = "DELETE FROM reserva WHERE fecha_fin <= NOW()";
+$consultaRESERVA = "DELETE FROM reserva WHERE dia < CURDATE()";
 $borrar  = mysqli_query($conex, $consultaRESERVA);
 try{
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -13,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $consulta = "DELETE FROM autor WHERE id_autor = '$id'";
         $resultado = mysqli_query($conex, $consulta);
         if ($resultado) {
-            // Verifica el número de filas afectadas
             if (mysqli_affected_rows($conex) > 0) {
                
                 
@@ -35,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $consulta = "DELETE FROM libro WHERE isbn = '$isbn'";
         $resultado = mysqli_query($conex, $consulta);
         if ($resultado) {
-            // Verifica el número de filas afectadas
+
             if (mysqli_affected_rows($conex) > 0) {
                 
                 
@@ -62,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $consulta = "DELETE FROM usuario WHERE nombre = '$usuario'";
         $resultado = mysqli_query($conex, $consulta);
         if ($resultado) {
-            // Verifica el número de filas afectadas
             if (mysqli_affected_rows($conex) > 0) {
                 
                 
@@ -234,7 +232,7 @@ if(isset($_POST["usuario_act"]) && isset($_POST["passw_act"]) && isset($_POST["c
             }
         }
 
-//BORRARRESERVA
+
 if(isset($_POST["id_reserva"])) {
     $id_reserva = mysqli_real_escape_string($conex, trim($_POST["id_reserva"]));
     $consulta = "DELETE FROM reserva WHERE id_reserva = '$id_reserva'";

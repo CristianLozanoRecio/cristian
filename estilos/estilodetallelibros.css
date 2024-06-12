@@ -112,31 +112,45 @@ margin-bottom: 1em;
 
 
 
-  .tablaRESERVA {
-    border-collapse: collapse;
-  }
-
-  .tablaRESERVA td{
-    border: 3px solid  orange;
-  padding: 5px;
-  }
-  .general2{
-    display: none;
-  }
-
-  .menu{
-    height: 80px;
-    text-decoration: none;
+.tablaRESERVA {
+  width: 68%;
+  border-collapse: collapse;
+  margin: 20px ;
 }
-
-  .borrar{
-    background: none;
-    border: none;
-    text-decoration: none;
-    color: inherit;
-    font-size: 24px;
-    cursor: pointer;
-  }
+.tablaRESERVA th{
+  border: none;
+}
+ .tablaRESERVA td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+.tablaRESERVA th {
+  background-color: rgb(245, 178, 44);
+  color: #333;
+}
+.tablaRESERVA tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.tablaRESERVA tr:hover {
+  background-color: #f1f1f1;
+}
+.contador {
+  background-color: #ffebcc;
+  padding: 5px;
+  border-radius: 5px;
+}
+.borrar {
+  background-color: #ff4d4d;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.borrar:hover {
+  background-color: #ff1a1a;
+}
 
 
 
@@ -152,6 +166,9 @@ margin-bottom: 1em;
 }
 .icon-button:hover {
     color: #ffb552;
+}
+.general2{
+  display: none;
 }
 @media (max-width: 710px) {
     .general{

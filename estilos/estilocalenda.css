@@ -1,0 +1,72 @@
+.pop {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 80vw; 
+    height: auto; 
+    max-width: 300px;
+    background-color: #ffb552;
+    z-index: 100000000;
+    display: none;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .pop p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .pop a {
+    color: #fff;
+    text-decoration: underline;
+  }
+  
+ 
+  body.oscuro::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 999;
+  }
+    .hora-btn {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .hora-btn:hover {
+            background-color: #0056b3;
+        }
+        #cerrarPop {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: orange;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #cerrarPop:hover {
+            background-color: orangered;
+        }
+
+        @media (max-width: 450px) {
+          .hora-btn {
+            padding: 5px 10px;
+          }
+        }

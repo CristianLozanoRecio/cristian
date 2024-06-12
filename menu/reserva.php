@@ -1,14 +1,9 @@
 <?php
 session_start();
 include("../con_db.php");
-$fechaActual = new DateTime();
-$fechaActual->modify('+7 days');
-$fechaActual->setTime(11, 0);
-$fechaFinal = $fechaActual->format('Y-m-d H:i:s');
-
-$_SESSION["fecha_fin"] = $fechaFinal;
-
-$consulta = "INSERT INTO reserva (isbn_libro, correo_usuario,fecha_fin) VALUES ('" . $_SESSION["isbn"] . "', '" . $_SESSION["correo"] . "', '" . $fechaFinal . "')";
+$_SESSION["dia"] = $_POST['dia'];
+$_SESSION["hora"] = $_POST['hora'];
+$consulta = "INSERT INTO reserva (isbn_libro, correo_usuario,dia,hora) VALUES ('" . $_SESSION["isbn"] . "', '" . $_SESSION["correo"] .  "', '" . $_POST["dia"] . "', '" . $_POST["hora"] . "')";
 $resultado = mysqli_query($conex, $consulta);
 
 if ($resultado) {
@@ -40,14 +35,16 @@ if ($resultado) {
     $mail->Body = utf8_decode("Se realizo una reserva para el libro con ISBN ".$_SESSION["isbn"].", con id de reserva ". $_SESSION["reserva"]);
 
     if ($mail->send()) {
-      echo "formularioreserva.php";
+      $mensaje =  "formularioreserva.php";
     } else {
-        echo "libros.php";
+        $mensaje =  "libros.php";
     }
 
 } else {
-    echo "Location: libros.php";
+    $mensaje =  "libros.php";
 }
 
 mysqli_close($conex);
+header('Content-Type: application/json');
+echo json_encode(array("mensaje" => $mensaje));
 ?>

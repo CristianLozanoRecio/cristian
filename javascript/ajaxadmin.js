@@ -11,7 +11,6 @@ $(document).ready(function() {
         
         formData.append(botonSubmit.attr('name'), botonSubmit.val());
         
-        console.log([...formData]); 
         
         $.ajax({
             url: '../adminpag/BDinsertar.php',
@@ -132,4 +131,3 @@ $(document).ready(function() {
         });
     });
 });
-

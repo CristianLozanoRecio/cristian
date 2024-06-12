@@ -11,8 +11,8 @@
 <body>
     <form id="formulario" method="post">
         <h1>Iniciar Sesión</h1>
-        <input type="text" name="name" placeholder="Nombre de usuario" value="<?php if(isset($_GET["name"])){ echo base64_decode($_GET["name"]);}?>" required>
-        <input type="password" name="passw" placeholder="Contraseña" value="<?php if(isset($_GET["passw"])){ echo base64_decode($_GET["passw"]);}?>" required>
+        <input type="text" name="name" placeholder="Nombre de usuario" value="<?php if(isset($_GET["name"])){ echo cambioSQL($_GET["name"]);}?>" required>
+        <input type="password" name="passw" placeholder="Contraseña" value="<?php if(isset($_GET["passw"])){ echo cambioSQL($_GET["passw"]);}?>" required>
        <br> <a href="registro.php">¿No tienes cuenta? registrate</a>
         <center>
         <input type="submit" name="iniciar" id="enviar">

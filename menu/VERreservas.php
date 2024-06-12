@@ -123,7 +123,7 @@ if(isset($_SESSION["name"])){
                 </ul>
             </nav>
         </div>
-    <br><br><br><br><br><br>
+    <br><br><br><br>
     <?php 
     if(isset($_SESSION["name"])){
 include("../con_db.php");
@@ -134,19 +134,22 @@ if ($resultado) {
     if ($resultado->num_rows>0){
     ?>
     <center>
-        <caption>TUS RESERVAS</caption>
     <table class="tablaRESERVA">
         <tr>
-            <td><strong>TÍTULO</strong></td>
-            <td><strong>ISBN LIBRO</strong></td>
-            <td><strong>TIEMPO LÍMITE RECOGIDA</strong></td>
+            <th>TÍTULO</th>
+            <th>ISBN LIBRO</th>
+            <th>DÍA</th>
+            <th>HORA</th>
+            <th>PUEDES RECOGER EL LIBRO EN</th>
+            <th>BORRAR</th>
         </tr>
         <?php
         while ($row = $resultado->fetch_array()) {
             $id_reserva = cambio($row["id_reserva"]);
-            $fecha_fin_str = cambio($row["fecha_fin"]);
+            $dia_reserva = cambio($row["dia"]);
+            $hora_reserva = cambio($row["hora"]);
             $fecha_inicio = new DateTime();
-            $fecha_fin = DateTime::createFromFormat('Y-m-d H:i:s', $fecha_fin_str);
+            $fecha_fin = DateTime::createFromFormat('Y-m-d H:i:s',  $dia_reserva . ' ' . $hora_reserva);
             $isbn_libro = cambio($row["isbn_libro"]);
             $intervalo = $fecha_inicio->diff($fecha_fin);
             $dias = $intervalo->format('%a'); 
@@ -158,6 +161,8 @@ if ($resultado) {
             <tr>
             <td><?php echo $titulo?></td>
                 <td class="isbn"><?php echo $isbn_libro?></td>
+                <td><?php echo $dia_reserva?></td>
+                <td><?php echo $hora_reserva?></td>
                 <td style="width: 20vw;">
             <div class="contador" data-dias="<?php echo $dias; ?>" data-horas="<?php echo $horas; ?>" data-minutos="<?php echo $minutos; ?>" data-segundos="<?php echo $segundos; ?>">
                 <?php echo "$dias días, $horas horas, $minutos minutos, $segundos segundos"; ?>

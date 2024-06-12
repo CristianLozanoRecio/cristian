@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    // Obtener los datos de localStorage y convertirlos en un objeto FormData
     var formData = new FormData();
     var storedFormData = JSON.parse(localStorage.getItem('formData'));
     for (var key in storedFormData) {

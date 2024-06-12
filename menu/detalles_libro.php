@@ -142,7 +142,7 @@ if($inc) {
         ?>
         <div class="general">
                 <?php
-        while($row = $resultado->fetch_array()){
+       $row = mysqli_fetch_assoc($resultado);
             $imagen_url = cambio($row["portada_libro"]);
             $autor = cambio($row["nombre"]);
             $biografia = cambio($row["biografia"]);
@@ -165,7 +165,7 @@ if($inc) {
                     <?php echo '<img src='.$imagen_url .' " class="img"/>';?></div><br>
                     <?php 
                     if ($disponible >= 1) {
-                        echo "<button class='buttonclick'>UNIDADES DISPONIBLES <b>".$disponible."</b></button>";
+                        echo "<a href='calendario.php'><button class='buttonclick'>UNIDADES DISPONIBLES <b>".$disponible."</b><br>RESERVAR AHORA</button></a>";
                     } else {
                         echo "NO TENEMOS DISPONIBLES";
                     }
@@ -245,7 +245,7 @@ if($inc) {
                 ?>
             </ul>
                     </div>
-        <div class="general2">
+        <div class="general2" >
     <h3 style="font-size: 28px;"><?php echo $titulo;?></h3>
   
     <p  style="font-size: 24px;"><b>Autor: </b><a href="libros.php?nombre=<?php echo urlencode(base64_encode($autor)); ?>"><?php echo $autor;?></a></p>
@@ -257,7 +257,7 @@ echo'<img src='.$imagen_url .' " class="img"/>';
 <br>
                     <?php 
                     if ($disponible >= 1) {
-                        echo "<button class='buttonclick'>UNIDADES DISPONIBLES <b>".$disponible."</b></button>";
+                        echo "<a href='calendario.php'><button class='buttonclick'>UNIDADES DISPONIBLES <b>".$disponible."</b><br>RESERVAR AHORA</button></a>";
                     } else {
                         echo "NO TENEMOS DISPONIBLES";
                     }
@@ -347,7 +347,7 @@ mysqli_close($conex);
     </center>
      <?php
     }
-}
+
 ?>
 </main>
 <footer>

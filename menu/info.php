@@ -138,7 +138,7 @@ if(isset($_SESSION["name"])){
     </div>   
     <div class="row">     
          <div class="img">
-            <img src="../imagenes/candadopng.png" style="width: 60%;"/>
+            <img src="../imagenes/librocandado.png" style="width: 60%;"/>
         </div>                
         <div class="txt">
         <h2>Accede a todo</h2>
@@ -152,7 +152,7 @@ if(isset($_SESSION["name"])){
         <div class="txt">
         <h2>Reservas</h2>
         <p>
-            Las reservas se realizarán al pulsar al botón de unidades disponibles y a partir del momento de realizar la reserva , dispondrás de una semana para recoger el libro, recuerda el horario para asistir físicamente.
+            Las reservas se realizarán al pulsar al botón de unidades disponibles esto nos llevará al calendario con fechas disponibles, seleccionamos fecha y hora y confirmamos reserva!.
         </p>
         <a href="VERreservas.php" style="color: orange;">VER</a>
         </div>
@@ -178,20 +178,20 @@ if(isset($_SESSION["name"])){
                 <tbody>
                     <tr>
                     <td>MAÑANA<br>9:00-14:00</td>
-                        <td class="green" data-label="Lunes"></td>
-                        <td class="green"  data-label="Lunes"></td>
-                        <td class="green" data-label="Lunes"></td>
                         <td class="green"></td>
+                        <td class="green"  ></td>
+                        <td class="green" ></td>
                         <td class="green"></td>
                         <td class="green"></td>
                         <td class="red"></td>
+                        <td class="red"></td>
                     </tr>
                     <tr>
-                    <td>TARDE<br>16:00-20:00</td>
-                        <td class="green"></td>
-                        <td class="green"></td>
-                        <td class="green"></td>
-                        <td class="green"></td>
+                    <td>TARDE</td>
+                        <td class="red"></td>
+                        <td class="red"></td>
+                        <td class="red"></td>
+                        <td class="red"></td>
                         <td class="red"></td>
                         <td class="red"></td>
                         <td class="red"></td>
@@ -203,29 +203,29 @@ if(isset($_SESSION["name"])){
                     <tr>
                         <td></td>
                     <td>MAÑANA<br>9:00-14:00</td>
-                    <td>TARDE<br>16:00-20:00</td>
+                    <td>TARDE</td>
                     </tr>
                 </thead>
                 <tbdoy>
                     <tr>                    
                         <td>Lunes</td>
                         <td class="green"></td>
-                        <td  class="green"></td>
+                        <td  class="red"></td>
                     </tr>
                     <tr>                    
                         <td>Martes</td>
                         <td class="green"></td>
-                        <td  class="green"></td>
+                        <td  class="red"></td>
                     </tr>
                     <tr>                    
                         <td>Miércoles</td>
                         <td class="green"></td>
-                        <td  class="green"></td>
+                        <td  class="red"></td>
                     </tr>
                     <tr>                    
                         <td>Jueves</td>
                         <td class="green"></td>
-                        <td  class="green"></td>
+                        <td  class="red"></td>
                     </tr>
                     <tr>                    
                         <td>Viernes</td>
@@ -234,7 +234,7 @@ if(isset($_SESSION["name"])){
                     </tr>
                     <tr>                    
                         <td>Sábado</td>
-                        <td class="green"></td>
+                        <td class="red"></td>
                         <td  class="red"></td>
                     </tr>
                     <tr>                    

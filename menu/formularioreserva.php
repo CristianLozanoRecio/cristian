@@ -25,6 +25,7 @@ if(isset($_SESSION["name"])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TuBiblioWeb</title>
     <link rel="stylesheet" href="../estilos/estiloprincipal.css">
+    <link rel="stylesheet" href="../estilos/estilogeneral.css">
     <link rel="stylesheet" href="../estilos/estilocookie.css">
     <link rel="icon" href="../imagenes/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -130,18 +131,15 @@ if(isset($_SESSION["name"])){
             $resultado = mysqli_query($conex, $consulta);
             if ($resultado) {
                 echo '<center>';
-                while ($row = $resultado->fetch_array()) {
+                $row = mysqli_fetch_assoc($resultado);
                     $imagen_url = $row["portada_libro"];
                     $autor = $row["nombre"];
                     $titulo = $row["titulo"];
                     $tipo = $row["tipo"];
                     $isbnVER = $row["isbn"];
-                    $fecha_obj = DateTime::createFromFormat('Y-m-d H:i:s', $_SESSION["fecha_fin"]);
-                    $fechaperfe = $fecha_obj->format('d-m-Y H:i');
                     echo '<img src=' . $imagen_url . ' width="300vw"/>';
                     echo '<h3>RESERVA COMPLETA!!!</h3><br>';
-                    echo '<p>Tienes hasta ' . $fechaperfe . ' para recoger el libro</p>';
-                }
+                    echo '<p>Recoge tu libro el dia ' . $_SESSION['dia'] .' '. $_SESSION['hora'].'</p>';
                 echo '</center>';
             }
             

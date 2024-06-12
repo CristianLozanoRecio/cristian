@@ -166,7 +166,7 @@ for($i = 0; $i<5; $i++){
             $anoinicio = $anoactual - cambioSQL($_GET[$filtrartipo[$i]]);
             $totaltipo.= " AND ano_publicacion BETWEEN '$anoinicio' AND '".$anoactual."'";
         } else if($filtrartipo[$i] === "titulo"){
-            $totaltipo.= " AND titulo LIKE '%".$_GET[$filtrartipo[$i]]."%'";
+            $totaltipo.= " AND titulo LIKE '%".mysqli_real_escape_string($conex,$_GET[$filtrartipo[$i]])."%'";
         } else {
             $totaltipo .= " AND $filtrartipo[$i] = '" . cambioSQL($_GET[$filtrartipo[$i]]) . "'";
         }
@@ -177,7 +177,7 @@ for($i = 0; $i<5; $i++){
             $anoinicio = $anoactual - cambioSQL($_GET[$filtrarpublico[$i]]);
             $totalpublico.= " AND ano_publicacion BETWEEN '$anoinicio' AND '".$anoactual."'";
         } else if($filtrarpublico[$i] === "titulo"){
-            $totalpublico.= " AND titulo LIKE '%".$_GET[$filtrarpublico[$i]]."%'";
+            $totalpublico.= " AND titulo LIKE '%".mysqli_real_escape_string($conex,$_GET[$filtrarpublico[$i]])."%'";
         } else {
             $totalpublico .= " AND $filtrarpublico[$i] = '" . cambioSQL($_GET[$filtrarpublico[$i]]) . "'";
         }
@@ -185,7 +185,7 @@ for($i = 0; $i<5; $i++){
     if(isset($_GET[$filtrarano[$i]])){
         $enlaceano .= "&".$filtrarano[$i]."=".$_GET[$filtrarano[$i]];
         if($filtrarano[$i] === "titulo"){
-            $totalano.= " AND titulo LIKE '%".$_GET[$filtrarano[$i]]."%'";
+            $totalano.= " AND titulo LIKE '%".mysqli_real_escape_string($conex,$_GET[$filtrarano[$i]])."%'";
         } else {
             $totalano .= " AND $filtrarano[$i] = '" . cambioSQL($_GET[$filtrarano[$i]]) . "'";
         }
@@ -196,7 +196,7 @@ for($i = 0; $i<5; $i++){
             $anoinicio = $anoactual - cambioSQL($_GET[$filtraridioma[$i]]);
             $totalidioma.= " AND ano_publicacion BETWEEN '$anoinicio' AND '".$anoactual."'";
         } else if($filtraridioma[$i] === "titulo"){
-            $totalidioma.= " AND titulo LIKE '%".$_GET[$filtraridioma[$i]]."%'";
+            $totalidioma.= " AND titulo LIKE '%".mysqli_real_escape_string($conex,$_GET[$filtraridioma[$i]])."%'";
         } else {
             $totalidioma .= " AND $filtraridioma[$i] = '" . cambioSQL($_GET[$filtraridioma[$i]]) . "'";
         }
@@ -209,7 +209,7 @@ if(isset($_GET[$filtrartodo[$i]])){
         $anoinicio = $anoactual - cambioSQL($_GET[$filtrartodo[$i]]);
         $totaltodo.= " AND ano_publicacion BETWEEN '$anoinicio' AND '".$anoactual."'";
     } else if($filtrartodo[$i] === "titulo"){
-        $totaltodo.= " AND titulo LIKE '%".$_GET[$filtrartodo[$i]]."%'";
+        $totaltodo.= " AND titulo LIKE '%".mysqli_real_escape_string($conex,$_GET[$filtrartodo[$i]])."%'";
     } else {
         $totaltodo .= " AND $filtrartodo[$i] = '" . cambioSQL($_GET[$filtrartodo[$i]]) . "'";
     }
@@ -535,7 +535,7 @@ if($inc) {
     }
     if (isset($_GET['titulo'])) {
         $buscar =  $_GET['titulo'];
-        $consultatipo = "AND titulo LIKE '%$buscar%'";
+        $consultatipo = "AND titulo LIKE '%".mysqli_real_escape_string($conex,$buscar)."%'";
      $consulta = $consulta. " ".$consultatipo;
      }
     if (isset($_GET['tipo'])) {

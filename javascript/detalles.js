@@ -1,44 +1,4 @@
 
- $('.buttonclick').on('click', function() {
-         if (correo && numReservas <= 3) {
-          Swal.fire({
-          title: '¿Estás seguro?',
-         text: "Se realizará la reserva del libro.",
-         icon: 'warning',
-         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, reservar!',
-        cancelButtonText: 'Cancelar'
-        }).then((result) => {
-        if (result.isConfirmed) {
-        $.ajax({
-        url: '../menu/reserva.php',
-        type: 'POST',
-        data: '', 
-        success: function(data) {
-        window.location.href = data;
-        },
-        error: function(error) {
-        console.error('Error:', error);
-        }
-       });
-        } else {
-        Swal.fire(
-        'Cancelado',
-        'No se realizó ninguna reserva.',
-        'error'
-          );
-      }
-  });
-  } else {
-    Swal.fire(
-    'Error',
-    'Debes estar registrado o pasaste el número de reservas máxima.',
-  'error'
-      );
-           }
-   });
      document.addEventListener('DOMContentLoaded', function() {
     var sinopsis = document.querySelector('.sinopsis');
     var mostrarmas = document.getElementById('mostrarmas');

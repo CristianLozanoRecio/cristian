@@ -29,7 +29,7 @@ if (mysqli_num_rows($resultado_comprobarnombre) > 0) {
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'kolapep12@gmail.com';
-        $mail->Password = ''; 
+        $mail->Password = ''; //contraseña de aplicación generada por gmail
         $mail->SMTPSecure = 'tls';  
         $mail->Port = 587;
         
@@ -50,8 +50,7 @@ if (mysqli_num_rows($resultado_comprobarnombre) > 0) {
     }
 }
 $_SESSION['intentos'] = 0;
-
-// Devolver respuesta en formato JSON
+mysqli_close($conex);
 header('Content-Type: application/json');
 echo json_encode(array("mensaje" => $mensaje));
 ?>

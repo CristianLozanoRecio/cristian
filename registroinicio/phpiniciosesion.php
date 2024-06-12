@@ -10,10 +10,9 @@ $mensaje = "";
         $resultado_comprobar = mysqli_query($conex, $comprobar);
 
         if(mysqli_num_rows($resultado_comprobar) > 0) {
-            while ($fila = mysqli_fetch_assoc($resultado_comprobar)) {
+                $fila = mysqli_fetch_assoc($resultado_comprobar);
                $_SESSION['name'] = $fila["nombre"];
                $_SESSION['correo'] = $fila["correo"];
-            }
             if($name == "admin" && $passw == "admin12"){
                $admin = "../adminpag/formulariosadmin.php";
             }else{
